@@ -1,0 +1,330 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+
+    <script src="Scripts/pixi.js"></script>
+    <script src="Scripts/soundjs-0.6.2.min.js"></script>
+    <script src="Scripts/jquery-2.1.4.min.js"></script>
+    <script src="Scripts/JavaScript_Helper.js"></script>
+    <script src="Scripts/priorityqueue.js"></script>
+
+    <script src="JS/LOADER_PROGESS.js"></script>
+    <script src="JS/Audio.js"></script>
+
+
+    <!--<script src="common.js"></script>
+    <script src="example.js"></script>-->
+
+
+    <script>
+
+        // This is static share variable, do not change if not nessecible
+        var SPEED = 1.5;
+
+        var GRAVITY = 20;
+        var UI_WIDTH = 250, UI_HEIGTH = 30;
+        var screen_width = window.innerWidth;
+        var screen_height = window.innerHeight;
+        var display_width = screen_width - UI_WIDTH;
+        var display_height = screen_height - UI_HEIGTH;
+        var screen_x = 0;
+        var screen_y = 0;
+        var screen_w = display_width / 60;
+        var screen_h = display_height / 30;
+        var max_x = 0;
+        var max_y = 0;
+        var map;
+        var drawtime = performance.now();
+
+        var renderer = PIXI.autoDetectRenderer(screen_width, screen_height, { transparent: true, antialias: false });
+        renderer.view.style.position = "absolute";
+        renderer.view.style.top = "0px";
+        renderer.view.style.left = "0px";
+
+
+        var mouserenderer = PIXI.autoDetectRenderer(55, 43, { transparent: true, antialias: false });
+        mouserenderer.view.style.position = "absolute";
+        mouserenderer.view.style.pointerEvents = "none";
+        mouserenderer.view.style.cursor = 'none';
+
+
+    </script>
+
+    <script src="JS/Map.js"></script>
+    <script src="JS/Controler.js"></script>
+    <script src="JS/Image_process.js"></script>
+    <script src="JS/Game_object/GRID.js"></script>
+    <script src="JS/Game_object/Game_object.js"></script>
+    <script src="JS/Game_object/Game_Unit.js"></script>
+    <script src="JS/Game_object/Construction/Construction_Unit.js"></script>
+    <script src="JS/Game_object/Construction/Construction_Unit_Type.js"></script>
+    <script src="JS/Game_object/MoviableUnit/MoviableUnit.js"></script>
+    <script src="JS/Game_object/MoviableUnit/Solider_Unit/Solider_Unit.js"></script>
+    <script src="JS/Game_object/MoviableUnit/Solider_Unit/Solider_Unit_Type.js"></script>
+    <script src="JS/Game_object/MoviableUnit/Vihicle_Unit/Vihicle_Unit.js"></script>
+    <script src="JS/Game_object/MoviableUnit/Vihicle_Unit/Vehicle_Unit_Type.js"></script>
+    <script src="JS/Game_object/MoviableUnit/Flyable_Unit.js"></script>
+    <script src="JS/Game_object/Weapon/Weapon.js"></script>
+    <script src="JS/Game_object/Weapon/Weapon_Type.js"></script>
+    <script src="JS/Game_object/Map_Object/Map_object.js"></script>
+    <script src="JS/Game_object/Construction/Map_Construction_Unit.js"></script>
+    <script src="JS/Game_object/Effect/effect.js"></script>
+    <script src="JS/AI_worker_comunication.js"></script>
+    <script src="JS/UI/Playing_layout.js"></script>
+    <script src="JS/UI/Minimap.js"></script>
+    <script src="JS/Done.js"></script>
+    <script src="JS/Game_Container.js"></script>
+
+
+    <script type="text/javascript">
+
+
+
+
+
+        window.onmousemove = function (event) {
+            USER_CONTROLER.onmousemove(event);
+            //event.preventDefault();
+            //return true;
+        }
+
+        window.ondblclick = function (event) {
+            USER_CONTROLER.ondblclick(event);
+            // event.preventDefault();
+            return true;
+        }
+
+        window.onmousedown = function (event) {
+            USER_CONTROLER.onmousedown(event);
+
+            //event.preventDefault();
+            //return true;
+        }
+
+        window.onmouseup = function (event) {
+            USER_CONTROLER.onmouseup(event);
+            //event.preventDefault();
+            //return true;
+        }
+
+        //window.onmouseout = function (event) {
+        //    USER_CONTROLER.onmouseout(event);
+        //    //event.preventDefault();
+        //    return true;
+        //}
+
+        window.onmouseleave = function (event) {
+            USER_CONTROLER.onmouseleave(event);
+            //event.preventDefault();
+            return true;
+        }
+
+        window.onkeyup = function (event) {
+            USER_CONTROLER.onkeyup(event);
+            //event.preventDefault();
+            return true;
+        }
+
+        window.onkeydown = function (event) {
+            USER_CONTROLER.onkeydown(event);
+            //event.preventDefault();
+            return true;
+        }
+
+        window.onresize = function (e) {
+            screen_width = window.innerWidth;
+            screen_height = window.innerHeight;
+            display_width = screen_width - UI_WIDTH;
+            display_height = screen_height - UI_HEIGTH;
+            screen_w = display_width / 60;
+            screen_h = display_height / 30;
+            // map_layer.width = display_width;
+            //map_layer.height = display_height;
+            renderer.resize(screen_width, screen_height);
+            map && map.update(true);
+            FOG_GRAPGICH && FOG_GRAPGICH.update(true);
+            MINIMAP && MINIMAP.resize();
+        }
+
+        window.onload = function () {
+            GAME_MANAGER.load_texture();
+
+        }
+
+        window.oncontextmenu = function () {
+            return false;
+        }
+
+        window.animate = function () {
+            var deltatime = (performance.now() - drawtime) / 16.67;
+            if (deltatime > 15)
+                deltatime = 1;
+            drawtime = performance.now();
+
+            graphics.clear();
+            graphics2.clear();
+
+
+            // 1.5ms
+            CONTROLER.update(deltatime * SPEED);
+
+            map.update(deltatime * SPEED);
+
+            //1.5ms
+
+            MINIMAP.update(deltatime * SPEED);
+
+
+            // 0.5ms
+            FOG_GRAPGICH.update(deltatime * SPEED);
+
+            // 2 - 6ms
+            GAME_OBJECT.main_loop(deltatime * SPEED);
+
+            AUDIO.process();
+
+            //0.5 - 2ms
+            renderer.render(mainstage);
+
+            requestAnimationFrame(window.animate);
+        }
+
+        FOG_GRAPGICH.init();
+
+        mainstage.addChild(FOG_GRAPGICH.get_fog_sprite_area());
+        mainstage.addChild(MINIMAP.get_minimap_sprite());
+
+        mouse_stage.addChild(USER_CONTROLER.get_mouse_sprite());
+
+        AUDIO.load_sound();
+
+
+        var GAME_MANAGER = {
+            on_menu(){
+                $.ajax({
+                    url: "JS/UI/Menu.html",
+                    async: false
+                }).done(function (data) {
+                    $("body").append(data);
+                }).fail(function (xhr) {
+
+                });
+            },
+            on_unloadmenu() {
+                $(".MENU")[0].remove();
+            },
+            on_start_game() {
+                map = new Map("map3");
+                MENU && MENU.display_progess(true);
+
+                map && (map.on_load_done = function () {
+                    $.ajax({
+                        url: "JS/UI/Playing_layout.html",
+                        async: false
+                    }).done(function (data) {
+                        document.body.appendChild(renderer.view);
+                        $("body").append(data);
+                        $("body")[0].style.cursor = "none";
+                        document.body.appendChild(mouserenderer.view);
+                        MENU && MENU.display_progess(false);
+                        GAME_MANAGER.on_unloadmenu();
+                    }).fail(function (xhr) {
+
+                    });
+                })
+                map && (map.on_load_progess = function (progess) {
+                    MENU && MENU.set_progess(progess);
+                });
+            },
+            on_unload_game(){
+
+            },
+            load_texture() {
+                LOADER_SCREEN.on_start();
+                PIXI.loader.on('progress', function (loader, loadedResource) {
+                    LOADER_SCREEN.on_progess(loader.progress / 100);
+                });
+                PIXI.loader.load(function (loader, resources) {
+                    CONSTRUCTION_UNIT.load_texture_done(loader, resources);
+                    SOLIDER_UNIT.load_texture_done(loader, resources);
+                    VEHICLE_UNIT.load_texture_done(loader, resources);
+                    EFFECT.load_texture_done(loader, resources);
+                    MAP_OBJECT.load_texture_done(loader, resources);
+                    MAP_CONSTRUCTION_UNIT.load_texture_done(loader, resources);
+                    PLANE_UNIT.load_texture_done(loader, resources);
+                    LOADER_SCREEN.on_done_texture();
+                    GAME_MANAGER.on_menu();
+                });
+            },
+            load_map() {
+                
+            },
+            choose_campain() {
+
+            },
+            choose_skrimming() {
+                
+                this.on_start_game();
+            },
+            choose_multiplayer() {
+
+            },
+            choose_setting() {
+
+            },
+            choose_about() {
+
+            }
+        }
+
+    </script>
+
+
+
+</head>
+
+<body>
+    <style>
+        body {
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+        }
+
+        div#loader {
+            margin: 0 0 0 0;
+            padding: 0 0 0 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            background-image: url(IMG/background.jpg);
+            background-position: center;
+            background-size: auto;
+            background-repeat: no-repeat;
+            background-color: black;
+        }
+
+            div#loader progress {
+                position: absolute;
+                align-self: center;
+                width: 400px;
+                height: 30px;
+                left: calc(50% - 200px);
+                top: calc(50% + 130px);
+            }
+    </style>
+    <div id="loader">
+        <progress value="0" max="100">
+        </progress>
+
+    </div>
+    <!--<div id="listener"></div>
+
+    <div id="log"></div>-->
+
+</body>
+
+</html>

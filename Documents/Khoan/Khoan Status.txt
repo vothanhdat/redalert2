@@ -1,0 +1,16 @@
+[12/12/2015]
+- Finite-state machine 
+- Potential field
+- Fuzzy logic
+- Javasript ES6
+Todo next day:
+- Pixi.js
+- Shading language
+- Particle system
+- Sound.js
+[13/12/2015]
+[14/12/2015]
+[15/12/2015]
+[16/12/2015]
+[17/12/2015]
+[18/12/2015]

@@ -1,0 +1,68 @@
+﻿	
+Chương 4: Thiết kế game
+    4.1 Hệ thống Class
+		4.1.1 Sơ đồ (Class diagrams)
+		4.1.2 Hệ thống Game object (Game object system)
+		4.1.3 Bản đồ (Map system)
+		4.1.4 Hệ thống điều khiển (Controler system)
+		4.1.5 Dựng hình (Render system). 
+		4.1.6 Âm thanh (Sound system)
+		4.1.7 AI (AI System)
+	4.2 Thiết kế Game object
+		4.2.1 Sơ đồ kế thừa game Object (Game object inheritance diagrams)
+		4.2.2 Sơ đồ tương tác game Object (Game object interactive diagrams)
+		4.2.3 Game Object
+		4.2.4 Game Unit
+			4.2.4.a Construction unit
+				4.2.4.a.1 Functional construction
+				4.2.4.a.2 Defense construction
+			4.2.4.b Moveable unit
+				4.2.4.b.1 Ground unit
+					4.2.4.b.1.a Solider unit
+					4.2.4.b.1.b Vehicle unit
+				4.2.4.b.2 Flyalbe unit
+			4.2.5.c Map object
+		4.2.5 Game Weapon
+		4.2.6 Game Effect
+
+		(Khoan giúp phần giới thiệu từng loại, tại sao lại chia như vậy)
+		(Đạt mô tả interface từng loại)
+	
+	4.3 Thiết kế bản đồ game
+		4.3.1 Địa hình (Terrian)
+		4.3.2 Hệ thống lưới (GRID System)
+		4.3.3 Tìm đường
+
+	4.4 Thiết kế AI
+		4.4.1 Mô hình AI.
+		4.4.2 Quản lý xây dựng.
+		4.4.3 Quản lý tài nguyên.
+		4.4.4 Quản lý các unit.
+		4.4.5 Quản lý tấn công phòng thủ.
+
+
+Chương 5: Hiện thực game
+	5.1 Game media resource
+		5.1.1 Các công cụ sử dụng
+			5.1.1.a Xcc Mixer
+			5.1.1.b OS Voxel Viewer
+			5.1.1.c TextureParker
+		5.1.2 Xử lý resource.
+			5.1.2.a Hình ảnh
+			5.1.2.b Âm thanh
+	5.1 Game Unit
+		5.1.1 Construction unit
+			5.1.1.a Functional construction
+			5.1.1.b Defense construction
+		5.1.2 Moveable unit
+			5.1.2.a Ground unit
+				5.1.2.a.1 Solider unit
+				5.1.2.a.2 Vehicle unit
+			5.1.2.b Flyalbe unit
+	5.2 Game Weapon
+	5.3 Game Effect
+	5.4 GRID System
+		5.4.1 Tìm đường (Pathfinding)
+		5.4.2 Kiểm tra va chạm (Check collision)
+		
+	

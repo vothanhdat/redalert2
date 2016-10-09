@@ -1,0 +1,3 @@
+gemmine	13	67
+gemmine	114	67
+goldmine	53	110

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #mousearea {
+            height: 100%;
+            width: 100%;
+        }
+
+        #sidebar {
+            height: 100%;
+            width: 250px;
+            top: 0;
+            right: 0;
+            position: absolute;
+        }
+
+            #sidebar #div {
+                background-color: #000000;
+            }
+
+        #taskbar {
+            background-color: #001429;
+            width: 100%;
+            height: 30px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        #minimap {
+            /*background-image: url(../../IMG/minimap_background.jpg);*/
+            top: 25px;
+            width: 242px;
+            height: 242px;
+            border-style: solid;
+            border-width: 4px;
+            border-color: #000000;
+            margin: 0 0 0 0;
+        }
+
+        .resource {
+            width: 125px;
+            height: 30px;
+            float: left;
+            color: yellow;
+            text-align: center;
+            vertical-align: central;
+            font-size: 20px;
+            font-family: Arial;
+        }
+
+            .resource#goal {
+                background-color: #005588;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                height: 20px;
+            }
+
+            .resource#g {
+                background-color: #006699;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                height: 20px;
+            }
+
+        .button {
+            background-color: #001429;
+            width: 50px;
+            height: 50px;
+            float: left;
+            opacity: 0.5;
+        }
+
+            .button:hover {
+                opacity: 1;
+            }
+
+
+        .buttonon {
+            opacity: 1;
+        }
+
+        @keyframes splash {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .buttonsplash {
+            opacity: 1;
+            animation-name: splash;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+            animation-duration: 0.25s;
+        }
+
+        .buypanel {
+            margin-left: 30px;
+            overflow-y: scroll;
+            width: 220px;
+            height: calc(100% - 50px - 17px - 242px - 60px);
+            background-color: black;
+            position: absolute;
+        }
+
+
+            .buypanel::-webkit-scrollbar {
+                width: 1em;
+            }
+
+            .buypanel::-webkit-scrollbar-track {
+                -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            }
+
+            .buypanel::-webkit-scrollbar-thumb {
+                background-color: darkgrey;
+                outline: 1px solid slategrey;
+            }
+
+            .buypanel .item {
+                width: 100px;
+                height: 80px;
+                float: left;
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: center;
+            }
+
+                .buypanel .item canvas {
+                    width: 97%;
+                    height: 97%;
+                    left: 1.5%;
+                    right: 1.5%;
+                }
+
+        .powerpanel {
+            position: absolute;
+            bottom: 30px;
+            left: 3px;
+            width: 24px;
+            height: calc(100% - 50px - 17px - 242px - 50px);
+            background-color: black;
+        }
+
+            .powerpanel .powerpanel_usage {
+                position: absolute;
+                width: 100%;
+                height: 10%;
+                bottom: 0px;
+                background-color: #000;
+                background-image: linear-gradient(rgba(255, 0, 0, .8) 80%, transparent 50%);
+                background-position-y: bottom;
+                background-size: 8px 8px;
+            }
+
+            .powerpanel .powerpanel_total {
+                position: absolute;
+                width: 100%;
+                height: 5%;
+                bottom: 0px;
+                background-color: #000;
+                background-image: linear-gradient(rgba(0, 255, 200, .8) 80%, transparent 50%);
+                background-position-y: bottom;
+                background-size: 8px 8px;
+            }
+
+        .switch div {
+            margin: 0;
+        }
+
+
+            .switch div#consButton {
+                background-image: url(../../IMG/icon/type/construction.png);
+            }
+
+            .switch div#defButton {
+                background-image: url(../../IMG/icon/type/defense_construction.png);
+            }
+
+            .switch div#solButton {
+                background-image: url(../../IMG/icon/type/solider.png);
+            }
+
+            .switch div#vehButton {
+                background-image: url(../../IMG/icon/type/vehicle.png);
+            }
+
+            .switch div#tecButton {
+                background-image: url(../../IMG/icon/type/tech.png);
+            }
+    </style>
+</head>
+
+<body>
+
+    <div id="sidebar">
+        <div style="height:30px">
+            <div class="resource" id="goal"> $0</div>
+            <div class="resource" id="g"></div>
+        </div>
+
+        <div id="minimap">
+
+
+        </div>
+        <div style="background-color:black;height:calc(100% - 310px)">
+
+            <div class="switch" style="height : 50px;">
+                <div class="button buttonon" id="consButton" onclick="PLAYING_LAYOUT.set_type_display(0)"></div>
+                <div class="button" id="defButton" onclick="PLAYING_LAYOUT.set_type_display(1)"></div>
+                <div class="button" id="solButton" onclick="PLAYING_LAYOUT.set_type_display(2)"></div>
+                <div class="button" id="vehButton" onclick="PLAYING_LAYOUT.set_type_display(3)"></div>
+                <div class="button" id="tecButton" onclick="PLAYING_LAYOUT.set_type_display(4)"></div>
+            </div>
+            <div>
+                <div class="buypanel">
+
+                </div>
+
+                <div class="powerpanel">
+                    <div class="powerpanel_total"></div>
+                    <div class="powerpanel_usage"></div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="taskbar"> </div>
+
+    <div id="mousearea"></div>
+</body>
+</html>

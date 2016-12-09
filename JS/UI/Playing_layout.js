@@ -206,7 +206,7 @@ PLAYING_LAYOUT = new (function () {
 
     var img_buy_ready = (function () {
         var img = new Image();
-        img.src = "IMG/effect/buy/ready.png"
+        img.src = "IMG/effect/buy/Ready.png"
         return img;
     })();
 

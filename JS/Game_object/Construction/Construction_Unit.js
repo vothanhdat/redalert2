@@ -1,6 +1,6 @@
 ﻿/// <reference path="../Game_Unit.js" />
 "use strict";
-PIXI.loader.add({ name: "con", url: "IMG/Unit/Construction/Construction.json" });
+PIXI.loader.add({ name: "con", url: "IMG/Unit/Construction/construction.json" });
 
 var CONSTRUCTION_UNIT = {
     state_image: ["build", "run", "active", "normal", "impaired", "active_impaired", "run_impaired"],

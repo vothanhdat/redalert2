@@ -427,7 +427,7 @@ var AI_LIST = {
     DAT_1: {
         path: "AI/AI_static.js",
         param: {
-            custom_path: "AI/DAT/AI_VARIABLE_1.js",
+            custom_path: "AI/Dat/AI_VARIABLE_1.js",
             name: "TEAM 1 (Thanh Dat)",
             NUM_VEH_ORE: 7
         }
@@ -435,7 +435,7 @@ var AI_LIST = {
     DAT_2: {
         path: "AI/AI_static.js",
         param: {
-            custom_path: "AI/DAT/AI_VARIABLE_2.js",
+            custom_path: "AI/Dat/AI_VARIABLE_2.js",
             name: "TEAM 2 (Thanh Dat)",
             NUM_VEH_ORE: 7
         }

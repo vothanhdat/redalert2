@@ -5,7 +5,7 @@
 - The main loop lives on window.animate (set up in index.html) and calls CONTROLER, map, MINIMAP, FOG_GRAPGICH, GAME_OBJECT, AUDIO, renderer in that order—respect this when adding new per-frame work.
 **Runtime Workflow**
 - Install dependencies once with `npm install`; use `npm run dev` for the PixiJS game (Vite serves from http://localhost:5173) and `npm run build`/`npm run preview` to exercise the production bundle.
-- Vite copies everything from `public/` to the bundle unchanged; keep legacy globals (JS, Scripts, assets) inside `public` so paths like `JS/...` resolve both in dev and build.
+- Vite copies everything from `public/` to the bundle unchanged; legacy game scripts now live in `src/JS` and are copied via `vite-plugin-static-copy`, so add new global scripts under `src/JS` to keep `/JS/...` URLs stable.
 - window.onload triggers GAME_MANAGER.load_texture, which pipelines PIXI.loader progress → *_Type.load_texture_done → on_texture_load_done in JS/Done.js; register new loaders before calling GAME_MANAGER.
 - JS/Done.js waits for list_wait_done flags; if you introduce new asset buckets extend list_wait_done and call on_texture_load_done(name) from the loader.
 - When testing AI or pathfinding tweaks, reload the page because workers cache scripts with random() cache busting from Scripts/JavaScript_helper.js.

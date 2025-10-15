@@ -4,8 +4,9 @@
 - Rendering is PixiJS overlaid on fixed containers from JS/Game_Container.js; customize layer placement by adjusting container order instead of creating new renderers.
 - The main loop lives on window.animate (set up in index.html) and calls CONTROLER, map, MINIMAP, FOG_GRAPGICH, GAME_OBJECT, AUDIO, renderer in that order—respect this when adding new per-frame work.
 **Runtime Workflow**
-- Serve via HTTP (e.g. npx http-server .) so XHR map loading, Web Workers, and sound assets work; file:// will break Data/map and worker fetches.
-- window.onload triggers GAME_MANAGER.load_texture, which pipelines PIXI.loader progress → *_Type.load_texture_done → on_texture_load_done in JS/Done.js; keep new loaders registered before GO manager.
+- Install dependencies once with `npm install`; use `npm run dev` for the PixiJS game (Vite serves from http://localhost:5173) and `npm run build`/`npm run preview` to exercise the production bundle.
+- Vite copies everything from `public/` to the bundle unchanged; keep legacy globals (JS, Scripts, assets) inside `public` so paths like `JS/...` resolve both in dev and build.
+- window.onload triggers GAME_MANAGER.load_texture, which pipelines PIXI.loader progress → *_Type.load_texture_done → on_texture_load_done in JS/Done.js; register new loaders before calling GAME_MANAGER.
 - JS/Done.js waits for list_wait_done flags; if you introduce new asset buckets extend list_wait_done and call on_texture_load_done(name) from the loader.
 - When testing AI or pathfinding tweaks, reload the page because workers cache scripts with random() cache busting from Scripts/JavaScript_helper.js.
 **Map & Grid**
@@ -31,7 +32,8 @@
 - Unit art uses directory-specific json atlases under IMG/Unit and must match property.path strings in the *_TYPE definitions.
 - Audio assets load through JS/Audio.js using SoundJS; keep manifest entries aligned with Audio/Music/ filenames to avoid runtime 404s.
 - Data files rely on camelCase keys but content is mostly numeric; preserve ASCII encoding and trailing newline-less text for parsing stability.
-**Conventions**
+**Build & Structure Conventions**
+- index.html now injects a minimal `/src/main.js` Vite module purely for HMR; keep legacy `<script>` order intact so globals (PIXI, CONTROLER, etc.) initialize before the inline bootstrap.
 - Code mixes ES5 constructors and ES6 classes but keeps everything on the global namespace; avoid module systems and maintain strict script ordering in index.html.
 - Most globals are referenced without window., so name collisions are easy; prefer long descriptive identifiers to avoid shadowing.
 - Use existing helper math functions (mySin/myCos/myAtan) for performance-sensitive loops instead of Math.* calls.

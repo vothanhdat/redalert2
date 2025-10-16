@@ -58,6 +58,74 @@ var init_mapscr2pos = function (heightmap) {
     return mapscr2pos;
 }
 
+
+var getTextureOffsetMap = (mapoffset) => {
+    let mapTextureOffset = {}
+
+    var mapoffsetFn = {
+        setoffsetarrayY: function (y, from, to) {
+            for (var i = from; i <= to; i++)
+                mapTextureOffset[i] = { y };
+        },
+        setoffsetY: function (y, array) {
+            for (var index of array)
+                mapTextureOffset[index] = { y };
+        },
+        setoffsetXandY: function (x, y, array) {
+            for (var index of array)
+                mapTextureOffset[index] = { x, y };
+        }
+    };
+
+    for (let [offsetType, ...params] of mapoffset) {
+        mapoffsetFn?.[offsetType]?.(...params);
+    }
+    return mapTextureOffset
+}
+
+var initmaptexture = function (maptype, onProgress) {
+
+
+    return new Promise((resolve, reject) => {
+        var oReq = new XMLHttpRequest();
+        var image_link = "IMG/MAP/" + maptype + "/map.webp";
+        oReq.open("GET", image_link, true);
+        oReq.responseType = "arraybuffer";
+
+        oReq.onload = function (oEvent) {
+            var arrayBuffer = oReq.response; // Note: not oReq.responseText
+            if (arrayBuffer)
+                window.FILECACHE[image_link] = "data:image/png;base64," + btoa([].reduce.call(new Uint8Array(arrayBuffer), function (p, c) { return p + String.fromCharCode(c) }, ''));
+
+            PIXI.loader.add({ name: "tex", url: "IMG/MAP/" + maptype + "/map.json", crossOrigin: true });
+            PIXI.loader.on('progress', function (loader, loadedResource) {
+                onProgress?.(loader.progress / 100);
+            });
+
+            PIXI.loader.load(function (loader, resources) {
+                console.log("Load Map Texture Image Done");
+                // This.on_load_done && This.on_load_done();
+                resolve(resources);
+            });
+
+        };
+
+        oReq.onprogress = function (e) {
+            onProgress?.((e.loaded / e.total));
+        }
+
+        oReq.send(null)
+    })
+
+
+
+
+
+}
+
+window.FILECACHE ||= {};
+
+
 function GameMap(mapname) {
     this.texture = [];
     this.terian = [];
@@ -87,85 +155,10 @@ function GameMap(mapname) {
 
     }
 
-
-
-    var maptexturetableoffsetx = [];
-    var maptexturetableoffsety = [];
-
-
     var map_sprite, crop_sprite;
-    // var map_sprite_second, crop_sprite_second;
     var This = this;
 
 
-    var setoffset = function (mapoffset) {
-
-        var mapoffsetfunction = {
-            setoffsetarrayY: function (y, from, to) {
-                for (var i = from; i <= to; i++)
-                    maptexturetableoffsety[i] = y;
-            },
-            setoffsetY: function (y, array) {
-                for (var i in array)
-                    maptexturetableoffsety[array[i]] = y;
-            },
-            setoffsetXandY: function (x, y, array) {
-                for (var i in array) {
-                    maptexturetableoffsetx[array[i]] = x;
-                    maptexturetableoffsety[array[i]] = y;
-                }
-            }
-        };
-
-        console.log(mapoffset.length);
-
-        for (var i in mapoffset) {
-            var arg = mapoffset[i];
-            if (mapoffsetfunction[arg[0]]) {
-                mapoffsetfunction[arg[0]](arg[1], arg[2], arg[3]);
-            };
-        }
-    }
-
-    var initmaptexture = function (maptable, maptype, ondone) {
-
-        window.FILECACHE = [];
-
-        var oReq = new XMLHttpRequest();
-        var image_link = "IMG/MAP/" + maptype + "/map.webp";
-        oReq.open("GET", image_link, true);
-        oReq.responseType = "arraybuffer";
-
-        oReq.onload = function (oEvent) {
-            var arrayBuffer = oReq.response; // Note: not oReq.responseText
-            if (arrayBuffer)
-                window.FILECACHE[image_link] = "data:image/png;base64," + btoa([].reduce.call(new Uint8Array(arrayBuffer), function (p, c) { return p + String.fromCharCode(c) }, ''));
-
-            PIXI.loader.add({ name: "tex", url: "IMG/MAP/" + maptype + "/map.json", crossOrigin: true });
-            PIXI.loader.on('progress', function (loader, loadedResource) {
-                This.on_load_progess && This.on_load_progess(loader.progress / 100);
-            });
-            PIXI.loader.load(function (loader, resources) {
-                console.log("Load Map Texture Image Done");
-                This.on_load_done && This.on_load_done();
-                ondone && ondone(loader, resources.tex.textures, resources.tex_image.texture);
-            });
-
-        };
-
-        oReq.onprogress = function (e) {
-            This.on_load_progess && This.on_load_progess((e.loaded / e.total));
-        }
-
-        oReq.send(null)
-
-
-
-
-
-
-
-    }
 
     var calc_second_map_layer = function (map) {
         var terrian = map.terrian;
@@ -205,13 +198,12 @@ function GameMap(mapname) {
 
     }
 
-    var initmapgraphich = function (map, loader, resources, main_texture) {
-        console.log("initmapgraphich", { map, loader, resources, main_texture })
-
-        var size = map.dim;
+    var initmapgraphich = function (resources, main_texture, textture_offset) {
+        console.log("initmapgraphich", { This, resources, main_texture, textture_offset })
+        var size = This.dim;
         var i, j, xx, yy, mapt;
         var x, y, z;
-        var t = Math.round(map.dim / 2);
+        var t = Math.round(This.dim / 2);
         var map_renderer = new PIXI.RenderTexture(window.GLOBAL.renderer, Math.floor(t) * 60, Math.floor(t) * 30);
 
         var minimap_renderer = new PIXI.RenderTexture(window.GLOBAL.renderer, 242, 242);
@@ -226,12 +218,13 @@ function GameMap(mapname) {
                     j = t - x + y;
                     xx = x * 60 + z * 30;
                     yy = y * 30 + z * 15;
-                    mapt = map.texture[i] ? map.texture[i][j] : 0;
+                    mapt = This.texture[i] ? This.texture[i][j] : 0;
                     var texture_key = `img (${mapt}).png`;
                     if (mapt && resources[texture_key]) {
+                        let offset = textture_offset[mapt]
                         var postion = {
-                            x: xx - (maptexturetableoffsetx[mapt] ? maptexturetableoffsetx[mapt] : 0) - 45,
-                            y: yy - (map.terrian[i][j] - 10) * 6 - (maptexturetableoffsety[mapt] ? maptexturetableoffsety[mapt] : 0) - 7
+                            x: xx - (offset?.x ?? 0) - 45,
+                            y: yy - (This.terrian[i][j] - 10) * 6 - (offset?.y ?? 0) - 7
                         }
                         var sprite = new PIXI.Sprite(resources[texture_key]);
                         sprite.position.set(postion.x, postion.y);
@@ -331,16 +324,10 @@ function GameMap(mapname) {
         this.texture = mapdata;
         this.mapgroundtable = mapgroundtable;
 
-        setoffset(result.offset[mapinfo.type]);
-
+        this.mapTextureOffset = getTextureOffsetMap(result.offset[mapinfo.type])
 
         calc_second_map_layer(this);
 
-
-
-        initmaptexture(this.mapgroundtable, mapinfo.type, (loader, resources, maintexture) => {
-            initmapgraphich(this, loader, resources, maintexture);
-        });
 
         this.dim = this.texture.length;
         this.maxx = this.texture.length;
@@ -352,6 +339,15 @@ function GameMap(mapname) {
         console.log("Load map Object done");
 
         GRID.init(this);
+
+
+        const mapTexture = await initmaptexture(mapinfo.type, (p) => {
+            this.on_load_progess?.(p)
+        })
+
+        initmapgraphich(mapTexture.tex.textures, mapTexture.tex_image.texture, this.mapTextureOffset);
+
+        This.on_load_done?.();
 
 
 

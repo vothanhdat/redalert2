@@ -106,7 +106,7 @@ PLAYING_LAYOUT = new (function () {
         this.buy_data = data;
         var element = this._buypanel_();
         element.innerHTML = "";
-        for(var e of data) if (this.fillter_type_display(e))
+        for (var e of data) if (this.fillter_type_display(e))
             element.appendChild(this.get_buy_button(e));
     }
 
@@ -116,9 +116,9 @@ PLAYING_LAYOUT = new (function () {
     // ========================================================================= 
 
     this.fillter_type_display = function (data) {
-        try{
+        try {
             return map_type_number[map_type_number.map[data.type][data.name].type] == this.now_type;
-        } catch(e){
+        } catch (e) {
             debugger;
         }
     }
@@ -133,7 +133,7 @@ PLAYING_LAYOUT = new (function () {
         this._switchdiv_()[this.now_type].className = "button buttonon";
         var element = this._buypanel_();
         element.innerHTML = "";
-        for(var e of this.buy_data) if (this.fillter_type_display(e)) {
+        for (var e of this.buy_data) if (this.fillter_type_display(e)) {
             element.appendChild(this.get_buy_button(e));
             //console.log(e);
         }
@@ -145,26 +145,28 @@ PLAYING_LAYOUT = new (function () {
     */
     this.process = function () {
         // Update progess in buy panel
-        for(var e of this.buy_data)
+        for (var e of this.buy_data)
             if (this.fillter_type_display(e))
                 e.setprogess();
-        
+
         // Update gold resource
         if (!resoure_goal_element)
             resoure_goal_element = $(".resource#goal")[0];
         if (!power_div)
             power_div = $(".powerpanel")[0];
-        
-        resoure_goal_element.innerHTML = "$" + Math.round(USER_CONTROLER.team_controler.money);
+
+        if (resoure_goal_element)
+            resoure_goal_element.innerHTML = "$" + Math.round(USER_CONTROLER.team_controler.money);
 
         var total_power = Math.atan(USER_CONTROLER.team_controler.total_power / 2500) / Math.PI * 2;
         var power_usage = Math.atan(USER_CONTROLER.team_controler.power_usage / 2500) / Math.PI * 2;
 
         power_value[0] += (total_power - power_value[0]) * 0.07;
         power_value[1] += (power_usage - power_value[1]) * 0.07;
-
-        power_div.children[0].style.height = (power_value[0] * 100) + "%";
-        power_div.children[1].style.height = (power_value[1] * 100) + "%";
+        if (power_div) {
+            power_div.children[0].style.height = (power_value[0] * 100) + "%";
+            power_div.children[1].style.height = (power_value[1] * 100) + "%";
+        }
     }
 
     var resoure_goal_element;
@@ -176,7 +178,7 @@ PLAYING_LAYOUT = new (function () {
         return func_get[key] || (func_get[key] = Object.assign({}, ...listob));
     }
 
-   
+
     var map_type_number = {
         contruction: 0,
         contruction_denfense: 1,
@@ -186,9 +188,9 @@ PLAYING_LAYOUT = new (function () {
         ship: 3,
         defender: 2,
         technology: 4,
-        additional : 1,
+        additional: 1,
         map: {
-            get construction() { return func_get("construction",CONSTRUCTION_TYPE) },
+            get construction() { return func_get("construction", CONSTRUCTION_TYPE) },
             get contruction_denfense() { return func_get("contruction_denfense", CONSTRUCTION_TYPE) },
             get solider() { return func_get("solider", SOLIDER_TYPE) },
             get vehicle() { return func_get("vehicle", VEHICLE_TYPE) },

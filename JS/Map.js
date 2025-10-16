@@ -9,10 +9,6 @@ Map material  :
 */
 
 
-/**
- * Create map object, contain texture, terian, material
- * @param {String} mapname 
- */
 
 // const MAP_TEST_DEEP = false;
 
@@ -125,6 +121,10 @@ var initmaptexture = function (maptype, onProgress) {
 
 window.FILECACHE ||= {};
 
+/**
+ * Create map object, contain texture, terian, material
+ * @param {String} mapname 
+ */
 
 function GameMap(mapname) {
     this.texture = [];
@@ -145,14 +145,6 @@ function GameMap(mapname) {
             width: GLOBAL.DISPLAY_WIDTH,
             height: GLOBAL.DISPLAY_HEIGHT
         });
-        // crop_sprite_second && (crop_sprite_second.frame = {
-        //     x: GLOBAL.screen_x * 60,
-        //     y: GLOBAL.screen_y * 30,
-        //     width: GLOBAL.DISPLAY_WIDTH,
-        //     height: GLOBAL.DISPLAY_HEIGHT
-        // });
-
-
     }
 
     var map_sprite, crop_sprite;
@@ -198,7 +190,7 @@ function GameMap(mapname) {
 
     }
 
-    var initmapgraphich = function (resources, main_texture, textture_offset) {
+    var initmapgraphich = async function (resources, main_texture, textture_offset) {
         console.log("initmapgraphich", { This, resources, main_texture, textture_offset })
         var size = This.dim;
         var i, j, xx, yy, mapt;
@@ -206,7 +198,6 @@ function GameMap(mapname) {
         var t = Math.round(This.dim / 2);
         var map_renderer = new PIXI.RenderTexture(window.GLOBAL.renderer, Math.floor(t) * 60, Math.floor(t) * 30);
 
-        var minimap_renderer = new PIXI.RenderTexture(window.GLOBAL.renderer, 242, 242);
         var map_stage = new PIXI.Container();
 
         var minimap_stage = new PIXI.Container();
@@ -239,39 +230,43 @@ function GameMap(mapname) {
 
         map_renderer.render(map_stage);
 
-        window.setTimeout(function () {
+        await new Promise(r => requestAnimationFrame(r));
 
-            crop_sprite = new PIXI.Texture(map_renderer.baseTexture, new PIXI.Rectangle(0, 0, 200, 200));
-            map_sprite = new PIXI.Sprite(crop_sprite);
-
-
-            //map_sprite.filters = [noredfilter];
-            mainstage.addChildAt(map_sprite, 0);
+        console.log("------------------------------------------------")
+        crop_sprite = new PIXI.Texture(map_renderer.baseTexture, new PIXI.Rectangle(0, 0, 200, 200));
+        map_sprite = new PIXI.Sprite(crop_sprite);
 
 
+        //map_sprite.filters = [noredfilter];
+        mainstage.addChildAt(map_sprite, 0);
 
 
-            // Render minimap
+        setTimeout(async () => {
             var minimap_sprite = new PIXI.Sprite(map_renderer);
+
             minimap_stage.addChild(minimap_sprite);
+
             minimap_sprite.scale.set(242 / Math.floor(t) / 60, 242 / Math.floor(t) / 30);
+
+            var minimap_renderer = new PIXI.RenderTexture(window.GLOBAL.renderer, 242, 242);
             minimap_renderer.render(minimap_stage);
-            window.setTimeout(function () {
-                MINIMAP.initmap(minimap_renderer.getBase64());
-                minimap_renderer.destroy(true);
-                main_texture.baseTexture.destroy(true);
-            }, 100);
 
+            await new Promise(r => setTimeout(r, 100));
 
-        }, 100);
+            console.log("------------------------------------------------")
+
+            MINIMAP.initmap(minimap_renderer.getBase64());
+
+            minimap_renderer.destroy(true);
+
+            main_texture.baseTexture.destroy(true);
+        }, 100)
 
         console.log("Init map Graphich done");
-        on_texture_load_done("map");
+
+
 
     }
-
-
-
 
 
     var loadMapDataAsync = async function (name) {
@@ -341,22 +336,18 @@ function GameMap(mapname) {
         GRID.init(this);
 
 
-        const mapTexture = await initmaptexture(mapinfo.type, (p) => {
-            this.on_load_progess?.(p)
-        })
+        const mapTexture = await initmaptexture(mapinfo.type, p => this.on_load_progess?.(p))
 
-        initmapgraphich(mapTexture.tex.textures, mapTexture.tex_image.texture, this.mapTextureOffset);
+        await initmapgraphich(mapTexture.tex.textures, mapTexture.tex_image.texture, this.mapTextureOffset);
 
-        This.on_load_done?.();
-
-
+        on_texture_load_done("map");
 
     }
 
-    loadMapDataAsync.call(this, mapname);
-
     this.on_load_done = null;
     this.on_load_progess = null;
+
+    this.promise = loadMapDataAsync.call(this, mapname);
 
 }
 

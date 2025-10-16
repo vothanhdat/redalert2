@@ -260,6 +260,8 @@ function GameMap(mapname) {
             minimap_renderer.destroy(true);
 
             main_texture.baseTexture.destroy(true);
+            console.log("Init map MiniMap done");
+
         }, 100)
 
         console.log("Init map Graphich done");

@@ -47,8 +47,6 @@
         if (this.progess_bar)
             this.progess_bar.value = (progess * 100);
     }
-
-
 })();
 
 

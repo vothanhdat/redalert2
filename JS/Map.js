@@ -167,6 +167,7 @@ function GameMap(mapname) {
     }
 
     var initmapgraphich = function (map, loader, resources, main_texture) {
+        console.log("initmapgraphich", { map, loader, resources, main_texture })
 
         var size = map.dim;
         var i, j, xx, yy, mapt;
@@ -256,117 +257,103 @@ function GameMap(mapname) {
         return mapscr2pos;
     }
 
-    var loadmapdata = function (map, name) {
+    function convertImageToCanvas(image) {
+        var canvas = document.createElement("canvas");
+        canvas.width = image.width;
+        canvas.height = image.height;
+        canvas.getContext("2d").drawImage(image, 0, 0);
+        return canvas;
+    }
 
-        $.getJSON("/Data/map/map.json", function (result) {
-            var mapinfo = result.info[name];
-            map.mapinfo = mapinfo;
+    function loadImageData(src) {
+        var imgmaptexture = new Image();
+        imgmaptexture.src = src;
 
-            function convertImageToCanvas(image) {
-                var canvas = document.createElement("canvas");
-                canvas.width = image.width;
-                canvas.height = image.height;
-                canvas.getContext("2d").drawImage(image, 0, 0);
-                return canvas;
+        return new Promise((resolve, reject) => {
+            imgmaptexture.onload = () => resolve(imgmaptexture);
+            imgmaptexture.onerror = (err) => reject(err);
+        }).then((image) => {
+            var mapcontext = convertImageToCanvas(image).getContext("2d");
+            var mapdataarray = mapcontext.getImageData(0, 0, image.width, image.height);
+            return mapdataarray
+        })
+    }
+
+    var loadMapDataAsync = async function (name) {
+
+        let result = await fetch("/Data/map/map.json").then(e => e.json())
+
+
+        let mapinfo = this.mapinfo = result.info[name];
+
+        console.log({ name, mapinfo })
+
+        let [imgmapterrian, imgmaptexture, list_object_data] = await Promise.all([
+            loadImageData("/Data/map/" + mapinfo.terian + random()),
+            loadImageData("/Data/map/" + mapinfo.material + random()),
+            fetch("/Data/map/" + mapinfo.objectdata + random()).then(e => e.text())
+        ])
+
+        this.list_object_data = list_object_data;
+
+        var mapheight = [];
+        var mapmaterial = [];
+        var mapdata = [];
+        var mapgroundtable = [];
+
+        for (var i = 0; i < imgmapterrian.width; i++) {
+            mapheight[i] = [];
+            mapmaterial[i] = [];
+            for (var j = 0; j < imgmapterrian.height; j++) {
+                var idx = (i * imgmapterrian.height + j) * 4;
+                mapheight[i][j] = imgmapterrian.data[idx];
+                mapmaterial[i][j] = ((imgmapterrian.data[idx + 1] < 100) ? 0 : 1) + ((imgmapterrian.data[idx + 2] < 100) ? 0 : 2);
             }
+        }
 
-            var loadmapdatadone = function () {
-                loadmapdatadone = function (mapobject, mapgroundtable) {
 
-                    calc_second_map_layer(map);
-
-                    initmaptexture(map.mapgroundtable, mapinfo.type, function (loader, resources, maintexture) {
-                        initmapgraphich(map, loader, resources, maintexture);
-                    });
-
-                    mapobject.dim = mapobject.texture.length;
-                    mapobject.maxx = mapobject.texture.length;
-                    mapobject.maxy = mapobject.texture.length;
-                    window.GLOBAL.max_x = mapobject.maxx / 2;
-                    window.GLOBAL.max_y = mapobject.maxy / 2;
-                    console.log("Load map Object done");
-                    GRID.init(map);
-                }
+        for (var i = 0; i < imgmaptexture.width; i++) {
+            mapdata[i] = [];
+            for (var j = 0; j < imgmaptexture.height; j++) {
+                var idx = (i * imgmaptexture.height + j) * 4;
+                var value = (imgmaptexture.data[idx] + imgmaptexture.data[idx + 1] * 256);
+                mapdata[i][j] = value;
+                mapgroundtable[value] = true;
             }
-
-            //Load mapdata terrian from image ===============================================================
-
-            var imgmapterrian = new Image();
-            imgmapterrian.src = "/Data/map/" + mapinfo.terian + random();
-
-            imgmapterrian.onload = function () {
-                var mapcontext = convertImageToCanvas(imgmapterrian).getContext("2d");
-                var mapdataarray = mapcontext.getImageData(0, 0, imgmapterrian.width, imgmapterrian.height).data;
-                var mapheight = [];
-                var mapmaterial = [];
-                for (var i = 0; i < imgmapterrian.width; i++) {
-                    mapheight[i] = [];
-                    mapmaterial[i] = [];
-                    for (var j = 0; j < imgmapterrian.height; j++) {
-                        var idx = (i * imgmapterrian.height + j) * 4;
-                        mapheight[i][j] = mapdataarray[idx];
-                        mapmaterial[i][j] = ((mapdataarray[idx + 1] < 100) ? 0 : 1) + ((mapdataarray[idx + 2] < 100) ? 0 : 2);
-                    }
-                }
-                map.terrian = mapheight;
-                map.material = mapmaterial;
-                map.mapscr2pos = init_mapscr2pos(mapheight);
-                console.log("Load map Terrian data done");
-                loadmapdatadone(map);
-
-            };
+        }
 
 
+        this.terrian = mapheight;
+        this.material = mapmaterial;
+        this.mapscr2pos = init_mapscr2pos(mapheight);
+        this.texture = mapdata;
+        this.mapgroundtable = mapgroundtable;
+
+        setoffset(result.offset[mapinfo.type]);
 
 
+        calc_second_map_layer(this);
 
-            //Load mapdata texture from image ===============================================================
-
-            var imgmaptexture = new Image();
-            imgmaptexture.src = "/Data/map/" + mapinfo.material + random();
-            imgmaptexture.onload = function () {
-                var mapcontext = convertImageToCanvas(imgmaptexture).getContext("2d");
-                var mapdataarray = mapcontext.getImageData(0, 0, imgmaptexture.width, imgmaptexture.height).data;
-                var mapdata = [];
-                var mapgroundtable = [];
-                for (var i = 0; i < imgmaptexture.width; i++) {
-                    mapdata[i] = [];
-                    for (var j = 0; j < imgmaptexture.height; j++) {
-                        var idx = (i * imgmaptexture.height + j) * 4;
-                        var value = (mapdataarray[idx] + mapdataarray[idx + 1] * 256);
-                        mapdata[i][j] = value;
-                        mapgroundtable[value] = true;
-                    }
-                }
-                map.texture = mapdata;
-                map.mapgroundtable = mapgroundtable;
-
-                setoffset(result.offset[mapinfo.type]);
-
-                console.log("Load map Texture data done");
-
-                loadmapdatadone(map);
-
-            };
-
-            $.ajax({
-                url: "/Data/map/" + mapinfo.objectdata + random(),
-                async: false
-            }).done(function (data) {
-                map.list_object_data = data;
-            }).fail(function (xhr) { });
-
+        initmaptexture(this.mapgroundtable, mapinfo.type, (loader, resources, maintexture) => {
+            initmapgraphich(this, loader, resources, maintexture);
         });
+
+        this.dim = this.texture.length;
+        this.maxx = this.texture.length;
+        this.maxy = this.texture.length;
+
+        window.GLOBAL.max_x = this.maxx / 2;
+        window.GLOBAL.max_y = this.maxy / 2;
+
+        console.log("Load map Object done");
+
+        GRID.init(this);
+
+
 
     }
 
-    
-    var maplayer = document.createElement("canvas");
-    var mapcontext = maplayer.getContext("2d");
-    var backsceenx, backsceeny;
-
-    loadmapdata(this, mapname);
-
+    loadMapDataAsync.call(this, mapname);
 
     this.on_load_done = null;
     this.on_load_progess = null;

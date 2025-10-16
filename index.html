@@ -215,7 +215,7 @@
                 $(".MENU")[0].remove();
             },
             on_start_game() {
-                map = new Map("map3");
+                map = new GameMap("map3");
                 MENU && MENU.display_progess(true);
 
                 map && (map.on_load_done = function () {

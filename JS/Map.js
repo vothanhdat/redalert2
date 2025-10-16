@@ -19,7 +19,7 @@ const MAP_TEST_DEEP = false;
 
 const MAP_TEST_DEEP2 = false;
 
-function Map(mapname) {
+function GameMap(mapname) {
     this.texture = [];
     this.terian = [];
     this.material = [];

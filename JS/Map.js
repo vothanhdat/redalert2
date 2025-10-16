@@ -19,6 +19,45 @@ Map material  :
 
 // const MAP_TEST_DEEP2 = false;
 
+function convertImageToCanvas(image) {
+    var canvas = document.createElement("canvas");
+    canvas.width = image.width;
+    canvas.height = image.height;
+    canvas.getContext("2d").drawImage(image, 0, 0);
+    return canvas;
+}
+
+function loadImageData(src) {
+    var imgmaptexture = new Image();
+    imgmaptexture.src = src;
+
+    return new Promise((resolve, reject) => {
+        imgmaptexture.onload = () => resolve(imgmaptexture);
+        imgmaptexture.onerror = (err) => reject(err);
+    }).then((image) => {
+        var mapcontext = convertImageToCanvas(image).getContext("2d");
+        var mapdataarray = mapcontext.getImageData(0, 0, image.width, image.height);
+        return mapdataarray
+    })
+}
+
+
+var init_mapscr2pos = function (heightmap) {
+    var mapscr2pos = [];
+
+    for (var i = 0; i < heightmap.length; i++) {
+        for (var j = 0; j < heightmap[i].length; j++) {
+            var height = heightmap[i][j];
+            var newx = Math.floor(0.2 * (5 * i + 10 - height));
+            var newy = Math.floor(0.2 * (5 * j + 10 - height));
+            if (!mapscr2pos[newx])
+                mapscr2pos[newx] = [];
+            mapscr2pos[newx][newy] = { x: i, y: j };
+        }
+    }
+    return mapscr2pos;
+}
+
 function GameMap(mapname) {
     this.texture = [];
     this.terian = [];
@@ -241,43 +280,6 @@ function GameMap(mapname) {
 
 
 
-    var init_mapscr2pos = function (heightmap) {
-        var mapscr2pos = [];
-
-        for (var i = 0; i < heightmap.length; i++) {
-            for (var j = 0; j < heightmap[i].length; j++) {
-                var height = heightmap[i][j];
-                var newx = Math.floor(0.2 * (5 * i + 10 - height));
-                var newy = Math.floor(0.2 * (5 * j + 10 - height));
-                if (!mapscr2pos[newx])
-                    mapscr2pos[newx] = [];
-                mapscr2pos[newx][newy] = { x: i, y: j };
-            }
-        }
-        return mapscr2pos;
-    }
-
-    function convertImageToCanvas(image) {
-        var canvas = document.createElement("canvas");
-        canvas.width = image.width;
-        canvas.height = image.height;
-        canvas.getContext("2d").drawImage(image, 0, 0);
-        return canvas;
-    }
-
-    function loadImageData(src) {
-        var imgmaptexture = new Image();
-        imgmaptexture.src = src;
-
-        return new Promise((resolve, reject) => {
-            imgmaptexture.onload = () => resolve(imgmaptexture);
-            imgmaptexture.onerror = (err) => reject(err);
-        }).then((image) => {
-            var mapcontext = convertImageToCanvas(image).getContext("2d");
-            var mapdataarray = mapcontext.getImageData(0, 0, image.width, image.height);
-            return mapdataarray
-        })
-    }
 
     var loadMapDataAsync = async function (name) {
 
@@ -333,6 +335,8 @@ function GameMap(mapname) {
 
 
         calc_second_map_layer(this);
+
+
 
         initmaptexture(this.mapgroundtable, mapinfo.type, (loader, resources, maintexture) => {
             initmapgraphich(this, loader, resources, maintexture);

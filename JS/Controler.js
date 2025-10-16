@@ -1566,7 +1566,7 @@ var Ai_Controlder = function (Team_controler) {
 var USER_CONTROLER = new User_Controler(CONTROLER1);
 
 
-//var AI_CONTROLER1 = new Ai_Controlder(CONTROLER1);
+var AI_CONTROLER1 = new Ai_Controlder(CONTROLER1);
 var AI_CONTROLER2 = new Ai_Controlder(CONTROLER2);
 
 

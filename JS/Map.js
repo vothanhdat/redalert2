@@ -14,10 +14,10 @@ Map material  :
  * @param {String} mapname 
  */
 
-const MAP_TEST_DEEP = false;
+// const MAP_TEST_DEEP = false;
 
 
-const MAP_TEST_DEEP2 = false;
+// const MAP_TEST_DEEP2 = false;
 
 function GameMap(mapname) {
     this.texture = [];
@@ -38,69 +38,15 @@ function GameMap(mapname) {
             width: GLOBAL.DISPLAY_WIDTH,
             height: GLOBAL.DISPLAY_HEIGHT
         });
-        crop_sprite_second && (crop_sprite_second.frame = {
-            x: GLOBAL.screen_x * 60,
-            y: GLOBAL.screen_y * 30,
-            width: GLOBAL.DISPLAY_WIDTH,
-            height: GLOBAL.DISPLAY_HEIGHT
-        });
-
-        if (MAP_TEST_DEEP) {
-
-            var t = Math.round(this.dim / 2);
-            var temp, i, j, xx, yy;
-
-            for (var i = 0; i < mapcontainer1.length; i++) {
-                mapcontainer1[i]._check_1 = false;
-            }
-
-            mapcontainer1 = [];
-
-
-            for (var y = Math.round(GLOBAL.screen_y - 3) ; y < GLOBAL.screen_y + GLOBAL.screen_h + 3; y++) {
-                for (var z = 0; z < 2; z++) {
-                    for (var x = Math.round(GLOBAL.screen_x - 3) ; x < GLOBAL.screen_x + GLOBAL.screen_w + 3; x++) {
-                        i = x + y + z;
-                        j = t - x + y;
-                        xx = (x - GLOBAL.screen_x) * 60 + z * 30;
-                        yy = (y - GLOBAL.screen_y) * 30 + z * 15;
-                        var idx = i * this.dim + j;
-
-                        if (this.texture[i] && (temp = this.texture[i][j]) && mapcontainer[idx]) {
-                            mapcontainer[idx].position.x = xx - (maptexturetableoffsetx[temp] ? maptexturetableoffsetx[temp] : 0) - 45;
-                            mapcontainer[idx].position.y = yy - (this.terrian[i][j] - 10) * 6 - (maptexturetableoffsety[temp] ? maptexturetableoffsety[temp] : 0) - 7;
-                            mapcontainer1.push(mapcontainer[idx]);
-                            mapcontainer[idx]._check_1 = true;
-                        }
-                    }
-                }
-            }
-
-            for (var i = 0; i < mapcontainer1.length; i++) {
-                if (mapcontainer1[i]._check_1 && !mapcontainer1[i]._check_2) {
-                    mapcontainer2.push(mapcontainer1[i]);
-                    mapcontainer1[i]._check_2 = true;
-                    stage.addChild(mapcontainer1[i]);
-                }
-            }
-
-            for (var i = 0; i < mapcontainer2.length; i++) {
-                if (mapcontainer2[i]._check_2 && !mapcontainer2[i]._check_1) {
-                    stage.removeChild(mapcontainer2[i]);
-                    mapcontainer2[i]._check_2 = false;
-                    mapcontainer2.splice(i, 1);
-                    i--;
-                }
-            }
-
-        }
-
+        // crop_sprite_second && (crop_sprite_second.frame = {
+        //     x: GLOBAL.screen_x * 60,
+        //     y: GLOBAL.screen_y * 30,
+        //     width: GLOBAL.DISPLAY_WIDTH,
+        //     height: GLOBAL.DISPLAY_HEIGHT
+        // });
 
 
     }
-
-    var mapcontainer = [], mapcontainer1 = [], mapcontainer2 = [];;
-
 
 
 
@@ -109,9 +55,9 @@ function GameMap(mapname) {
 
 
     var map_sprite, crop_sprite;
-    var map_sprite_second, crop_sprite_second;
+    // var map_sprite_second, crop_sprite_second;
     var This = this;
-    
+
 
     var setoffset = function (mapoffset) {
 
@@ -155,7 +101,7 @@ function GameMap(mapname) {
             var arrayBuffer = oReq.response; // Note: not oReq.responseText
             if (arrayBuffer)
                 window.FILECACHE[image_link] = "data:image/png;base64," + btoa([].reduce.call(new Uint8Array(arrayBuffer), function (p, c) { return p + String.fromCharCode(c) }, ''));
-            
+
             PIXI.loader.add({ name: "tex", url: "IMG/MAP/" + maptype + "/map.json", crossOrigin: true });
             PIXI.loader.on('progress', function (loader, loadedResource) {
                 This.on_load_progess && This.on_load_progess(loader.progress / 100);
@@ -197,9 +143,9 @@ function GameMap(mapname) {
 
 
 
-        for (y = 0; y < t ; y++) {
+        for (y = 0; y < t; y++) {
             for (z = 0; z < 2; z++) {
-                for (x = 0 ; x < t ; x++) {
+                for (x = 0; x < t; x++) {
                     i = x + y + z;
                     j = t - x + y;
                     if (terrian[i] && terrian[i][j]) {
@@ -227,11 +173,9 @@ function GameMap(mapname) {
         var x, y, z;
         var t = Math.round(map.dim / 2);
         var map_renderer = new PIXI.RenderTexture(window.GLOBAL.renderer, Math.floor(t) * 60, Math.floor(t) * 30);
-        var map_renderer_second = MAP_TEST_DEEP2 && (new PIXI.RenderTexture(window.GLOBAL.renderer, Math.floor(t) * 60, Math.floor(t) * 30));
 
         var minimap_renderer = new PIXI.RenderTexture(window.GLOBAL.renderer, 242, 242);
         var map_stage = new PIXI.Container();
-        var map_stage_second = MAP_TEST_DEEP2 && (new PIXI.Container());
 
         var minimap_stage = new PIXI.Container();
 
@@ -254,12 +198,6 @@ function GameMap(mapname) {
                         map_stage.addChild(sprite);
 
 
-                        if (MAP_TEST_DEEP2 && map.upper_map[i][j]) {
-                            console.log(map.terrian[i][j], map.terrian[i - 1][j - 1]);
-                            var sprite_second = new PIXI.Sprite(resources[texture_key]);
-                            sprite_second.position.set(postion.x, postion.y);
-                            map_stage_second.addChild(sprite_second);
-                        }
 
                     }
                 }
@@ -267,7 +205,6 @@ function GameMap(mapname) {
         }
 
         map_renderer.render(map_stage);
-        MAP_TEST_DEEP2 && map_renderer_second.render(map_stage_second);
 
         window.setTimeout(function () {
 
@@ -279,15 +216,6 @@ function GameMap(mapname) {
             mainstage.addChildAt(map_sprite, 0);
 
 
-
-
-            if (MAP_TEST_DEEP2) {
-                crop_sprite_second = new PIXI.Texture(map_renderer_second.baseTexture, new PIXI.Rectangle(0, 0, 200, 200));
-                map_sprite_second = new PIXI.Sprite(crop_sprite_second);
-                map_sprite_second.z_idx = 100000;
-                stage.addChild(map_sprite_second);
-
-            }
 
 
             // Render minimap
@@ -311,41 +239,12 @@ function GameMap(mapname) {
 
 
 
-    var initmapgraphich2 = function (map, loader, resources) {
-
-        var size = map.dim;
-        var i, j, xx, yy, mapt;
-        var x, y, z;
-        var t = Math.round(map.dim / 2);
-
-
-        for (y = -3; y < t + 3; y++) {
-            for (z = 0; z < 2; z++) {
-                for (x = -3; x < t + 3; x++) {
-                    i = x + y + z;
-                    j = t - x + y;
-                    mapt = map.texture[i] ? map.texture[i][j] : 0;
-                    var texture_key = `img (${mapt}).png`;
-
-                    if (mapt && resources[texture_key]) {
-                        var sprite = new PIXI.Sprite(resources[texture_key]);
-                        sprite.z_idx = map.terrian[i][j] * 10000 + (i + j) * 0.1;
-                        mapcontainer[i * size + j] = (sprite);
-                    }
-                }
-            }
-        }
-
-        FOG_GRAPGICH.setmap(map);
-        on_texture_load_done();
-    }
-
 
     var init_mapscr2pos = function (heightmap) {
         var mapscr2pos = [];
 
-        for (var i = 0 ; i < heightmap.length; i++) {
-            for (var j = 0 ; j < heightmap[i].length; j++) {
+        for (var i = 0; i < heightmap.length; i++) {
+            for (var j = 0; j < heightmap[i].length; j++) {
                 var height = heightmap[i][j];
                 var newx = Math.floor(0.2 * (5 * i + 10 - height));
                 var newy = Math.floor(0.2 * (5 * j + 10 - height));
@@ -377,10 +276,7 @@ function GameMap(mapname) {
                     calc_second_map_layer(map);
 
                     initmaptexture(map.mapgroundtable, mapinfo.type, function (loader, resources, maintexture) {
-                        if (MAP_TEST_DEEP)
-                            initmapgraphich2(map, loader, resources, maintexture);
-                        else
-                            initmapgraphich(map, loader, resources, maintexture);
+                        initmapgraphich(map, loader, resources, maintexture);
                     });
 
                     mapobject.dim = mapobject.texture.length;
@@ -463,6 +359,8 @@ function GameMap(mapname) {
         });
 
     }
+
+    
     var maplayer = document.createElement("canvas");
     var mapcontext = maplayer.getContext("2d");
     var backsceenx, backsceeny;

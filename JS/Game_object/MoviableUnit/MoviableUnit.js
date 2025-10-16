@@ -114,7 +114,7 @@ class Ground_moveable_unit extends Movealbe_unit {
                     }
                     if (this.enemy.state == STATE.MOVE || this.enemy.state == STATE.MOVE2ATTACK || this.enemy.state == STATE.MOVE2DEFENSE) {
                         var far = Math.sqrt(calcfar2(this, this.enemy)) + 3;
-                        if (!this._is_protect_area_ && performance.now() - this.group.__last_time__ > 500 / SPEED) {
+                        if (!this._is_protect_area_ && performance.now() - this.group.__last_time__ > 500 / GLOBAL.SPEED) {
                             GRID.get_grid_move_async(this.group, this.enemy, this.group.farest);
                             this.group.__last_time__ = performance.now();
                         }
@@ -201,7 +201,7 @@ class Ground_moveable_unit extends Movealbe_unit {
         var radius2 = this.group_protect.radius * this.group_protect.radius;
 
         //Process for Grouph
-        if (performance.now() - this.group_protect._time_ > 700 / SPEED) {
+        if (performance.now() - this.group_protect._time_ > 700 / GLOBAL.SPEED) {
             this.group_protect._time_ = performance.now();
             this.group_protect.list = this.group_protect.list.filter(e => e.state != STATE.DELETE);
             var far2 = Math.max.apply(Math, this.group_protect.list.map(e => calcfar2(e, pos)));

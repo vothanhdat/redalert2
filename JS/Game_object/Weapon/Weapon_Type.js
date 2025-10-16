@@ -250,7 +250,7 @@ ATTACK_TYPE.attack_super_tesla = {
 
 
 
-const _attack_rpg_step_ = Math.round(3 / SPEED);
+const _attack_rpg_step_ = Math.round(3 / GLOBAL.SPEED);
 const _attack_rpg_step_1 = _attack_rpg_step_ - 1;
 const _attack_rpg_max_his_ = (_attack_rpg_step_ + 1) * 5;
 
@@ -748,7 +748,7 @@ ATTACK_TYPE.attack_fire = {
     },
     process (object, dont_use, time) {
         if (!object.stop) {
-            if (Math.random() < 0.2 * SPEED) {
+            if (Math.random() < 0.2 * GLOBAL.SPEED) {
                 var angel = Math.atan2(object.distination.y - object.y, object.distination.x - object.x) + 0.1 * (Math.random() - 0.5);
                 var speed = 5 * (0.8 + Math.random() * 0.4);
                 GAME_OBJECT.add_instance(new ATTACK_TYPE.attack_fire.fire_particle(object.x, object.y, object.z, angel, speed, object));

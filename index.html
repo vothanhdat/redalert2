@@ -36,6 +36,23 @@
         var max_y = 0;
         var map;
         var drawtime = performance.now();
+        var GLOBAL = {
+            SPEED,
+            GRAVITY,
+            UI_WIDTH,
+            screen_width,
+            screen_height,
+            display_width,
+            display_height,
+            screen_x,
+            screen_y,
+            screen_w,
+            screen_h,
+            max_x,
+            max_y,
+            map,
+            drawtime,
+        }
 
         var renderer = PIXI.autoDetectRenderer(screen_width, screen_height, { transparent: true, antialias: false });
         renderer.view.style.position = "absolute";
@@ -167,20 +184,20 @@
 
 
             // 1.5ms
-            CONTROLER.update(deltatime * SPEED);
+            CONTROLER.update(deltatime * GLOBAL.SPEED);
 
-            map.update(deltatime * SPEED);
+            map.update(deltatime * GLOBAL.SPEED);
 
             //1.5ms
 
-            MINIMAP.update(deltatime * SPEED);
+            MINIMAP.update(deltatime * GLOBAL.SPEED);
 
 
             // 0.5ms
-            FOG_GRAPGICH.update(deltatime * SPEED);
+            FOG_GRAPGICH.update(deltatime * GLOBAL.SPEED);
 
             // 2 - 6ms
-            GAME_OBJECT.main_loop(deltatime * SPEED);
+            GAME_OBJECT.main_loop(deltatime * GLOBAL.SPEED);
 
             AUDIO.process();
 

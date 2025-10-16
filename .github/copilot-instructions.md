@@ -35,4 +35,4 @@
 - Code mixes ES5 constructors and ES6 classes but keeps everything on the global namespace; avoid module systems and maintain strict script ordering in index.html.
 - Most globals are referenced without window., so name collisions are easy; prefer long descriptive identifiers to avoid shadowing.
 - Use existing helper math functions (mySin/myCos/myAtan) for performance-sensitive loops instead of Math.* calls.
-- Maintain SPEED as the single time scale multiplier (index.html); if you add timed logic multiply by SPEED so pause/fast-forward features stay consistent.
+- Maintain GLOBAL.SPEED as the single time scale multiplier (index.html); if you add timed logic multiply by GLOBAL.SPEED so pause/fast-forward features stay consistent.

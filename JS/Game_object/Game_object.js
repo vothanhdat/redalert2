@@ -134,12 +134,12 @@ var GAME_OBJECT = new (function () {
     setInterval(function () {
         var TMP = sort_unique(GAME_OBJECT.listobject.filter(e => e instanceof Movealbe_unit).map(e => e.group))
             .forEach(e => e && e.goal && !e.listgoal && GRID.get_grid_move_async(e, e.enemy || e.goal, e.farest));
-    }, 5000 / SPEED);
+    }, 5000 / GLOBAL.SPEED);
 
 
     setInterval(function () {
         GRID.update_worker();
-    }, 120000 / SPEED);
+    }, 120000 / GLOBAL.SPEED);
 
 })();
 

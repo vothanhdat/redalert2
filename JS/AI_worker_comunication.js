@@ -150,7 +150,7 @@ var AI_Worker = function (Controler, AI_PARAM) {
 
 
     this.process = function () {
-        if (performance.now() - time_update > 80 / SPEED) {
+        if (performance.now() - time_update > 80 / GLOBAL.SPEED) {
             time_update = performance.now();
             var team = Controler.team_controler.team;
             switch (tick_update % 5) {

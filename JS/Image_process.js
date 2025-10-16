@@ -189,14 +189,14 @@ var IMAGE_PROCESS = {
         constructor(sprites, step, margin) {
             super(sprites);
             this.anchor.set(margin.x / this.width, margin.y / this.height);
-            this.originalspeed = step * SPEED;
-            this.animationSpeed = step * SPEED;
+            this.originalspeed = step * GLOBAL.SPEED;
+            this.animationSpeed = step * GLOBAL.SPEED;
         }
         changemovieclip(sprites, step) {
             this.textures = sprites;
             if (step) {
-                this.animationSpeed = step * SPEED;
-                this.originalspeed = step * SPEED;
+                this.animationSpeed = step * GLOBAL.SPEED;
+                this.originalspeed = step * GLOBAL.SPEED;
             }
         }
         pause() {

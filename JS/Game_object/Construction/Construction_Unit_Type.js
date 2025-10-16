@@ -245,7 +245,7 @@ CONSTRUCTION_TYPE.con_factory_allied = {
             if (data.name == "veh_ore_allied")
                 window.setTimeout(function (e) {
                     e.command({ com: "auto", });
-                }, 1000 / SPEED, unit);
+                }, 1000 / GLOBAL.SPEED, unit);
             unit = null;
         }
     },

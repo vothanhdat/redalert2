@@ -1129,7 +1129,7 @@ PLANE_UNIT_TYPE.plane = {
                     break;
                 case "dropping":
                     if (this.pa_number > 0) {
-                        if (Math.random() < (time * 0.15 * SPEED)) {
+                        if (Math.random() < (time * 0.15 * GLOBAL.SPEED)) {
                             this.pa_number--;
                             GAME_OBJECT.add_instance(new Parachutist(
                                 this.x + 4 * Math.random() - 2,

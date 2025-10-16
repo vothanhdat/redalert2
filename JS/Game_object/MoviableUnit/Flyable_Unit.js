@@ -295,7 +295,7 @@ class Plane_unit_failout extends Game_unit {
     process(time) {
         this.wait_smooke += time;
         time /= 60;
-        this.zv += time * GRAVITY * 0.8;
+        this.zv += time * GLOBAL.GRAVITY * 0.8;
         this.x += myCos(this.original_angel) * this.v * time;
         this.y += mySin(this.original_angel) * this.v * time;
         this.z -= this.zv * time;

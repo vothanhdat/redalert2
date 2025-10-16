@@ -76,8 +76,8 @@ var FOG_GRAPGICH = new (function () {
                     break;
             }
 
-            var x = screen_x * 242 / GRID.dim1_2,
-                y = screen_y * 242 / GRID.dim1_2,
+            var x = GLOBAL.screen_x * 242 / GRID.dim1_2,
+                y = GLOBAL.screen_y * 242 / GRID.dim1_2,
                 width = display_width / 60 * 242 / GRID.dim1_2,
                 height = display_height / 30 * 242 / GRID.dim1_2;
 
@@ -174,8 +174,8 @@ var MINIMAP = new (function () {
         switch (e.which) {
             case 1:
                 mouse_l_hold = true;
-                screen_x = x - screen_w / 2;
-                screen_y = y - screen_h / 2;
+                GLOBAL.screen_x = x - screen_w / 2;
+                GLOBAL.screen_y = y - screen_h / 2;
                 break;
             case 3:
                 var X = Math.round(x + y);
@@ -194,8 +194,8 @@ var MINIMAP = new (function () {
         if (mouse_l_hold) {
             var x = e.offsetX * GRID.dim1_2 / 242;
             var y = e.offsetY * GRID.dim1_2 / 242;
-            screen_x = x - screen_w / 2;
-            screen_y = y - screen_h / 2;
+            GLOBAL.screen_x = x - screen_w / 2;
+            GLOBAL.screen_y = y - screen_h / 2;
         }
     }
 
@@ -351,8 +351,8 @@ var MINIMAP = new (function () {
 
         graphich.lineStyle(2, 0x00FFFF);
         graphich.drawRect(
-            screen_x * draw_ratio,
-            screen_y * draw_ratio,
+            GLOBAL.screen_x * draw_ratio,
+            GLOBAL.screen_y * draw_ratio,
             screen_w * draw_ratio,
             screen_h * draw_ratio
         );

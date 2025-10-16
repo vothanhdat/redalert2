@@ -627,8 +627,8 @@ var User_Controler = function (Team_controler) {
 
         if (main_constrution) {
             var pos = convert2screenwithoutsrcpos(main_constrution.x, main_constrution.y, main_constrution.z);
-            window.screen_x = (pos.x - display_width / 2) / 60;
-            window.screen_y = (pos.y - display_height / 2) / 30;
+            window.GLOBAL.screen_x = (pos.x - display_width / 2) / 60;
+            window.GLOBAL.screen_y = (pos.y - display_height / 2) / 30;
         }
     }
 
@@ -824,8 +824,8 @@ var User_Controler = function (Team_controler) {
         this.chooselist = this.chooselist.filter(e => e.state != STATE.DELETE);
 
 
-        var back_screen_x = window.screen_x,
-            back_screen_y = window.screen_y;
+        var back_screen_x = window.GLOBAL.screen_x,
+            back_screen_y = window.GLOBAL.screen_y;
 
         if (follow_mode) {
 
@@ -834,15 +834,15 @@ var User_Controler = function (Team_controler) {
                     .reduce((a, b) => (a.x += b.x) && (a.y += b.y) && a, { x: 0, y: 0 });
                 var avg_x = (total.x / this.chooselist.length - display_width / 2) / 60;
                 var avg_y = (total.y / this.chooselist.length - display_height / 2) / 30;
-                window.screen_x += (avg_x - window.screen_x) * 0.1;
-                window.screen_y += (avg_y - window.screen_y) * 0.1;
+                window.GLOBAL.screen_x += (avg_x - window.GLOBAL.screen_x) * 0.1;
+                window.GLOBAL.screen_y += (avg_y - window.GLOBAL.screen_y) * 0.1;
 
             }
 
         } else if (!mousehold) {
-            if (mousex < conner && window.screen_x >= 0)
+            if (mousex < conner && window.GLOBAL.screen_x >= 0)
                 moveleftright -= 0.015;
-            else if (mousex + conner > window.screen_width && window.screen_x < (window.max_x - window.screen_w))
+            else if (mousex + conner > window.GLOBAL.screen_width && window.GLOBAL.screen_x < (window.GLOBAL.max_x - window.screen_w))
                 moveleftright += 0.015;
             else
                 moveleftright = 0;
@@ -850,20 +850,20 @@ var User_Controler = function (Team_controler) {
             moveupdown = Math.min(0.3, Math.max(-0.3, moveupdown));
 
 
-            if (mousey < conner && window.screen_y >= 0)
+            if (mousey < conner && window.GLOBAL.screen_y >= 0)
                 moveupdown -= 0.015 * time;
-            else if (mousey + conner > window.screen_height && window.screen_y < (window.max_y - window.screen_h))
+            else if (mousey + conner > window.GLOBAL.screen_height && window.GLOBAL.screen_y < (window.GLOBAL.max_y - window.screen_h))
                 moveupdown += 0.015 * time;
             else
                 moveupdown = 0;
 
-            window.screen_x += moveleftright * time;
-            window.screen_y += moveupdown * time;
+            window.GLOBAL.screen_x += moveleftright * time;
+            window.GLOBAL.screen_y += moveupdown * time;
         }
 
 
-        window.screen_x = Math.max(0, Math.min(window.max_x - window.screen_w, window.screen_x));
-        window.screen_y = Math.max(0, Math.min(window.max_y - window.screen_h, window.screen_y));
+        window.GLOBAL.screen_x = Math.max(0, Math.min(window.GLOBAL.max_x - window.screen_w, window.GLOBAL.screen_x));
+        window.GLOBAL.screen_y = Math.max(0, Math.min(window.GLOBAL.max_y - window.screen_h, window.GLOBAL.screen_y));
 
 
         if (is_building && building_construction && convert2codinate(mousex, mousey)) {
@@ -912,13 +912,13 @@ var User_Controler = function (Team_controler) {
 
         //Mouse curso 
         {
-            var dx = (mousex < conner) ? -1 : ((mousex + conner > window.screen_width) ? 1 : 0);
-            var dy = (mousey < conner) ? -1 : ((mousey + conner > window.screen_height) ? 1 : 0);
+            var dx = (mousex < conner) ? -1 : ((mousex + conner > window.GLOBAL.screen_width) ? 1 : 0);
+            var dy = (mousey < conner) ? -1 : ((mousey + conner > window.GLOBAL.screen_height) ? 1 : 0);
 
             var choose_ob = GAME_OBJECT.listobject.filter(e => e instanceof Game_unit)
                 .find(e => e.check_choose(mousex, mousey) && GRID.check_availble_user_fogmap(e));
             if (dx || dy) {
-                if ((back_screen_x == window.screen_x) && (back_screen_y == window.screen_y)) {
+                if ((back_screen_x == window.GLOBAL.screen_x) && (back_screen_y == window.GLOBAL.screen_y)) {
                     mouse_texture.state = mouse_texture.map.slide_coner_none;
                 } else {
                     mouse_texture.state = mouse_texture.map.slide_coner;
@@ -1453,8 +1453,8 @@ var User_Controler = function (Team_controler) {
             || GAME_OBJECT.listgameunit[this.team_controler.team].find(e => e.property.name == "veh_mcv_allied");
         if (ob) {
             var pos = convert2screenwithoutsrcpos(ob.x, ob.y, ob.z);
-            window.screen_x = (pos.x - display_width / 2) / 60;
-            window.screen_y = (pos.y - display_height / 2) / 30;
+            window.GLOBAL.screen_x = (pos.x - display_width / 2) / 60;
+            window.GLOBAL.screen_y = (pos.y - display_height / 2) / 30;
         }
 
     }

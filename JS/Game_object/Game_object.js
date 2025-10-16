@@ -147,8 +147,8 @@ var GAME_OBJECT = new (function () {
 
 function convert2screen(x, y, z) {
     return {
-        x: (((x - y + GRID.dim1_2) / 2 - screen_x) * 60),
-        y: (((x + y - GRID.dim1_2) / 2 - screen_y) * 30 - (z - 10) * 6)
+        x: (((x - y + GRID.dim1_2) / 2 - GLOBAL.screen_x) * 60),
+        y: (((x + y - GRID.dim1_2) / 2 - GLOBAL.screen_y) * 30 - (z - 10) * 6)
     }
 }
 
@@ -160,8 +160,8 @@ function convert2screenwithoutsrcpos(x, y, z) {
 }
 
 function convert2codinate(x, y) {
-    x = (x / 60 + window.screen_x);
-    y = (y / 30 + window.screen_y);
+    x = (x / 60 + window.GLOBAL.screen_x);
+    y = (y / 30 + window.GLOBAL.screen_y);
     var X = Math.round(x + y);
     var Y = Math.round(GRID.dim1_2 - x + y);
     try {

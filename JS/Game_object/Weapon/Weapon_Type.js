@@ -190,9 +190,9 @@ ATTACK_TYPE.attack_tesla = {
     },
     draw (object, static_object) {
         var case_draw = 0;
-        if (object.pos1.x > 0 && object.pos1.y > 0 && object.pos1.x < window.screen_width && object.pos1.y < window.screen_height)
+        if (object.pos1.x > 0 && object.pos1.y > 0 && object.pos1.x < window.GLOBAL.screen_width && object.pos1.y < window.GLOBAL.screen_height)
             case_draw = 1;
-        else if (object.pos2.x > 0 && object.pos2.y > 0 && object.pos2.x < window.screen_width && object.pos2.y < window.screen_height)
+        else if (object.pos2.x > 0 && object.pos2.y > 0 && object.pos2.x < window.GLOBAL.screen_width && object.pos2.y < window.GLOBAL.screen_height)
             case_draw = 2;
 
         if (!case_draw)
@@ -345,8 +345,8 @@ ATTACK_TYPE.attack_rpg = {
                 alpha = object.his.length() / _attack_rpg_max_his_;
             }
 
-            var srcx = window.screen_x * 60;
-            var srcy = window.screen_y * 30;
+            var srcx = window.GLOBAL.screen_x * 60;
+            var srcy = window.GLOBAL.screen_y * 30;
             for (var i = arr.length - 1 ; i > _attack_rpg_step_1 && count < 5 && alpha > 0; i -= _attack_rpg_step_) {
                 var pos1 = arr[i];
                 var pos2 = arr[i - _attack_rpg_step_];
@@ -406,7 +406,7 @@ ATTACK_TYPE.attack_bomb_beag = {
     process (object, static_ob, time) {
         time /= 60;
         if (!object._delete_q) {
-            object.vz -= time * GRAVITY;
+            object.vz -= time * GLOBAL.GRAVITY;
             object.x += object.vx * time;
             object.y += object.vy * time;
             object.z += object.vz * time;
@@ -432,7 +432,7 @@ ATTACK_TYPE.attack_bomb_beag = {
         area = area || 2;
         if (ob instanceof Plane_unit) {
             var height = ob.z - destination.z;
-            var time = Math.sqrt(2 * height / GRAVITY);
+            var time = Math.sqrt(2 * height / GLOBAL.GRAVITY);
             var dis_x = ob.x + (time * ob.v * myCos(ob.angel));
             var dis_y = ob.y + (time * ob.v * mySin(ob.angel));
             var w = Math.max((destination.size ? destination.size.w : 1), area) * 0.6;
@@ -598,7 +598,7 @@ ATTACK_TYPE.attack_cannon = {
         var d = Math.sqrt(dx * dx + dy * dy);
         object.v = static_object.property.speed;
         object.conor = Math.atan2(dy, dx);
-        object.vz = (dz * object.v / d) + (GRAVITY * d) / (object.v * 2);
+        object.vz = (dz * object.v / d) + (GLOBAL.GRAVITY * d) / (object.v * 2);
         object.sprite = new PIXI.Sprite(static_object.texture);
         object.sprite.anchor.set(0.5, 0.5);
         variouscontainer.addChild(object.sprite);
@@ -608,7 +608,7 @@ ATTACK_TYPE.attack_cannon = {
     process (object, static_ob, time) {
         time *= 0.0167;
         var v = object.v * time;
-        object.vz -= time * GRAVITY;
+        object.vz -= time * GLOBAL.GRAVITY;
         object.x += Math.cos(object.conor) * v;
         object.y += Math.sin(object.conor) * v;
         object.z += object.vz * time;

@@ -33,14 +33,14 @@ function GameMap(mapname) {
     this.update = function (force) {
 
         crop_sprite && (crop_sprite.frame = {
-            x: screen_x * 60,
-            y: screen_y * 30,
+            x: GLOBAL.screen_x * 60,
+            y: GLOBAL.screen_y * 30,
             width: display_width,
             height: display_height
         });
         crop_sprite_second && (crop_sprite_second.frame = {
-            x: screen_x * 60,
-            y: screen_y * 30,
+            x: GLOBAL.screen_x * 60,
+            y: GLOBAL.screen_y * 30,
             width: display_width,
             height: display_height
         });
@@ -57,13 +57,13 @@ function GameMap(mapname) {
             mapcontainer1 = [];
 
 
-            for (var y = Math.round(screen_y - 3) ; y < screen_y + screen_h + 3; y++) {
+            for (var y = Math.round(GLOBAL.screen_y - 3) ; y < GLOBAL.screen_y + screen_h + 3; y++) {
                 for (var z = 0; z < 2; z++) {
-                    for (var x = Math.round(screen_x - 3) ; x < screen_x + screen_w + 3; x++) {
+                    for (var x = Math.round(GLOBAL.screen_x - 3) ; x < GLOBAL.screen_x + screen_w + 3; x++) {
                         i = x + y + z;
                         j = t - x + y;
-                        xx = (x - screen_x) * 60 + z * 30;
-                        yy = (y - screen_y) * 30 + z * 15;
+                        xx = (x - GLOBAL.screen_x) * 60 + z * 30;
+                        yy = (y - GLOBAL.screen_y) * 30 + z * 15;
                         var idx = i * this.dim + j;
 
                         if (this.texture[i] && (temp = this.texture[i][j]) && mapcontainer[idx]) {
@@ -386,8 +386,8 @@ function GameMap(mapname) {
                     mapobject.dim = mapobject.texture.length;
                     mapobject.maxx = mapobject.texture.length;
                     mapobject.maxy = mapobject.texture.length;
-                    window.max_x = mapobject.maxx / 2;
-                    window.max_y = mapobject.maxy / 2;
+                    window.GLOBAL.max_x = mapobject.maxx / 2;
+                    window.GLOBAL.max_y = mapobject.maxy / 2;
                     console.log("Load map Object done");
                     GRID.init(map);
                 }

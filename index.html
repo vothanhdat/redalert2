@@ -40,6 +40,7 @@
             SPEED,
             GRAVITY,
             UI_WIDTH,
+            UI_HEIGTH,
             screen_width,
             screen_height,
             display_width,
@@ -54,7 +55,7 @@
             drawtime,
         }
 
-        var renderer = PIXI.autoDetectRenderer(screen_width, screen_height, { transparent: true, antialias: false });
+        var renderer = PIXI.autoDetectRenderer(GLOBAL.screen_width, GLOBAL.screen_height, { transparent: true, antialias: false });
         renderer.view.style.position = "absolute";
         renderer.view.style.top = "0px";
         renderer.view.style.left = "0px";
@@ -150,15 +151,15 @@
         }
 
         window.onresize = function (e) {
-            screen_width = window.innerWidth;
-            screen_height = window.innerHeight;
-            display_width = screen_width - UI_WIDTH;
-            display_height = screen_height - UI_HEIGTH;
+            GLOBAL.screen_width = window.innerWidth;
+            GLOBAL.screen_height = window.innerHeight;
+            display_width = GLOBAL.screen_width - UI_WIDTH;
+            display_height = GLOBAL.screen_height - UI_HEIGTH;
             screen_w = display_width / 60;
             screen_h = display_height / 30;
             // map_layer.width = display_width;
             //map_layer.height = display_height;
-            renderer.resize(screen_width, screen_height);
+            renderer.resize(GLOBAL.screen_width, GLOBAL.screen_height);
             map && map.update(true);
             FOG_GRAPGICH && FOG_GRAPGICH.update(true);
             MINIMAP && MINIMAP.resize();
@@ -174,10 +175,10 @@
         }
 
         window.animate = function () {
-            var deltatime = (performance.now() - drawtime) / 16.67;
+            var deltatime = (performance.now() - GLOBAL.drawtime) / 16.67;
             if (deltatime > 15)
                 deltatime = 1;
-            drawtime = performance.now();
+            GLOBAL.drawtime = performance.now();
 
             graphics.clear();
             graphics2.clear();

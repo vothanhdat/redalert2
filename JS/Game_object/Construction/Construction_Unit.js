@@ -265,8 +265,8 @@ class Construction_unit extends Game_unit {
     }
 
     check_choose(x, y) {
-        var X = x + screen_x * 60;
-        var Y = y + screen_y * 30;
+        var X = x + GLOBAL.screen_x * 60;
+        var Y = y + GLOBAL.screen_y * 30;
         //return check_point_inside([X, Y], this.point_choose);
 
         if (check_point_inside([X, Y], this.point_choose) && this.property.img.normal.check_interactive && this.pos) {

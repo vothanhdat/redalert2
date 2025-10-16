@@ -1,5 +1,4 @@
-﻿/// <reference path="../../Scripts/pixi.js" />
-"use strict";
+﻿"use strict";
 
 var FOG_GRAPGICH = new (function () {
     var backsceenx, backsceeny;
@@ -127,22 +126,35 @@ var FOG_GRAPGICH = new (function () {
 
 var MINIMAP = new (function () {
     //var renderer = PIXI.autoDetectRenderer(242, 242, { transparent: true, antialias: false });
-    var renderer = new PIXI.RenderTexture(window.renderer, 242, 242);
-    var particle_renderer = new PIXI.RenderTexture(window.renderer, 242, 242);
+    var renderer = null;
+    var particle_renderer = null;
     var stage = new PIXI.Container();
     var mainstage = new PIXI.Container();
     var background_sprite = new PIXI.Sprite(new PIXI.Texture.fromImage("IMG/minimap_background.jpg"))
     var ground_sprite = new PIXI.Sprite();
     var fogmap_sprite = new PIXI.Sprite();
     var paticile = new PIXI.ParticleContainer();
-    var paticile_sprite = new PIXI.Sprite(particle_renderer);
+    var paticile_sprite = new PIXI.Sprite();
     var graphich = new PIXI.Graphics();
     var mouse_l_hold = false;
     var filter = new PIXI.filters.BlurXFilter();
     var rada_state = false;
     var rada_state_delay = 0;
 
-    var out_sprite = new PIXI.Sprite(renderer);
+    var out_sprite = new PIXI.Sprite();
+
+    function ensureRenderTargets() {
+        if (!renderer || !particle_renderer) {
+            if (!window.renderer) {
+                return false;
+            }
+            renderer = new PIXI.RenderTexture(window.renderer, 242, 242);
+            particle_renderer = new PIXI.RenderTexture(window.renderer, 242, 242);
+            out_sprite.texture = renderer;
+            paticile_sprite.texture = particle_renderer;
+        }
+        return true;
+    }
 
     mainstage.renderable = false;
     ground_sprite.renderable = false;
@@ -239,6 +251,7 @@ var MINIMAP = new (function () {
 
 
     this.get_minimap_sprite = function () {
+        ensureRenderTargets();
         out_sprite.position.x = display_width + 4;
         out_sprite.position.y = 34;
         return out_sprite;
@@ -247,6 +260,7 @@ var MINIMAP = new (function () {
 
     this.resize = function () {
         if (out_sprite) {
+            ensureRenderTargets();
             out_sprite.position.x = display_width + 4;
             out_sprite.position.y = 34;
         }
@@ -258,6 +272,7 @@ var MINIMAP = new (function () {
     * @todo update playing layout 
     */
     this.initmap = function (url) {
+        ensureRenderTargets();
         ground_sprite.texture = new PIXI.Texture.fromImage(url);
         ground_sprite.renderable = true;
         fogmap_sprite.texture = FOG_GRAPGICH.get_fog_sprite_texture();
@@ -297,6 +312,9 @@ var MINIMAP = new (function () {
     var count_render = 0;
 
     this.update = function (time) {
+        if (!ensureRenderTargets()) {
+            return;
+        }
 
 
         // #region MINIMAP EFFECT
@@ -399,7 +417,7 @@ var MINIMAP = new (function () {
         // #endregion
 
 
-        renderer.render(stage);
+    renderer.render(stage);
 
 
     }

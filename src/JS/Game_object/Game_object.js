@@ -1,11 +1,5 @@
-/// <reference path="GRID.js" />
-/// <reference path="../Image_process.js" />
-/// <reference path="../Controler.js" />
-/// <reference path="../Audio.js" />
-/// <reference path="../UI/Minimap.js" />
-/// <reference path="~/Scripts/Javascript_helper.js" />
-
-
+if (typeof globalThis.GAME_OBJECT === "undefined") {
+    (function () {
 "use strict";
 
 
@@ -277,6 +271,61 @@ class Game_object {
         s && s.add(performance.now() - t);
     }   */
 }
+
+globalThis.GAME_OBJECT = GAME_OBJECT;
+globalThis.Game_object = Game_object;
+globalThis.convert2screen = convert2screen;
+globalThis.convert2screenwithoutsrcpos = convert2screenwithoutsrcpos;
+globalThis.convert2codinate = convert2codinate;
+globalThis.checkcircle = checkcircle;
+globalThis.calcfar2 = calcfar2;
+globalThis.calcfar = calcfar;
+globalThis.calcfar2_full = calcfar2_full;
+globalThis.calcfar_full = calcfar_full;
+globalThis.sort_unique = sort_unique;
+globalThis.normal_angel = normal_angel;
+globalThis.check_available_screen = check_available_screen;
+globalThis.get_frame_idx = get_frame_idx;
+globalThis.null_func = null_func;
+globalThis.get_random = get_random;
+    })();
+}
+
+const GAME_OBJECT = globalThis.GAME_OBJECT;
+const Game_object = globalThis.Game_object;
+const convert2screen = globalThis.convert2screen;
+const convert2screenwithoutsrcpos = globalThis.convert2screenwithoutsrcpos;
+const convert2codinate = globalThis.convert2codinate;
+const checkcircle = globalThis.checkcircle;
+const calcfar2 = globalThis.calcfar2;
+const calcfar = globalThis.calcfar;
+const calcfar2_full = globalThis.calcfar2_full;
+const calcfar_full = globalThis.calcfar_full;
+const sort_unique = globalThis.sort_unique;
+const normal_angel = globalThis.normal_angel;
+const check_available_screen = globalThis.check_available_screen;
+const get_frame_idx = globalThis.get_frame_idx;
+const null_func = globalThis.null_func;
+const get_random = globalThis.get_random;
+
+export {
+    GAME_OBJECT,
+    Game_object,
+    convert2screen,
+    convert2screenwithoutsrcpos,
+    convert2codinate,
+    checkcircle,
+    calcfar2,
+    calcfar,
+    calcfar2_full,
+    calcfar_full,
+    sort_unique,
+    normal_angel,
+    check_available_screen,
+    get_frame_idx,
+    null_func,
+    get_random
+};
 
 /*
 var time_ob = new WeakMap();

@@ -6,6 +6,7 @@
 **Runtime Workflow**
 - Install dependencies once with `npm install`; use `npm run dev` for the PixiJS game (Vite serves from http://localhost:5173) and `npm run build`/`npm run preview` to exercise the production bundle.
 - Vite copies everything from `public/` to the bundle unchanged; legacy game scripts now live in `src/JS` and are copied via `vite-plugin-static-copy`, so add new global scripts under `src/JS` to keep `/JS/...` URLs stable.
+- `src/main.js` imports shims (`legacy-shims/game-core-shim`, `legacy-shims/bootstrap`) that expose `Game_Container`, `GRID`, and `GAME_OBJECT` as modules and then sequentially load the remaining legacy `/JS/...` files; add new legacy scripts to the `LEGACY_SCRIPTS` array to preserve ordering.
 - window.onload triggers GAME_MANAGER.load_texture, which pipelines PIXI.loader progress → *_Type.load_texture_done → on_texture_load_done in JS/Done.js; register new loaders before calling GAME_MANAGER.
 - JS/Done.js waits for list_wait_done flags; if you introduce new asset buckets extend list_wait_done and call on_texture_load_done(name) from the loader.
 - When testing AI or pathfinding tweaks, reload the page because workers cache scripts with random() cache busting from Scripts/JavaScript_helper.js.
@@ -33,8 +34,8 @@
 - Audio assets load through JS/Audio.js using SoundJS; keep manifest entries aligned with Audio/Music/ filenames to avoid runtime 404s.
 - Data files rely on camelCase keys but content is mostly numeric; preserve ASCII encoding and trailing newline-less text for parsing stability.
 **Build & Structure Conventions**
-- index.html now injects a minimal `/src/main.js` Vite module purely for HMR; keep legacy `<script>` order intact so globals (PIXI, CONTROLER, etc.) initialize before the inline bootstrap.
+- index.html just loads vendor libraries; `src/main.js` handles bootstrapping and guarantees legacy scripts execute sequentially via `loadLegacyScriptsSequential`.
 - Code mixes ES5 constructors and ES6 classes but keeps everything on the global namespace; avoid module systems and maintain strict script ordering in index.html.
 - Most globals are referenced without window., so name collisions are easy; prefer long descriptive identifiers to avoid shadowing.
 - Use existing helper math functions (mySin/myCos/myAtan) for performance-sensitive loops instead of Math.* calls.
-- Maintain SPEED as the single time scale multiplier (index.html); if you add timed logic multiply by SPEED so pause/fast-forward features stay consistent.
+- Maintain SPEED as the single time scale multiplier (defined in `legacy-shims/bootstrap`); if you add timed logic multiply by SPEED so pause/fast-forward features stay consistent.

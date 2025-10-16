@@ -1,3 +1,5 @@
+if (typeof globalThis.GRID === "undefined") {
+    (function () {
 "use strict";
 
 
@@ -659,3 +661,10 @@ var GRID = new (function () {
         //console.timeEnd("update_worker");
     }
 })();
+globalThis.GRID = GRID;
+    })();
+}
+
+const GRID = globalThis.GRID;
+
+export { GRID };

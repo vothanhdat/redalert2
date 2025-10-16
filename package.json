@@ -1,0 +1,10 @@
+{
+  "name": "redalert2-html5",
+  "packageManager": "yarn@4.9.2",
+  "dependencies": {
+    "vite": "^7.1.10"
+  },
+  "scripts": {
+    "dev": "vite"
+  }
+}

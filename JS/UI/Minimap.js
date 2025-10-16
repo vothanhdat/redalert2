@@ -14,9 +14,9 @@ var FOG_GRAPGICH = new (function () {
 
     this.init = function () {
 
-        render1 = new PIXI.RenderTexture(window.renderer, 242, 242);
-        render2 = new PIXI.RenderTexture(window.renderer, 242, 242);
-        render3 = new PIXI.RenderTexture(window.renderer, 242, 242);
+        render1 = new PIXI.RenderTexture(window.GLOBAL.renderer, 242, 242);
+        render2 = new PIXI.RenderTexture(window.GLOBAL.renderer, 242, 242);
+        render3 = new PIXI.RenderTexture(window.GLOBAL.renderer, 242, 242);
         fog_texture = new PIXI.Texture(render3.baseTexture, new PIXI.Rectangle(0, 0, 242, 242));
         fog_sprite = new PIXI.Sprite(fog_texture);
 
@@ -127,8 +127,8 @@ var FOG_GRAPGICH = new (function () {
 
 var MINIMAP = new (function () {
     //var renderer = PIXI.autoDetectRenderer(242, 242, { transparent: true, antialias: false });
-    var renderer = new PIXI.RenderTexture(window.renderer, 242, 242);
-    var particle_renderer = new PIXI.RenderTexture(window.renderer, 242, 242);
+    var renderer = new PIXI.RenderTexture(window.GLOBAL.renderer, 242, 242);
+    var particle_renderer = new PIXI.RenderTexture(window.GLOBAL.renderer, 242, 242);
     var stage = new PIXI.Container();
     var mainstage = new PIXI.Container();
     var background_sprite = new PIXI.Sprite(new PIXI.Texture.fromImage("IMG/minimap_background.jpg"))

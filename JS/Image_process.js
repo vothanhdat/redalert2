@@ -488,7 +488,7 @@ var IMAGE_PROCESS = {
             if (i == 0) {
                 list_texture[i] = (texture);
             } else {
-                var renderer = new PIXI.RenderTexture(window.renderer, texture.width, texture.height);
+                var renderer = new PIXI.RenderTexture(window.GLOBAL.renderer, texture.width, texture.height);
                 var stage = new PIXI.Container();
                 var sprite = new PIXI.Sprite(texture);
                 var filtercolor = new TeamColorFilter(teams[i].color[0], teams[i].color[1], teams[i].color[2]);

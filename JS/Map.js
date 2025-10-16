@@ -226,10 +226,10 @@ function GameMap(mapname) {
         var i, j, xx, yy, mapt;
         var x, y, z;
         var t = Math.round(map.dim / 2);
-        var map_renderer = new PIXI.RenderTexture(window.renderer, Math.floor(t) * 60, Math.floor(t) * 30);
-        var map_renderer_second = MAP_TEST_DEEP2 && (new PIXI.RenderTexture(window.renderer, Math.floor(t) * 60, Math.floor(t) * 30));
+        var map_renderer = new PIXI.RenderTexture(window.GLOBAL.renderer, Math.floor(t) * 60, Math.floor(t) * 30);
+        var map_renderer_second = MAP_TEST_DEEP2 && (new PIXI.RenderTexture(window.GLOBAL.renderer, Math.floor(t) * 60, Math.floor(t) * 30));
 
-        var minimap_renderer = new PIXI.RenderTexture(window.renderer, 242, 242);
+        var minimap_renderer = new PIXI.RenderTexture(window.GLOBAL.renderer, 242, 242);
         var map_stage = new PIXI.Container();
         var map_stage_second = MAP_TEST_DEEP2 && (new PIXI.Container());
 

@@ -744,7 +744,7 @@ var User_Controler = function (Team_controler) {
             this.time += time * 4;
             this.sprite.position.set(27, 21);
             this.state.process(this.time);
-            mouserenderer.render(mouse_stage);
+            GLOBAL.mouserenderer.render(mouse_stage);
         }
         this.set_direct = function (x, y) {
             var d = 0;
@@ -1095,8 +1095,8 @@ var User_Controler = function (Team_controler) {
         var X = Math.max(display_conner / 2, Math.min(innerWidth - display_conner / 2, mousex));
         var Y = Math.max(display_conner / 2, Math.min(innerHeight - display_conner / 2, mousey));
 
-        mouserenderer.view.style.left = (X - 27) + "px";
-        mouserenderer.view.style.top = (Y - 21) + "px";
+        GLOBAL.mouserenderer.view.style.left = (X - 27) + "px";
+        GLOBAL.mouserenderer.view.style.top = (Y - 21) + "px";
         //mouserenderer.render(mouse_stage);
     }
 

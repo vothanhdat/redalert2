@@ -40,6 +40,19 @@
             var max_y = 0;
             var map;
             var drawtime = performance.now();
+
+
+            var renderer = PIXI.autoDetectRenderer(SCREEN_WIDTH, SCREEN_HEIGHT, { transparent: true, antialias: false });
+            renderer.view.style.position = "absolute";
+            renderer.view.style.top = "0px";
+            renderer.view.style.left = "0px";
+
+
+            var mouserenderer = PIXI.autoDetectRenderer(55, 43, { transparent: true, antialias: false });
+            mouserenderer.view.style.position = "absolute";
+            mouserenderer.view.style.pointerEvents = "none";
+            mouserenderer.view.style.cursor = 'none';
+
             return {
                 SPEED,
                 GRAVITY,
@@ -57,19 +70,10 @@
                 max_y,
                 map,
                 drawtime,
+                renderer,
+                mouserenderer,
             }
         })()
-
-        var renderer = PIXI.autoDetectRenderer(GLOBAL.SCREEN_WIDTH, GLOBAL.SCREEN_HEIGHT, { transparent: true, antialias: false });
-        renderer.view.style.position = "absolute";
-        renderer.view.style.top = "0px";
-        renderer.view.style.left = "0px";
-
-
-        var mouserenderer = PIXI.autoDetectRenderer(55, 43, { transparent: true, antialias: false });
-        mouserenderer.view.style.position = "absolute";
-        mouserenderer.view.style.pointerEvents = "none";
-        mouserenderer.view.style.cursor = 'none';
 
 
     </script>
@@ -208,7 +212,7 @@
             AUDIO.process();
 
             //0.5 - 2ms
-            renderer.render(mainstage);
+            GLOBAL.renderer.render(mainstage);
 
             requestAnimationFrame(window.animate);
         }
@@ -246,10 +250,10 @@
                         url: "JS/UI/Playing_layout.html",
                         async: false
                     }).done(function (data) {
-                        document.body.appendChild(renderer.view);
+                        document.body.appendChild(GLOBAL.renderer.view);
                         $("body").append(data);
                         $("body")[0].style.cursor = "none";
-                        document.body.appendChild(mouserenderer.view);
+                        document.body.appendChild(GLOBAL.mouserenderer.view);
                         MENU && MENU.display_progess(false);
                         GAME_MANAGER.on_unloadmenu();
                     }).fail(function (xhr) {

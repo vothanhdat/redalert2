@@ -11,7 +11,7 @@ var CONSTRUCTION_UNIT = {
             }
         };
         var sprite = property.img.normal.sprite[0];
-        var z = new PIXI.RenderTexture(window.renderer, sprite.width, sprite.height);
+        var z = new PIXI.RenderTexture(window.GLOBAL.renderer, sprite.width, sprite.height);
         var zstage = new PIXI.Container();
         zstage.addChild(new PIXI.Sprite(sprite));
         z.render(zstage, null, true);

@@ -318,15 +318,15 @@ class GlowFilter extends PIXI.AbstractFilter {
             '}       ',
         ].join('\n');
         var uniforms = {
-            w: { type: '1f', value: 3 / display_width },
-            h: { type: '1f', value: 3 / display_height }
+            w: { type: '1f', value: 3 / GLOBAL.DISPLAY_WIDTH },
+            h: { type: '1f', value: 3 / GLOBAL.DISPLAY_HEIGHT }
         };
         super(vertexShader, fragmentShader, uniforms);
 
     }
     applyFilter(renderer, input, output, clear) {
-        this.uniforms.w.value = 3 / display_width;
-        this.uniforms.h.value = 3 / display_height;
+        this.uniforms.w.value = 3 / GLOBAL.DISPLAY_WIDTH;
+        this.uniforms.h.value = 3 / GLOBAL.DISPLAY_HEIGHT;
         super.applyFilter(renderer, input, output, clear);
     }
 };
@@ -383,15 +383,15 @@ class GlowFilter2 extends PIXI.AbstractFilter {
             '}       ',
         ].join('\n');
         var uniforms = {
-            w: { type: '1f', value: 6 / display_width },
-            h: { type: '1f', value: 6 / display_height }
+            w: { type: '1f', value: 6 / GLOBAL.DISPLAY_WIDTH },
+            h: { type: '1f', value: 6 / GLOBAL.DISPLAY_HEIGHT }
         };
         super(vertexShader, fragmentShader, uniforms);
 
     }
     applyFilter(renderer, input, output, clear) {
-        this.uniforms.w.value = 8 / display_width;
-        this.uniforms.h.value = 8 / display_height;
+        this.uniforms.w.value = 8 / GLOBAL.DISPLAY_WIDTH;
+        this.uniforms.h.value = 8 / GLOBAL.DISPLAY_HEIGHT;
         super.applyFilter(renderer, input, output, clear);
     }
 };

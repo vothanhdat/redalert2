@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <title></title>
 
@@ -20,42 +21,46 @@
     <script>
 
         // This is static share variable, do not change if not nessecible
-        var SPEED = 1.5;
 
-        var GRAVITY = 20;
-        var UI_WIDTH = 250, UI_HEIGTH = 30;
-        var screen_width = window.innerWidth;
-        var screen_height = window.innerHeight;
-        var display_width = screen_width - UI_WIDTH;
-        var display_height = screen_height - UI_HEIGTH;
-        var screen_x = 0;
-        var screen_y = 0;
-        var screen_w = display_width / 60;
-        var screen_h = display_height / 30;
-        var max_x = 0;
-        var max_y = 0;
-        var map;
-        var drawtime = performance.now();
-        var GLOBAL = {
-            SPEED,
-            GRAVITY,
-            UI_WIDTH,
-            UI_HEIGTH,
-            screen_width,
-            screen_height,
-            display_width,
-            display_height,
-            screen_x,
-            screen_y,
-            screen_w,
-            screen_h,
-            max_x,
-            max_y,
-            map,
-            drawtime,
-        }
+        var GLOBAL = (() => {
 
-        var renderer = PIXI.autoDetectRenderer(GLOBAL.screen_width, GLOBAL.screen_height, { transparent: true, antialias: false });
+            var SPEED = 1.5;
+
+            var GRAVITY = 20;
+            var UI_WIDTH = 250, UI_HEIGTH = 30;
+            var SCREEN_WIDTH = window.innerWidth;
+            var SCREEN_HEIGHT = window.innerHeight;
+            var DISPLAY_WIDTH = SCREEN_WIDTH - UI_WIDTH;
+            var DISPLAY_HEIGHT = SCREEN_HEIGHT - UI_HEIGTH;
+            var screen_x = 0;
+            var screen_y = 0;
+            var screen_w = DISPLAY_WIDTH / 60;
+            var screen_h = DISPLAY_HEIGHT / 30;
+            var max_x = 0;
+            var max_y = 0;
+            var map;
+            var drawtime = performance.now();
+            return {
+                SPEED,
+                GRAVITY,
+                UI_WIDTH,
+                UI_HEIGTH,
+                SCREEN_WIDTH,
+                SCREEN_HEIGHT,
+                DISPLAY_WIDTH,
+                DISPLAY_HEIGHT,
+                screen_x,
+                screen_y,
+                screen_w,
+                screen_h,
+                max_x,
+                max_y,
+                map,
+                drawtime,
+            }
+        })()
+
+        var renderer = PIXI.autoDetectRenderer(GLOBAL.SCREEN_WIDTH, GLOBAL.SCREEN_HEIGHT, { transparent: true, antialias: false });
         renderer.view.style.position = "absolute";
         renderer.view.style.top = "0px";
         renderer.view.style.left = "0px";
@@ -151,15 +156,15 @@
         }
 
         window.onresize = function (e) {
-            GLOBAL.screen_width = window.innerWidth;
-            GLOBAL.screen_height = window.innerHeight;
-            display_width = GLOBAL.screen_width - UI_WIDTH;
-            display_height = GLOBAL.screen_height - UI_HEIGTH;
-            screen_w = display_width / 60;
-            screen_h = display_height / 30;
-            // map_layer.width = display_width;
-            //map_layer.height = display_height;
-            renderer.resize(GLOBAL.screen_width, GLOBAL.screen_height);
+            GLOBAL.SCREEN_WIDTH = window.innerWidth;
+            GLOBAL.SCREEN_HEIGHT = window.innerHeight;
+            GLOBAL.DISPLAY_WIDTH = GLOBAL.SCREEN_WIDTH - UI_WIDTH;
+            GLOBAL.DISPLAY_HEIGHT = GLOBAL.SCREEN_HEIGHT - UI_HEIGTH;
+            GLOBAL.screen_w = GLOBAL.DISPLAY_WIDTH / 60;
+            GLOBAL.screen_h = GLOBAL.DISPLAY_HEIGHT / 30;
+            // map_layer.width = GLOBAL.DISPLAY_WIDTH;
+            //map_layer.height = GLOBAL.DISPLAY_HEIGHT;
+            renderer.resize(GLOBAL.SCREEN_WIDTH, GLOBAL.SCREEN_HEIGHT);
             map && map.update(true);
             FOG_GRAPGICH && FOG_GRAPGICH.update(true);
             MINIMAP && MINIMAP.resize();
@@ -219,7 +224,7 @@
 
 
         var GAME_MANAGER = {
-            on_menu(){
+            on_menu() {
                 $.ajax({
                     url: "JS/UI/Menu.html",
                     async: false
@@ -255,7 +260,7 @@
                     MENU && MENU.set_progess(progess);
                 });
             },
-            on_unload_game(){
+            on_unload_game() {
 
             },
             load_texture() {
@@ -276,13 +281,13 @@
                 });
             },
             load_map() {
-                
+
             },
             choose_campain() {
 
             },
             choose_skrimming() {
-                
+
                 this.on_start_game();
             },
             choose_multiplayer() {
@@ -325,14 +330,14 @@
             background-color: black;
         }
 
-            div#loader progress {
-                position: absolute;
-                align-self: center;
-                width: 400px;
-                height: 30px;
-                left: calc(50% - 200px);
-                top: calc(50% + 130px);
-            }
+        div#loader progress {
+            position: absolute;
+            align-self: center;
+            width: 400px;
+            height: 30px;
+            left: calc(50% - 200px);
+            top: calc(50% + 130px);
+        }
     </style>
     <div id="loader">
         <progress value="0" max="100">

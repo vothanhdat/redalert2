@@ -78,15 +78,15 @@ var FOG_GRAPGICH = new (function () {
 
             var x = GLOBAL.screen_x * 242 / GRID.dim1_2,
                 y = GLOBAL.screen_y * 242 / GRID.dim1_2,
-                width = display_width / 60 * 242 / GRID.dim1_2,
-                height = display_height / 30 * 242 / GRID.dim1_2;
+                width = GLOBAL.DISPLAY_WIDTH / 60 * 242 / GRID.dim1_2,
+                height = GLOBAL.DISPLAY_HEIGHT / 30 * 242 / GRID.dim1_2;
 
             x = Math.max(0, Math.min(242 - width, x));
             y = Math.max(0, Math.min(242 - height, y));
 
             fog_texture.frame = { x, y, width, height };
 
-            fog_sprite.scale.set(display_width / width, display_height / height);
+            fog_sprite.scale.set(GLOBAL.DISPLAY_WIDTH / width, GLOBAL.DISPLAY_HEIGHT / height);
         }
     }
 
@@ -174,8 +174,8 @@ var MINIMAP = new (function () {
         switch (e.which) {
             case 1:
                 mouse_l_hold = true;
-                GLOBAL.screen_x = x - screen_w / 2;
-                GLOBAL.screen_y = y - screen_h / 2;
+                GLOBAL.screen_x = x - GLOBAL.screen_w / 2;
+                GLOBAL.screen_y = y - GLOBAL.screen_h / 2;
                 break;
             case 3:
                 var X = Math.round(x + y);
@@ -194,8 +194,8 @@ var MINIMAP = new (function () {
         if (mouse_l_hold) {
             var x = e.offsetX * GRID.dim1_2 / 242;
             var y = e.offsetY * GRID.dim1_2 / 242;
-            GLOBAL.screen_x = x - screen_w / 2;
-            GLOBAL.screen_y = y - screen_h / 2;
+            GLOBAL.screen_x = x - GLOBAL.screen_w / 2;
+            GLOBAL.screen_y = y - GLOBAL.screen_h / 2;
         }
     }
 
@@ -239,7 +239,7 @@ var MINIMAP = new (function () {
 
 
     this.get_minimap_sprite = function () {
-        out_sprite.position.x = display_width + 4;
+        out_sprite.position.x = GLOBAL.DISPLAY_WIDTH + 4;
         out_sprite.position.y = 34;
         return out_sprite;
     }
@@ -247,7 +247,7 @@ var MINIMAP = new (function () {
 
     this.resize = function () {
         if (out_sprite) {
-            out_sprite.position.x = display_width + 4;
+            out_sprite.position.x = GLOBAL.DISPLAY_WIDTH + 4;
             out_sprite.position.y = 34;
         }
     }
@@ -353,8 +353,8 @@ var MINIMAP = new (function () {
         graphich.drawRect(
             GLOBAL.screen_x * draw_ratio,
             GLOBAL.screen_y * draw_ratio,
-            screen_w * draw_ratio,
-            screen_h * draw_ratio
+            GLOBAL.screen_w * draw_ratio,
+            GLOBAL.screen_h * draw_ratio
         );
 
         // #endregion

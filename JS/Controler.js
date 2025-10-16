@@ -627,8 +627,8 @@ var User_Controler = function (Team_controler) {
 
         if (main_constrution) {
             var pos = convert2screenwithoutsrcpos(main_constrution.x, main_constrution.y, main_constrution.z);
-            window.GLOBAL.screen_x = (pos.x - display_width / 2) / 60;
-            window.GLOBAL.screen_y = (pos.y - display_height / 2) / 30;
+            window.GLOBAL.screen_x = (pos.x - GLOBAL.DISPLAY_WIDTH / 2) / 60;
+            window.GLOBAL.screen_y = (pos.y - GLOBAL.DISPLAY_HEIGHT / 2) / 30;
         }
     }
 
@@ -832,8 +832,8 @@ var User_Controler = function (Team_controler) {
             if (this.chooselist.length > 0) {
                 var total = this.chooselist.map(e => convert2screenwithoutsrcpos(e.x, e.y, e.z))
                     .reduce((a, b) => (a.x += b.x) && (a.y += b.y) && a, { x: 0, y: 0 });
-                var avg_x = (total.x / this.chooselist.length - display_width / 2) / 60;
-                var avg_y = (total.y / this.chooselist.length - display_height / 2) / 30;
+                var avg_x = (total.x / this.chooselist.length - GLOBAL.DISPLAY_WIDTH / 2) / 60;
+                var avg_y = (total.y / this.chooselist.length - GLOBAL.DISPLAY_HEIGHT / 2) / 30;
                 window.GLOBAL.screen_x += (avg_x - window.GLOBAL.screen_x) * 0.1;
                 window.GLOBAL.screen_y += (avg_y - window.GLOBAL.screen_y) * 0.1;
 
@@ -842,7 +842,7 @@ var User_Controler = function (Team_controler) {
         } else if (!mousehold) {
             if (mousex < conner && window.GLOBAL.screen_x >= 0)
                 moveleftright -= 0.015;
-            else if (mousex + conner > window.GLOBAL.screen_width && window.GLOBAL.screen_x < (window.GLOBAL.max_x - window.screen_w))
+            else if (mousex + conner > window.GLOBAL.SCREEN_WIDTH && window.GLOBAL.screen_x < (window.GLOBAL.max_x - window.GLOBAL.screen_w))
                 moveleftright += 0.015;
             else
                 moveleftright = 0;
@@ -852,7 +852,7 @@ var User_Controler = function (Team_controler) {
 
             if (mousey < conner && window.GLOBAL.screen_y >= 0)
                 moveupdown -= 0.015 * time;
-            else if (mousey + conner > window.GLOBAL.screen_height && window.GLOBAL.screen_y < (window.GLOBAL.max_y - window.screen_h))
+            else if (mousey + conner > window.GLOBAL.SCREEN_HEIGHT && window.GLOBAL.screen_y < (window.GLOBAL.max_y - window.GLOBAL.screen_h))
                 moveupdown += 0.015 * time;
             else
                 moveupdown = 0;
@@ -862,8 +862,8 @@ var User_Controler = function (Team_controler) {
         }
 
 
-        window.GLOBAL.screen_x = Math.max(0, Math.min(window.GLOBAL.max_x - window.screen_w, window.GLOBAL.screen_x));
-        window.GLOBAL.screen_y = Math.max(0, Math.min(window.GLOBAL.max_y - window.screen_h, window.GLOBAL.screen_y));
+        window.GLOBAL.screen_x = Math.max(0, Math.min(window.GLOBAL.max_x - window.GLOBAL.screen_w, window.GLOBAL.screen_x));
+        window.GLOBAL.screen_y = Math.max(0, Math.min(window.GLOBAL.max_y - window.GLOBAL.screen_h, window.GLOBAL.screen_y));
 
 
         if (is_building && building_construction && convert2codinate(mousex, mousey)) {
@@ -912,8 +912,8 @@ var User_Controler = function (Team_controler) {
 
         //Mouse curso 
         {
-            var dx = (mousex < conner) ? -1 : ((mousex + conner > window.GLOBAL.screen_width) ? 1 : 0);
-            var dy = (mousey < conner) ? -1 : ((mousey + conner > window.GLOBAL.screen_height) ? 1 : 0);
+            var dx = (mousex < conner) ? -1 : ((mousex + conner > window.GLOBAL.SCREEN_WIDTH) ? 1 : 0);
+            var dy = (mousey < conner) ? -1 : ((mousey + conner > window.GLOBAL.SCREEN_HEIGHT) ? 1 : 0);
 
             var choose_ob = GAME_OBJECT.listobject.filter(e => e instanceof Game_unit)
                 .find(e => e.check_choose(mousex, mousey) && GRID.check_availble_user_fogmap(e));
@@ -1057,10 +1057,10 @@ var User_Controler = function (Team_controler) {
 
         var filter = function (e) {
             if (e instanceof Movealbe_unit && unit.property == e.property && unit.team == e.team) {
-                if (chooseall || (e.pos && e.pos.x > 0 && e.pos.x < display_width && e.pos.y > 0 && e.pos.y < display_height))
+                if (chooseall || (e.pos && e.pos.x > 0 && e.pos.x < GLOBAL.DISPLAY_WIDTH && e.pos.y > 0 && e.pos.y < GLOBAL.DISPLAY_HEIGHT))
                     return true;
             } else if (e instanceof Construction_unit && unit.property == e.property && unit.team == e.team) {
-                if (chooseall || (e.pos && e.pos.x > 0 && e.pos.x < display_width && e.pos.y > 0 && e.pos.y < display_height))
+                if (chooseall || (e.pos && e.pos.x > 0 && e.pos.x < GLOBAL.DISPLAY_WIDTH && e.pos.y > 0 && e.pos.y < GLOBAL.DISPLAY_HEIGHT))
                     return true;
             }
             return false;
@@ -1103,7 +1103,7 @@ var User_Controler = function (Team_controler) {
 
     this.onmousedown = function (event) {
         this.__add_tree_mode__ && this.__add_tree_mode__.onmousedown(event);
-        if (event.x > display_width || event.y > display_height)
+        if (event.x > GLOBAL.DISPLAY_WIDTH || event.y > GLOBAL.DISPLAY_HEIGHT)
             return;
         switch (event.which) {
             case 1:
@@ -1347,7 +1347,7 @@ var User_Controler = function (Team_controler) {
                         if (e instanceof Game_unit
                             && index_type_name[e.property.name]
                             && e.team == this.team_controler.team
-                            && e.pos && e.pos.x > 0 && e.pos.x < display_width && e.pos.y > 0 && e.pos.y < display_height) {
+                            && e.pos && e.pos.x > 0 && e.pos.x < GLOBAL.DISPLAY_WIDTH && e.pos.y > 0 && e.pos.y < GLOBAL.DISPLAY_HEIGHT) {
                             list_choose.push(e);
                         }
                     }
@@ -1409,7 +1409,7 @@ var User_Controler = function (Team_controler) {
                     if (e instanceof Game_unit
                         && e.team == this.team_controler.team
                         && e.property.property.attack_dam
-                        && e.pos && e.pos.x > 0 && e.pos.x < display_width && e.pos.y > 0 && e.pos.y < display_height) {
+                        && e.pos && e.pos.x > 0 && e.pos.x < GLOBAL.DISPLAY_WIDTH && e.pos.y > 0 && e.pos.y < GLOBAL.DISPLAY_HEIGHT) {
                         list_choose.push(e);
                     }
                 }
@@ -1453,8 +1453,8 @@ var User_Controler = function (Team_controler) {
             || GAME_OBJECT.listgameunit[this.team_controler.team].find(e => e.property.name == "veh_mcv_allied");
         if (ob) {
             var pos = convert2screenwithoutsrcpos(ob.x, ob.y, ob.z);
-            window.GLOBAL.screen_x = (pos.x - display_width / 2) / 60;
-            window.GLOBAL.screen_y = (pos.y - display_height / 2) / 30;
+            window.GLOBAL.screen_x = (pos.x - GLOBAL.DISPLAY_WIDTH / 2) / 60;
+            window.GLOBAL.screen_y = (pos.y - GLOBAL.DISPLAY_HEIGHT / 2) / 30;
         }
 
     }

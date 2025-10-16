@@ -190,9 +190,9 @@ ATTACK_TYPE.attack_tesla = {
     },
     draw (object, static_object) {
         var case_draw = 0;
-        if (object.pos1.x > 0 && object.pos1.y > 0 && object.pos1.x < window.GLOBAL.screen_width && object.pos1.y < window.GLOBAL.screen_height)
+        if (object.pos1.x > 0 && object.pos1.y > 0 && object.pos1.x < window.GLOBAL.SCREEN_WIDTH && object.pos1.y < window.GLOBAL.SCREEN_HEIGHT)
             case_draw = 1;
-        else if (object.pos2.x > 0 && object.pos2.y > 0 && object.pos2.x < window.GLOBAL.screen_width && object.pos2.y < window.GLOBAL.screen_height)
+        else if (object.pos2.x > 0 && object.pos2.y > 0 && object.pos2.x < window.GLOBAL.SCREEN_WIDTH && object.pos2.y < window.GLOBAL.SCREEN_HEIGHT)
             case_draw = 2;
 
         if (!case_draw)

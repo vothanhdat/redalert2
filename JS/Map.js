@@ -35,14 +35,14 @@ function GameMap(mapname) {
         crop_sprite && (crop_sprite.frame = {
             x: GLOBAL.screen_x * 60,
             y: GLOBAL.screen_y * 30,
-            width: display_width,
-            height: display_height
+            width: GLOBAL.DISPLAY_WIDTH,
+            height: GLOBAL.DISPLAY_HEIGHT
         });
         crop_sprite_second && (crop_sprite_second.frame = {
             x: GLOBAL.screen_x * 60,
             y: GLOBAL.screen_y * 30,
-            width: display_width,
-            height: display_height
+            width: GLOBAL.DISPLAY_WIDTH,
+            height: GLOBAL.DISPLAY_HEIGHT
         });
 
         if (MAP_TEST_DEEP) {
@@ -57,9 +57,9 @@ function GameMap(mapname) {
             mapcontainer1 = [];
 
 
-            for (var y = Math.round(GLOBAL.screen_y - 3) ; y < GLOBAL.screen_y + screen_h + 3; y++) {
+            for (var y = Math.round(GLOBAL.screen_y - 3) ; y < GLOBAL.screen_y + GLOBAL.screen_h + 3; y++) {
                 for (var z = 0; z < 2; z++) {
-                    for (var x = Math.round(GLOBAL.screen_x - 3) ; x < GLOBAL.screen_x + screen_w + 3; x++) {
+                    for (var x = Math.round(GLOBAL.screen_x - 3) ; x < GLOBAL.screen_x + GLOBAL.screen_w + 3; x++) {
                         i = x + y + z;
                         j = t - x + y;
                         xx = (x - GLOBAL.screen_x) * 60 + z * 30;

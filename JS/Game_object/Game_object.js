@@ -227,7 +227,7 @@ function normal_angel(angel) {
 function check_available_screen(scr, hw, hh) {
     hw = hw || 0;
     hh = hh || 0;
-    return (scr.x > -hw && scr.y > -hh && scr.x < display_width + hw && scr.y < display_height + hh);
+    return (scr.x > -hw && scr.y > -hh && scr.x < GLOBAL.DISPLAY_WIDTH + hw && scr.y < GLOBAL.DISPLAY_HEIGHT + hh);
 }
 
 function get_frame_idx(angel, max) {

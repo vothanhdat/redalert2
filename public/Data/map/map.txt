@@ -1,0 +1,8 @@
+TEAM 50 50 0 0
+TEAM 70 70 0 1
+
+Mine 82 66 0 MAP_OBJECT_TYPE goldmine
+Mine 85 63 0 MAP_OBJECT_TYPE goldmine
+Mine 89 67 0 MAP_OBJECT_TYPE goldmine
+Mine 85 60 0 MAP_OBJECT_TYPE goldmine
+Mine 87 60 0 MAP_OBJECT_TYPE goldmine

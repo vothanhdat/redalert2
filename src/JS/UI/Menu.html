@@ -1,0 +1,150 @@
+<style>
+    body {
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+    }
+
+    .MENU {
+        width: 100%;
+        height: 100%;
+        background-image: url(../../IMG/menu_background.jpg);
+        background-size:cover;
+        position: absolute;
+        padding: 0;
+        margin: 0;
+    }
+
+        .MENU #playing-item {
+            position: absolute;
+            left: calc(50% - 140px);
+            top: calc(50% - 120px);
+            list-style-type: none;
+            padding: 0;
+        }
+
+            .MENU #playing-item li div {
+                text-align: center;
+                margin: 30px 30px 30px 30px;
+                display: inline-block;
+            }
+
+
+        .MENU #PROGESS progress {
+            width: calc(100% - 30px);
+            left: 15px;
+            height: 25px;
+            bottom: 10px;
+            position: absolute;
+        }
+
+    ul#menu {
+        text-align: center;
+    }
+
+        ul#menu li {
+            margin: 140px 40px 40px 40px;
+            display: inline-block;
+            transition: all 0.2s;
+            filter: brightness(70%) grayscale(0.8);
+            -webkit-filter: brightness(70%) grayscale(0.8); 
+            -moz-filter: brightness(70%) grayscale(0.8); 
+            -ms-filter: brightness(70%) grayscale(0.8);
+        }
+
+            ul#menu li:hover {
+                filter: brightness(100%);
+                -webkit-filter: brightness(100%);
+                -moz-filter: brightness(100%);
+                -ms-filter: brightness(100%);
+                transform: scale(1.05);
+                -moz-transform: scale(1.05);  
+                -webkit-transform: scale(1.05); 
+                -o-transform: scale(1.05); 
+
+            }
+
+    ul#menu_1 {
+        text-align: center;
+    }
+
+        ul#menu_1 li {
+            margin: 10px 10px 10px 10px;
+            display: inline-block;
+              transition: all 0.15s;
+
+        }
+        
+        ul#menu_1 li:hover{
+             transform: scale(1.1);
+        }
+</style>
+
+<script>
+    var MENU = {
+        choose_campain() {
+
+        },
+        choose_skrimming() {
+            GAME_MANAGER.choose_skrimming();
+            var list = $(".MENU #menu li");
+            for (var i = 0 ; i < list.length; i++) {
+                list[i].style.opacity = 0;
+                list[i].style.pointerEvents = "none";
+            }
+        },
+        choose_multiplayer() {
+
+        },
+        choose_setting() {
+
+        },
+        choose_about() {
+
+        },
+        display_progess(value) {
+            $(".MENU #PROGESS progress")[0].style.display = value ? "" : "none";
+        },
+        set_progess(value) {
+            console.log("MAP ", value);
+            $(".MENU #PROGESS progress")[0].value = value * 100;
+        },
+
+    }
+</script>
+
+<div class="MENU">
+    <ul id="menu">
+        <li>
+            <div onclick="MENU.choose_campain()"> <img src="../../IMG/menu/campain.png" /></div>
+        </li>
+        <li>
+            <div onclick="MENU.choose_skrimming()"><img src="../../IMG/menu/skirmish.png" /></div>
+        </li>
+        <li>
+            <div onclick="MENU.choose_multiplayer()"><img src="../../IMG/menu/multiplayer.png" /></div>
+        </li>
+
+    </ul>
+    <div>
+        <ul id="menu_1">
+            <li>
+                <div onclick="MENU.choose_skrimming()"><img src="../../IMG/menu/button_about_1.png" height="70" width="70" /></div>
+            </li>
+            <li>
+                <div onclick="MENU.choose_multiplayer()"><img src="../../IMG/menu/button_setting.png" height="70" width="70" /></div>
+            </li>
+        </ul>
+    </div>
+    <div id="setting" onclick="MENU.choose_setting()">
+
+    </div>
+    <div id="about" onclick="MENU.choose_about()">
+
+    </div>
+    <div id="PROGESS">
+        <progress value="0" max="100" style="display:none">
+        </progress>
+    </div>
+
+</div>

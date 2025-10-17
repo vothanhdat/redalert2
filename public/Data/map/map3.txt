@@ -1,0 +1,1309 @@
+
+Mine 102 176 0 MAP_OBJECT_TYPE goldmine
+Mine 105 173 0 MAP_OBJECT_TYPE goldmine
+Mine 109 177 0 MAP_OBJECT_TYPE goldmine
+Mine 105 180 0 MAP_OBJECT_TYPE goldmine
+Mine 177 100 0 MAP_OBJECT_TYPE goldmine
+Mine 181 97 0 MAP_OBJECT_TYPE goldmine
+Mine 184 99 0 MAP_OBJECT_TYPE goldmine
+Mine 181 103 0 MAP_OBJECT_TYPE goldmine
+Mine 151 78 0 MAP_OBJECT_TYPE goldmine
+Mine 152 79 0 MAP_OBJECT_TYPE goldmine
+Mine 152 79 0 MAP_OBJECT_TYPE goldmine
+Mine 153 78 0 MAP_OBJECT_TYPE goldmine
+Mine 121 46 0 MAP_OBJECT_TYPE goldmine
+Mine 121 47 0 MAP_OBJECT_TYPE goldmine
+Mine 122 47 0 MAP_OBJECT_TYPE goldmine
+Mine 122 46 0 MAP_OBJECT_TYPE goldmine
+Mine 50 116 0 MAP_OBJECT_TYPE goldmine
+Mine 51 117 0 MAP_OBJECT_TYPE goldmine
+Mine 52 117 0 MAP_OBJECT_TYPE goldmine
+Mine 52 116 0 MAP_OBJECT_TYPE goldmine
+Mine 79 143 0 MAP_OBJECT_TYPE goldmine
+Mine 78 144 0 MAP_OBJECT_TYPE goldmine
+Mine 80 144 0 MAP_OBJECT_TYPE goldmine
+Mine 80 143 0 MAP_OBJECT_TYPE goldmine
+Mine 18 94 0 MAP_OBJECT_TYPE goldmine
+Mine 21 91 0 MAP_OBJECT_TYPE goldmine
+Mine 24 93 0 MAP_OBJECT_TYPE goldmine
+Mine 20 96 0 MAP_OBJECT_TYPE goldmine
+Mine 94 18 0 MAP_OBJECT_TYPE goldmine
+Mine 97 15 0 MAP_OBJECT_TYPE goldmine
+Mine 100 18 0 MAP_OBJECT_TYPE goldmine
+Mine 97 20 0 MAP_OBJECT_TYPE goldmine
+
+
+Tree 101 95 0 0
+Tree 126 169 0 0
+Tree 173 123 0 0
+Tree 131 168 0 0
+Tree 123 133 0 0
+Tree 150 70 0 2
+Tree 162 81 0 2
+Tree 155 70 0 2
+Tree 129 168 0 0
+Tree 32 75 0 0
+Tree 127 168 0 0
+Tree 175 119 0 0
+Tree 111 62 0 0
+Tree 175 124 0 0
+Tree 30 77 0 0
+Tree 176 127 0 0
+Tree 179 124 0 0
+Tree 174 118 0 0
+Tree 177 125 0 0
+Tree 172 119 0 0
+Tree 33 76 0 0
+Tree 176 125 0 0
+Tree 175 127 0 0
+Tree 126 172 0 0
+Tree 122 170 0 0
+Tree 27 66 0 0
+Tree 173 130 0 0
+Tree 176 126 0 0
+Tree 32 76 0 0
+Tree 128 167 0 0
+Tree 144 113 0 0
+Tree 130 41 0 0
+Tree 88 54 0 0
+Tree 114 50 0 0
+Tree 116 83 0 0
+Tree 114 41 0 2
+Tree 89 108 0 0
+Tree 110 65 0 0
+Tree 59 84 0 0
+Tree 94 108 0 0
+Tree 147 89 0 2
+Tree 90 130 0 0
+Tree 39 86 0 0
+Tree 90 129 0 0
+Tree 55 86 0 0
+Tree 65 79 0 0
+Tree 57 87 0 0
+Tree 64 79 0 0
+Tree 58 86 0 0
+Tree 57 86 0 0
+Tree 158 88 0 2
+Tree 114 48 0 2
+Tree 139 117 0 0
+Tree 62 82 0 0
+Tree 139 118 0 0
+Tree 56 87 0 0
+Tree 161 80 0 0
+Tree 140 117 0 0
+Tree 140 116 0 0
+Tree 121 135 0 0
+Tree 122 135 0 0
+Tree 141 115 0 0
+Tree 122 134 0 0
+Tree 84 58 0 0
+Tree 115 42 0 0
+Tree 59 85 0 0
+Tree 118 37 0 2
+Tree 146 68 0 0
+Tree 161 82 0 0
+Tree 143 113 0 0
+Tree 143 114 0 0
+Tree 119 38 0 0
+Tree 115 43 0 0
+Tree 115 45 0 0
+Tree 122 37 0 0
+Tree 115 44 0 0
+Tree 124 38 0 0
+Tree 115 46 0 0
+Tree 137 119 0 0
+Tree 145 111 0 0
+Tree 125 38 0 0
+Tree 115 47 0 0
+Tree 116 38 0 0
+Tree 146 110 0 0
+Tree 115 48 0 0
+Tree 115 40 0 0
+Tree 128 40 0 0
+Tree 90 52 0 0
+Tree 87 55 0 0
+Tree 129 41 0 0
+Tree 116 141 0 0
+Tree 126 38 0 0
+Tree 130 42 0 0
+Tree 123 38 0 0
+Tree 54 126 0 0
+Tree 81 158 0 0
+Tree 73 152 0 0
+Tree 91 146 0 0
+Tree 89 147 0 0
+Tree 57 106 0 0
+Tree 46 123 0 0
+Tree 58 104 0 0
+Tree 90 147 0 0
+Tree 44 107 0 0
+Tree 93 144 0 0
+Tree 42 107 0 0
+Tree 49 126 0 0
+Tree 44 121 0 0
+Tree 50 126 0 0
+Tree 53 107 0 0
+Tree 89 151 0 0
+Tree 55 107 0 0
+Tree 43 120 0 0
+Tree 56 107 0 0
+Tree 56 106 0 0
+Tree 85 158 0 0
+Tree 87 158 0 0
+Tree 86 158 0 0
+Tree 79 158 0 0
+Tree 89 155 0 0
+Tree 82 158 0 0
+Tree 88 158 0 0
+Tree 78 157 0 0
+Tree 89 153 0 0
+Tree 89 152 0 0
+Tree 74 153 0 0
+Tree 75 154 0 0
+Tree 89 156 0 0
+Tree 73 151 0 0
+Tree 91 145 0 0
+Tree 80 158 0 0
+Tree 73 150 0 0
+Tree 83 158 0 0
+Tree 76 155 0 0
+Tree 89 150 0 0
+Tree 93 143 0 0
+Tree 90 146 0 0
+Tree 89 149 0 0
+Tree 92 145 0 0
+Tree 92 144 0 0
+Tree 73 148 0 0
+Tree 94 143 0 0
+Tree 45 107 0 0
+Tree 42 108 0 0
+Tree 46 107 0 0
+Tree 42 115 0 0
+Tree 47 107 0 0
+Tree 48 107 0 0
+Tree 51 107 0 0
+Tree 42 114 0 0
+Tree 42 112 0 0
+Tree 42 111 0 0
+Tree 42 110 0 0
+Tree 47 124 0 0
+Tree 42 118 0 0
+Tree 50 107 0 0
+Tree 84 158 0 0
+Tree 42 109 0 0
+Tree 89 154 0 0
+Tree 89 148 0 0
+Tree 49 107 0 0
+Tree 52 107 0 0
+Tree 43 107 0 0
+Tree 57 105 0 0
+Tree 53 126 0 0
+Tree 58 105 0 0
+Tree 42 119 0 0
+Tree 73 147 0 0
+Tree 42 117 0 0
+Tree 42 113 0 0
+Tree 42 116 0 0
+Tree 52 126 0 0
+Tree 54 107 0 0
+Tree 48 125 0 0
+Tree 51 126 0 0
+Tree 77 156 0 0
+Tree 45 122 0 0
+Tree 73 149 0 0
+Tree 55 126 0 0
+Tree 114 46 0 2
+Tree 114 47 0 2
+Tree 121 37 0 2
+Tree 115 37 0 2
+Tree 116 37 0 2
+Tree 114 37 0 2
+Tree 114 42 0 2
+Tree 114 40 0 2
+Tree 114 38 0 2
+Tree 114 39 0 2
+Tree 119 37 0 2
+Tree 132 56 0 2
+Tree 132 43 0 2
+Tree 112 50 0 2
+Tree 132 53 0 2
+Tree 149 70 0 2
+Tree 132 55 0 2
+Tree 117 37 0 2
+Tree 132 57 0 2
+Tree 156 71 0 2
+Tree 125 37 0 2
+Tree 127 38 0 2
+Tree 114 45 0 2
+Tree 162 77 0 2
+Tree 162 82 0 2
+Tree 162 84 0 2
+Tree 162 85 0 2
+Tree 132 47 0 2
+Tree 162 86 0 2
+Tree 157 72 0 2
+Tree 123 37 0 2
+Tree 159 88 0 2
+Tree 132 51 0 2
+Tree 160 88 0 2
+Tree 132 54 0 2
+Tree 120 37 0 2
+Tree 129 40 0 2
+Tree 156 88 0 2
+Tree 161 88 0 2
+Tree 90 135 0 0
+Tree 149 88 0 2
+Tree 157 88 0 2
+Tree 151 88 0 2
+Tree 148 88 0 2
+Tree 89 107 0 0
+Tree 152 88 0 2
+Tree 154 70 0 2
+Tree 93 130 0 0
+Tree 161 76 0 2
+Tree 94 129 0 0
+Tree 126 37 0 2
+Tree 93 131 0 0
+Tree 94 131 0 0
+Tree 132 52 0 2
+Tree 93 133 0 0
+Tree 89 134 0 0
+Tree 93 134 0 0
+Tree 114 43 0 2
+Tree 90 131 0 0
+Tree 150 88 0 2
+Tree 90 134 0 0
+Tree 147 90 0 2
+Tree 154 88 0 2
+Tree 115 83 0 0
+Tree 161 83 0 0
+Tree 148 89 0 2
+Tree 155 71 0 0
+Tree 154 71 0 0
+Tree 110 85 0 0
+Tree 150 71 0 0
+Tree 151 71 0 0
+Tree 162 83 0 2
+Tree 151 70 0 2
+Tree 116 85 0 0
+Tree 132 48 0 2
+Tree 116 84 0 0
+Tree 162 78 0 2
+Tree 115 85 0 0
+Tree 115 84 0 0
+Tree 90 133 0 0
+Tree 89 133 0 0
+Tree 89 131 0 0
+Tree 89 129 0 0
+Tree 89 130 0 0
+Tree 110 84 0 0
+Tree 110 63 0 0
+Tree 111 64 0 0
+Tree 111 63 0 0
+Tree 160 75 0 2
+Tree 111 65 0 0
+Tree 95 109 0 0
+Tree 94 107 0 0
+Tree 162 87 0 2
+Tree 162 88 0 2
+Tree 132 49 0 2
+Tree 95 107 0 0
+Tree 94 109 0 0
+Tree 162 80 0 2
+Tree 152 70 0 2
+Tree 162 79 0 2
+Tree 149 71 0 0
+Tree 110 64 0 0
+Tree 153 88 0 2
+Tree 147 69 0 0
+Tree 132 45 0 2
+Tree 132 44 0 2
+Tree 112 51 0 2
+Tree 88 107 0 0
+Tree 128 39 0 2
+Tree 153 70 0 2
+Tree 89 109 0 0
+Tree 94 133 0 0
+Tree 109 85 0 0
+Tree 132 50 0 2
+Tree 60 84 0 0
+Tree 58 85 0 0
+Tree 110 83 0 0
+Tree 113 50 0 2
+Tree 55 87 0 0
+Tree 148 71 0 0
+Tree 153 71 0 0
+Tree 88 108 0 0
+Tree 60 83 0 0
+Tree 88 109 0 0
+Tree 61 83 0 0
+Tree 62 81 0 0
+Tree 40 86 0 0
+Tree 41 86 0 0
+Tree 95 108 0 0
+Tree 161 77 0 0
+Tree 161 81 0 0
+Tree 161 87 0 0
+Tree 66 77 0 0
+Tree 132 46 0 2
+Tree 94 130 0 0
+Tree 161 78 0 0
+Tree 161 79 0 0
+Tree 65 78 0 0
+Tree 64 80 0 0
+Tree 113 49 0 2
+Tree 61 82 0 0
+Tree 38 85 0 0
+Tree 161 84 0 0
+Tree 63 80 0 0
+Tree 63 81 0 0
+Tree 161 86 0 0
+Tree 126 174 0 0
+Tree 109 84 0 0
+Tree 138 119 0 0
+Tree 67 77 0 0
+Tree 144 112 0 0
+Tree 142 115 0 0
+Tree 155 88 0 2
+Tree 109 83 0 0
+Tree 161 85 0 0
+Tree 93 129 0 0
+Tree 138 118 0 0
+Tree 141 116 0 0
+Tree 142 114 0 0
+Tree 125 172 0 0
+Tree 152 71 0 0
+Tree 119 138 0 0
+Tree 87 56 0 0
+Tree 145 112 0 0
+Tree 146 111 0 0
+Tree 147 109 0 0
+Tree 137 120 0 0
+Tree 148 109 0 0
+Tree 116 140 0 0
+Tree 117 140 0 0
+Tree 117 139 0 0
+Tree 118 139 0 0
+Tree 119 137 0 0
+Tree 120 137 0 0
+Tree 120 136 0 0
+Tree 136 120 0 0
+Tree 123 134 0 0
+Tree 81 61 0 0
+Tree 82 61 0 0
+Tree 128 172 0 0
+Tree 84 59 0 0
+Tree 83 59 0 0
+Tree 85 58 0 0
+Tree 85 57 0 0
+Tree 118 138 0 0
+Tree 88 55 0 0
+Tree 89 54 0 0
+Tree 118 38 0 0
+Tree 86 57 0 0
+Tree 115 39 0 0
+Tree 117 38 0 0
+Tree 115 41 0 0
+Tree 121 38 0 0
+Tree 122 38 0 0
+Tree 120 38 0 0
+Tree 90 53 0 0
+Tree 115 38 0 0
+Tree 121 136 0 0
+Tree 113 51 0 0
+Tree 127 39 0 0
+Tree 131 43 0 0
+Tree 82 60 0 0
+Tree 115 49 0 0
+Tree 147 110 0 0
+Tree 91 52 0 0
+Tree 124 37 0 0
+Tree 130 168 0 0
+Tree 89 53 0 0
+Tree 125 170 0 0
+Tree 175 128 0 0
+Tree 127 170 0 0
+Tree 178 125 0 0
+Tree 175 122 0 0
+Tree 176 121 0 0
+Tree 177 126 0 0
+Tree 175 121 0 0
+Tree 177 124 0 0
+Tree 172 124 0 0
+Tree 173 128 0 0
+Tree 171 121 0 0
+Tree 173 121 0 0
+Tree 172 126 0 0
+Tree 172 118 0 0
+Tree 127 175 0 0
+Tree 171 123 0 0
+Tree 128 175 0 0
+Tree 173 118 0 0
+Tree 131 172 0 0
+Tree 129 172 0 0
+Tree 129 173 0 0
+Tree 130 173 0 0
+Tree 130 170 0 0
+Tree 128 169 0 0
+Tree 128 173 0 0
+Tree 123 169 0 0
+Tree 174 125 0 0
+Tree 124 169 0 0
+Tree 125 167 0 0
+Tree 31 78 0 0
+Tree 179 123 0 0
+Tree 128 174 0 0
+Tree 32 77 0 0
+Tree 114 44 0 2
+Tree 132 169 0 0
+Tree 66 78 0 0
+Tree 132 171 0 0
+Tree 114 49 0 2
+Tree 83 60 0 0
+Tree 177 121 0 0
+Tree 129 174 0 0
+Tree 129 171 0 0
+Tree 131 170 0 0
+Tree 130 172 0 0
+Tree 32 74 0 0
+Tree 133 170 0 0
+Tree 125 169 0 0
+Tree 121 169 0 0
+Tree 108 91 0 0
+Tree 95 99 0 0
+Tree 82 107 0 0
+Tree 95 91 0 0
+Tree 95 98 0 0
+Tree 100 107 0 0
+Tree 90 109 0 0
+Tree 102 85 0 0
+Tree 118 85 0 0
+Tree 114 64 0 0
+Tree 128 75 0 0
+Tree 85 107 0 0
+Tree 106 91 0 0
+Tree 99 107 0 0
+Tree 114 61 0 0
+Tree 95 92 0 0
+Tree 123 69 0 0
+Tree 139 86 0 0
+Tree 114 62 0 0
+Tree 140 84 0 0
+Tree 107 91 0 0
+Tree 141 85 0 0
+Tree 128 74 0 0
+Tree 140 86 0 0
+Tree 108 99 0 0
+Tree 73 117 0 0
+Tree 129 75 0 0
+Tree 73 119 0 0
+Tree 108 92 0 0
+Tree 90 107 0 0
+Tree 130 74 0 0
+Tree 123 71 0 0
+Tree 78 123 0 0
+Tree 95 100 0 0
+Tree 103 85 0 0
+Tree 115 62 0 0
+Tree 80 122 0 0
+Tree 98 107 0 0
+Tree 124 71 0 0
+Tree 139 84 0 0
+Tree 139 85 0 0
+Tree 84 107 0 0
+Tree 126 71 0 0
+Tree 79 121 0 0
+Tree 95 93 0 0
+Tree 107 101 0 0
+Tree 128 76 0 0
+Tree 117 85 0 0
+Tree 174 129 0 0
+Tree 106 85 0 0
+Tree 125 70 0 0
+Tree 125 69 0 0
+Tree 95 101 0 0
+Tree 75 118 0 0
+Tree 55 91 0 23
+Tree 96 101 0 0
+Tree 96 91 0 0
+Tree 141 86 0 0
+Tree 149 64 0 12
+Tree 114 65 0 0
+Tree 115 64 0 0
+Tree 124 70 0 0
+Tree 90 108 0 0
+Tree 97 91 0 0
+Tree 40 90 0 23
+Tree 127 71 0 0
+Tree 54 94 0 12
+Tree 42 95 0 12
+Tree 54 92 0 23
+Tree 127 72 0 0
+Tree 126 73 0 0
+Tree 95 53 0 12
+Tree 124 69 0 0
+Tree 127 73 0 0
+Tree 108 101 0 0
+Tree 74 116 0 0
+Tree 55 134 0 12
+Tree 73 116 0 0
+Tree 138 85 0 0
+Tree 121 85 0 0
+Tree 138 83 0 0
+Tree 86 107 0 0
+Tree 138 84 0 0
+Tree 136 49 0 12
+Tree 115 61 0 0
+Tree 115 60 0 0
+Tree 123 170 0 0
+Tree 105 91 0 0
+Tree 76 122 0 0
+Tree 147 71 0 0
+Tree 115 65 0 0
+Tree 79 123 0 0
+Tree 115 63 0 0
+Tree 105 85 0 0
+Tree 122 85 0 0
+Tree 74 117 0 0
+Tree 101 107 0 0
+Tree 129 74 0 0
+Tree 76 119 0 0
+Tree 96 107 0 0
+Tree 131 42 0 0
+Tree 123 70 0 0
+Tree 74 118 0 0
+Tree 97 101 0 0
+Tree 78 124 0 0
+Tree 41 93 0 23
+Tree 75 121 0 0
+Tree 137 85 0 0
+Tree 40 92 0 23
+Tree 108 100 0 0
+Tree 104 85 0 0
+Tree 122 70 0 0
+Tree 81 107 0 0
+Tree 78 122 0 0
+Tree 106 101 0 0
+Tree 114 63 0 0
+Tree 55 93 0 23
+Tree 125 73 0 0
+Tree 76 118 0 0
+Tree 161 102 0 12
+Tree 128 72 0 0
+Tree 140 87 0 0
+Tree 52 131 0 12
+Tree 178 123 0 0
+Tree 139 87 0 0
+Tree 126 74 0 0
+Tree 89 158 0 0
+Tree 119 85 0 0
+Tree 124 68 0 0
+Tree 89 157 0 0
+Tree 55 92 0 23
+Tree 40 91 0 23
+Tree 108 85 0 0
+Tree 78 121 0 0
+Tree 129 76 0 0
+Tree 120 85 0 0
+Tree 149 102 0 12
+Tree 72 118 0 0
+Tree 77 119 0 0
+Tree 83 107 0 0
+Tree 95 37 0 12
+Tree 55 90 0 23
+Tree 130 75 0 0
+Tree 41 92 0 23
+Tree 75 120 0 0
+Tree 86 56 0 0
+Tree 136 46 0 12
+Tree 54 93 0 23
+Tree 125 72 0 0
+Tree 152 64 0 12
+Tree 107 85 0 0
+Tree 123 85 0 0
+Tree 66 145 0 12
+Tree 139 83 0 0
+Tree 77 121 0 0
+Tree 114 60 0 0
+Tree 104 95 0 0
+
+
+
+
+
+
+
+MapOb 91 123 0 0 MAP_CONSTRUCTION_UNIT_TYPE building1
+MapOb 112 77 0 0 MAP_CONSTRUCTION_UNIT_TYPE building2
+MapOb 105 96 0 0 MAP_CONSTRUCTION_UNIT_TYPE building2
+MapOb 97 96 0 0 MAP_CONSTRUCTION_UNIT_TYPE building2
+MapOb 112 69 0 0 MAP_CONSTRUCTION_UNIT_TYPE building3
+MapOb 91 115 0 0 MAP_CONSTRUCTION_UNIT_TYPE building4
+
+
+MapOb 101 95 0 0 MAP_CONSTRUCTION_UNIT_TYPE building6
+MapOb 85 99 0 0 MAP_CONSTRUCTION_UNIT_TYPE building7
+MapOb 118 93 0 0 MAP_CONSTRUCTION_UNIT_TYPE building7
+
+MapOb 107 110 0 0 MAP_CONSTRUCTION_UNIT_TYPE building8
+MapOb 97 83 0 0 MAP_CONSTRUCTION_UNIT_TYPE building8
+
+MapOb 98 112 0 0 MAP_CONSTRUCTION_UNIT_TYPE cuoild
+MapOb 84 112 0 0 MAP_CONSTRUCTION_UNIT_TYPE cuoild
+MapOb 105 79 0 0 MAP_CONSTRUCTION_UNIT_TYPE cuoild
+MapOb 119 79 0 0 MAP_CONSTRUCTION_UNIT_TYPE cuoild
+MapOb 72 125 0 0 MAP_CONSTRUCTION_UNIT_TYPE cuoild
+MapOb 132 70 0 0 MAP_CONSTRUCTION_UNIT_TYPE cuoild
+MapOb 53 130 0 0 MAP_CONSTRUCTION_UNIT_TYPE cuoild
+MapOb 138 51 0 0 MAP_CONSTRUCTION_UNIT_TYPE cuoild
+
+MapOb 91 119 0 0 MAP_CONSTRUCTION_UNIT_TYPE cuairp
+
+
+MapOb 112 73 0 0 MAP_CONSTRUCTION_UNIT_TYPE cuairp
+
+
+
+TEAM 60 60 0 0
+TEAM 140 140 0 1
+
+
+
+STATIC_DEFENSE_POINT 70 73 0 0
+STATIC_DEFENSE_POINT 71 71 0 0
+STATIC_DEFENSE_POINT 74 69 0 0
+STATIC_DEFENSE_POINT 76 67 0 0
+STATIC_DEFENSE_POINT 79 65 0 0
+STATIC_DEFENSE_POINT_CENTER 74 69 0 0
+STATIC_WAYPOINT 60 69 0 0 25
+STATIC_WAYPOINT 80 80 0 0 25
+STATIC_WAYPOINT 100 100 0 0 25
+STATIC_WAYPOINT 120 120 0 0 25
+STATIC_WAYPOINT 140 140 0 0 140
+STATIC_WAYPOINT_HOME 57 69 0 0 25
+
+STATIC_DEFENSE_POINT 125 129 0 1
+STATIC_DEFENSE_POINT 127 128 0 1
+STATIC_DEFENSE_POINT 129 126 0 1
+STATIC_DEFENSE_POINT 131 124 0 1
+STATIC_DEFENSE_POINT 133 121 0 1
+STATIC_DEFENSE_POINT_CENTER 128 125 0 1
+STATIC_WAYPOINT 140 140 0 1 25 
+STATIC_WAYPOINT 120 120 0 1 25 
+STATIC_WAYPOINT 100 100 0 1 25 
+STATIC_WAYPOINT 80 80 0 1 25 
+STATIC_WAYPOINT 60 69 0 1 140
+STATIC_WAYPOINT_HOME 131 139 0 1 25
+
+
+#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Unit 76 71 0 0 VEHICLE_TYPE veh_v3rocket
+Unit 76 74 0 0 VEHICLE_TYPE veh_v3rocket
+Unit 76 71 0 0 VEHICLE_TYPE veh_v3rocket
+Unit 76 74 0 0 VEHICLE_TYPE veh_v3rocket
+Unit 76 71 0 0 VEHICLE_TYPE veh_v3rocket
+Unit 76 74 0 0 VEHICLE_TYPE veh_v3rocket
+Unit 76 71 0 0 VEHICLE_TYPE veh_v3rocket
+Unit 76 74 0 0 VEHICLE_TYPE veh_v3rocket
+
+Unit 75 74 0 0 VEHICLE_TYPE veh_firetank
+Unit 71 66 0 0 VEHICLE_TYPE veh_firetank
+
+#
+Unit 76 71 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 76 74 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 69 68 0 0 VEHICLE_TYPE veh_tesla_soviet
+Unit 74 68 0 0 VEHICLE_TYPE veh_tesla_soviet
+Unit 78 71 0 0 VEHICLE_TYPE veh_ifv_allied
+Unit 75 68 0 0 VEHICLE_TYPE veh_ifv_allied
+Unit 75 74 0 0 VEHICLE_TYPE veh_firetank
+Unit 71 66 0 0 VEHICLE_TYPE veh_firetank
+
+
+
+
+Unit 60 72 0 0 CONSTRUCTION_TYPE con_airplan_allied
+Unit 76 58 0 0 CONSTRUCTION_TYPE con_airplan_allied
+Unit 76 54 0 0 CONSTRUCTION_TYPE con_airplan_allied
+Unit 76 50 0 0 CONSTRUCTION_TYPE con_airplan_allied
+
+
+#
+
+Unit 145 145 0 1 VEHICLE_TYPE veh_rhi_soviet
+Unit 145 145 0 1 VEHICLE_TYPE veh_rhi_soviet
+Unit 145 145 0 1 VEHICLE_TYPE veh_rhi_soviet
+Unit 145 145 0 1 VEHICLE_TYPE veh_rhi_soviet
+Unit 145 145 0 1 VEHICLE_TYPE veh_rhi_soviet
+Unit 145 145 0 1 VEHICLE_TYPE veh_rhi_soviet
+Unit 145 145 0 1 VEHICLE_TYPE veh_rhi_soviet
+
+Unit 130 90 0 0 SOLIDER_TYPE sol_eng
+Unit 130 92 0 0 SOLIDER_TYPE sol_eng
+
+Unit 130 93 0 0 SOLIDER_TYPE sol_shk_soviet
+Unit 131 93 0 0 SOLIDER_TYPE sol_shk_soviet
+
+Unit 62 66 0 0 PLANE_UNIT_TYPE beag
+Unit 63 66 0 0 PLANE_UNIT_TYPE beag
+Unit 66 66 0 0 PLANE_UNIT_TYPE beag
+Unit 67 66 0 0 PLANE_UNIT_TYPE beag
+Unit 68 66 0 0 PLANE_UNIT_TYPE beag
+Unit 65 67 0 0 PLANE_UNIT_TYPE beag
+Unit 62 67 0 0 PLANE_UNIT_TYPE beag
+Unit 63 67 0 0 PLANE_UNIT_TYPE beag
+Unit 66 67 0 0 PLANE_UNIT_TYPE beag
+Unit 67 67 0 0 PLANE_UNIT_TYPE beag
+Unit 68 67 0 0 PLANE_UNIT_TYPE beag
+
+
+
+#
+Unit 100 120 0 0 PLANE_UNIT_TYPE plane
+Unit 120 100 0 0 PLANE_UNIT_TYPE plane
+
+
+Unit 76 71 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 76 74 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 69 68 0 0 VEHICLE_TYPE veh_tesla_soviet
+Unit 74 68 0 0 VEHICLE_TYPE veh_tesla_soviet
+Unit 75 73 0 0 VEHICLE_TYPE veh_tesla_soviet
+Unit 75 66 0 0 VEHICLE_TYPE veh_tesla_soviet
+Unit 69 65 0 0 VEHICLE_TYPE veh_tesla_soviet
+Unit 75 74 0 0 VEHICLE_TYPE veh_rhi_soviet
+Unit 71 66 0 0 VEHICLE_TYPE veh_rhi_soviet
+Unit 113 109 0 0 VEHICLE_TYPE veh_rhi_soviet
+Unit 72 67 0 0 VEHICLE_TYPE veh_rhi_soviet
+Unit 74 72 0 0 VEHICLE_TYPE veh_rhi_soviet
+Unit 78 71 0 0 VEHICLE_TYPE veh_rhi_soviet
+Unit 75 68 0 0 VEHICLE_TYPE veh_rhi_soviet
+Unit 76 71 0 0 VEHICLE_TYPE veh_rhi_soviet
+Unit 76 74 0 0 VEHICLE_TYPE veh_rhi_soviet
+Unit 69 68 0 0 VEHICLE_TYPE veh_ifv_allied
+Unit 72 67 0 0 VEHICLE_TYPE veh_ifv_allied
+Unit 74 72 0 0 VEHICLE_TYPE veh_ifv_allied
+Unit 78 71 0 0 VEHICLE_TYPE veh_ifv_allied
+Unit 75 68 0 0 VEHICLE_TYPE veh_ifv_allied
+Unit 76 71 0 0 VEHICLE_TYPE veh_ifv_allied
+Unit 76 74 0 0 VEHICLE_TYPE veh_ifv_allied
+Unit 69 68 0 0 VEHICLE_TYPE veh_ifv_allied
+Unit 74 68 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 76 71 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 76 74 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 69 68 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 74 68 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 75 73 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 75 66 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 69 65 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 75 74 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 71 66 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 113 109 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 72 67 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 74 72 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 78 71 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 75 68 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 76 71 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 76 74 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 69 68 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 74 68 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 75 73 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 75 66 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 69 65 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 75 74 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 71 66 0 0 VEHICLE_TYPE veh_prism_allied
+Unit 113 109 0 0 VEHICLE_TYPE veh_firetank
+Unit 75 73 0 0 VEHICLE_TYPE veh_firetank
+Unit 75 66 0 0 VEHICLE_TYPE veh_firetank
+Unit 69 65 0 0 VEHICLE_TYPE veh_firetank
+Unit 75 74 0 0 VEHICLE_TYPE veh_firetank
+Unit 71 66 0 0 VEHICLE_TYPE veh_firetank
+Unit 113 109 0 0 VEHICLE_TYPE veh_firetank
+Unit 113 110 0 0 SOLIDER_TYPE sol_spy_allied
+Unit 113 112 0 0 SOLIDER_TYPE sol_spy_allied
+Unit 113 110 0 0 SOLIDER_TYPE sol_spy_allied
+Unit 113 112 0 0 SOLIDER_TYPE sol_spy_allied
+Unit 113 110 0 0 SOLIDER_TYPE sol_spy_allied
+Unit 113 112 0 0 SOLIDER_TYPE sol_spy_allied
+Unit 113 110 0 0 SOLIDER_TYPE sol_spy_allied
+Unit 113 112 0 0 SOLIDER_TYPE sol_spy_allied
+Unit 113 110 0 0 SOLIDER_TYPE sol_snipe_soviet
+Unit 113 112 0 0 SOLIDER_TYPE sol_snipe_soviet
+Unit 113 112 0 0 SOLIDER_TYPE sol_snipe_soviet
+Unit 113 111 0 0 SOLIDER_TYPE sol_dog
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_tany
+Unit 50 72 0 0 SOLIDER_TYPE sol_eng
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+Unit 50 72 0 0 SOLIDER_TYPE sol_gi_allied
+
+Unit 133 137 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 134 137 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 132 137 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 133 139 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 133 135 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 134 136 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 132 136 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 133 138 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 129 139 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 132 142 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 134 142 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 137 140 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 138 137 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 137 134 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 134 131 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 132 130 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 128 132 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 128 136 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 129 134 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 127 135 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 126 135 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 128 137 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 130 136 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 129 134 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 130 132 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 130 130 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 128 142 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 125 136 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 130 130 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 128 142 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 125 136 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 130 130 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 128 142 0 1 VEHICLE_TYPE veh_prism_allied
+Unit 125 136 0 1 VEHICLE_TYPE veh_prism_allied

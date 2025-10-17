@@ -1,0 +1,37 @@
+gemmine	65	110
+goldmine	105	67
+gemmine	65	30
+sol_dog	62	36	1 loadmap.js:155
+sol_dog	70	39	1 loadmap.js:155
+con_cannon	67	43	1 loadmap.js:155
+sol_dog	69	42	1 loadmap.js:155
+con_ariplan_allied	74	39	1 loadmap.js:155
+con_cannon	67	49	1 loadmap.js:155
+sol_gi_allied	70	48	1 loadmap.js:155
+sol_gi_allied	71	47	1 loadmap.js:155
+sol_flakt_allied	71	48	1 loadmap.js:155
+sol_gi_allied	70	49	1 loadmap.js:155
+sol_gi_allied	72	47	1 loadmap.js:155
+sol_gi_allied	70	50	1 loadmap.js:155
+sol_gi_allied	72	48	1 loadmap.js:155
+sol_gi_allied	71	49	1 loadmap.js:155
+con_teslatower_soviet	67	53	1 loadmap.js:155
+con_barracks_allied	74	46	1 loadmap.js:155
+sol_shk_soviet	71	50	1 loadmap.js:155
+sol_gi_allied	72	49	1 loadmap.js:155
+sol_shk_soviet	72	50	1 loadmap.js:155
+con_contruction_allied	80	42	1 loadmap.js:155
+con_barracks_allied	74	50	1 loadmap.js:155
+con_teslatower_soviet	65	59	1 loadmap.js:155
+sol_dog	74	51	1 loadmap.js:155
+con_cannon	72	54	1 loadmap.js:155
+con_power_allied	81	47	1 loadmap.js:155
+con_refinery_allied	80	54	1 loadmap.js:155
+con_factory_allied	87	48	1 loadmap.js:155
+sol_dog	77	58	1 loadmap.js:155
+con_teslatower_soviet	73	63	1 loadmap.js:155
+con_cannon	79	60	1 loadmap.js:155
+con_factory_allied	88	54	1 loadmap.js:155
+sol_dog	84	61	1 loadmap.js:155
+con_tech_allied	86	61	1 loadmap.js:155
+con_primtower_allied	87	65	1 loadmap.js:155

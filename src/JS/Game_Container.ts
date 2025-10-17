@@ -1,7 +1,5 @@
 // TypeScript conversion of Game_Container
-import * as PIXI from 'pixi.js';
-
-// Access global PIXI from window
+// Use global PIXI that was set up in main.ts
 const PIXI_GLOBAL = (window as any).PIXI;
 
 // Main stage container
@@ -60,7 +58,7 @@ const air_container = new PIXI_GLOBAL.Container();
 mainstage.addChild(air_container);
 (window as any).air_container = air_container;
 
-// Cloud container
+// Cloud container (Note: 'clound' is original typo, kept for compatibility)
 const cloundcontainer = new PIXI_GLOBAL.Container();
 mainstage.addChild(cloundcontainer);
 (window as any).cloundcontainer = cloundcontainer;

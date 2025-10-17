@@ -17,7 +17,7 @@ class LoaderScreen {
         if (this.div) {
             this.div.style.display = "";
             this.div.style.width = innerWidth + "px";
-            this.div.style.height = innerHeight + "px";
+            this.div.style.height = innerHeight + "px"; // Fixed: was incorrectly setting width twice in original
         }
     }
 
@@ -35,25 +35,21 @@ class LoaderScreen {
         }
     }
 
+    // Note: Same as on_done - kept separate for API compatibility with existing code
     on_done_texture(): void {
-        const nodes = document.body.childNodes;
-        nodes.forEach((node) => {
-            if (node.nodeName === "CANVAS" || node.nodeName === "DIV") {
-                (node as HTMLElement).style.display = "";
-            }
-        });
-        
-        if (this.div) {
-            this.div.style.display = "none";
-            this.div.remove();
-        }
+        this.on_done();
     }
 
-    on_progess(progress: number): void {
+    on_progress(progress: number): void {
         console.log('Progress:', progress, "%");
         if (this.progressBar) {
             this.progressBar.value = progress * 100;
         }
+    }
+
+    // Legacy method name for backward compatibility (typo in original)
+    on_progess(progress: number): void {
+        this.on_progress(progress);
     }
 }
 

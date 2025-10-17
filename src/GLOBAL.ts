@@ -1,4 +1,4 @@
-import PIXI from "pixi.js"
+// import PIXI from "pixi.js"
 
 var GLOBAL = (() => {
 

@@ -1,10 +1,16 @@
-﻿/// <reference path="../Game_Unit.js" />
-"use strict";
+﻿
 
-
+// import PIXI from "pixi.js";
+import { IMAGE_PROCESS } from "../../Image_process";
+import { GLOBAL } from "../../GLOBAL";
+import { Game_unit } from "../../Game_Unit";
+import { GAME_OBJECT } from "../../Game_object";
+import { TEAM } from "../../Controler";
+import { CONSTRUCTION_TYPE } from "./Construction_Unit_Type";
+import { on_texture_load_done } from "../../Done"
 PIXI.loader.add({ name: "con", url: "IMG/Unit/Construction/construction.json" });
 
-var CONSTRUCTION_UNIT = {
+export const CONSTRUCTION_UNIT = {
     state_image: ["build", "run", "active", "normal", "impaired", "active_impaired", "run_impaired"],
     init_plus: function (property, listresource) {
         for (var i in property.img) {
@@ -13,7 +19,7 @@ var CONSTRUCTION_UNIT = {
             }
         };
         var sprite = property.img.normal.sprite[0];
-        var z = new PIXI.RenderTexture(window.GLOBAL.renderer, sprite.width, sprite.height);
+        var z = new PIXI.RenderTexture(GLOBAL.renderer, sprite.width, sprite.height);
         var zstage = new PIXI.Container();
         zstage.addChild(new PIXI.Sprite(sprite));
         z.render(zstage, null, true);
@@ -36,7 +42,7 @@ var CONSTRUCTION_UNIT = {
     },
     process_color_gl_done: function (textures, listresource) {
         var baseresource = listresource[0];
-        for (var i = 1 ; i < textures.length; i++) {
+        for (var i = 1; i < textures.length; i++) {
             var processresource = {};
             var baseTexture = textures[i].baseTexture;
             for (var j in baseresource) {
@@ -49,13 +55,13 @@ var CONSTRUCTION_UNIT = {
             CONSTRUCTION_UNIT.init_plus(CONSTRUCTION_TYPE[i], listresource);
         console.log(listresource);
         on_texture_load_done("construction");
-        CONSTRUCTION_UNIT = null;
+        // CONSTRUCTION_UNIT = null;
     }
 }
 
 
 
-class Construction_unit extends Game_unit {
+export class Construction_unit extends Game_unit {
 
     /**
       Constructor for a new Construction_unit
@@ -111,7 +117,7 @@ class Construction_unit extends Game_unit {
             this.changetostate(STATE.IDLE);
         */
         this.set_point_choose();
-        for(var impaire_fire of this.property.img.impaired_fire) {
+        for (var impaire_fire of this.property.img.impaired_fire) {
             let fire = new FireEffect(this, impaire_fire[0], impaire_fire[1], impaire_fire[2], EFFECT_FIRE_TYPE[impaire_fire[3]]);
             GAME_OBJECT.add_instance(fire);
             this.list_impaire_fire.push(fire);
@@ -257,7 +263,7 @@ class Construction_unit extends Game_unit {
         super.on_destroy(attackobject);
         var size = this.property.property.size;
         if (size && size.w * size.h > 1) {
-            for(var ob of this.get_element_ceil()) {
+            for (var ob of this.get_element_ceil()) {
                 (Math.random() > 0.4) && GAME_OBJECT.add_effect(ob.x, ob.y, this.z, EFFECT_TYPE.exploit2, false, true);
             }
         } else {
@@ -321,9 +327,9 @@ class Construction_unit extends Game_unit {
                 if (e_0.progess_load > 0 && TEAM[this.team].team.check_dependence(e_0)) {
                     var money = Math.min(TEAM[this.team].team.money, time * 5);
 
-                    if (TEAM[this.team].team.money  > money) {
+                    if (TEAM[this.team].team.money > money) {
                         if (((e_0.progess_load + e_0.progess - 0.001) % e_0.progess)
-                        < ((e_0.progess_load + e_0.progess - money) % e_0.progess))
+                            < ((e_0.progess_load + e_0.progess - money) % e_0.progess))
                             this.process_functional_done(e_0);
                         e_0.progess_load -= money;
                         TEAM[this.team].team.money -= money;
@@ -344,7 +350,7 @@ class Construction_unit extends Game_unit {
     }
 
     process_functional_done(data) {
-        
+
     }
 
     functional_command(command) {
@@ -393,7 +399,7 @@ class Construction_unit extends Game_unit {
         this.update_sprite();
     }
 
-    delete () {
+    delete() {
         stage.removeChild(this.sprite);
         stage.removeChild(this.sprites);
         healthcontainer.removeChild(this.healthsprite);
@@ -405,7 +411,7 @@ class Construction_unit extends Game_unit {
 }
 
 
-class Defender_Construction_unit extends Construction_unit {
+export class Defender_Construction_unit extends Construction_unit {
     constructor(x, y, z, team, property) {
         super(x, y, z, team, property);
         this.attackdone = property.property.attack_time;
@@ -423,7 +429,7 @@ class Defender_Construction_unit extends Construction_unit {
             length = listob.length;
 
 
-        for (var i = 0 ; i < length; i++) {
+        for (var i = 0; i < length; i++) {
             var ob = listob[i];
             if ((far = calcfar2_full(ob, this)) <= range2
                 && far < max) {
@@ -454,7 +460,7 @@ class Defender_Construction_unit extends Construction_unit {
             case STATE.DEFENSE:
                 this.attackload += time;
                 var range2 = Math.pow(this.property.property.range, 2);
-                if (this.enemy.state == STATE.DELETE ||  calcfar2(this.enemy, this) > range2) {
+                if (this.enemy.state == STATE.DELETE || calcfar2(this.enemy, this) > range2) {
                     this.enemy = null;
                     this.changetostate(STATE.IDLE);
                 } else if (this.attackload >= this.attackdone && this.sprites.currentFrame == 0) {
@@ -505,7 +511,7 @@ class Defender_Construction_unit extends Construction_unit {
 }
 
 
-class Buy_Construction_unit extends Construction_unit {
+export class Buy_Construction_unit extends Construction_unit {
 
     constructor(x, y, z, team, property) {
         super(x, y, z, team, property);
@@ -566,7 +572,7 @@ class Buy_Construction_unit extends Construction_unit {
         else
             healthcontainer.removeChild(this.work_point_sprite);
     }
-    delete () {
+    delete() {
         super.delete();
         healthcontainer.removeChild(this.work_point_sprite);
     }
@@ -591,7 +597,7 @@ class Buy_Construction_unit extends Construction_unit {
 }
 
 
-class Rotate_Construction_unit extends Defender_Construction_unit {
+export class Rotate_Construction_unit extends Defender_Construction_unit {
 
     constructor(x, y, z, team, property) {
         super(x, y, z, team, property);
@@ -710,7 +716,7 @@ class Rotate_Construction_unit extends Defender_Construction_unit {
         }
     }
 
-    delete () {
+    delete() {
         stage.removeChild(this.turbase_sprite);
         this.barrel_sprite && stage.removeChild(this.barrel_sprite);
         super.delete();

@@ -1,6 +1,10 @@
-﻿
+﻿// import PIXI from "pixi.js";
+import { GLOBAL } from "./GLOBAL";
+import { InverseAlpha, NoiseFilter } from "./jsHelper";
+import { TEAM } from "./Controler";
 
-var FOG_GRAPGICH = new (function () {
+
+export const FOG_GRAPGICH = new (function () {
     var backsceenx, backsceeny;
 
     this.get_fog_sprite_area = function () {
@@ -13,9 +17,9 @@ var FOG_GRAPGICH = new (function () {
 
     this.init = function () {
 
-        render1 = new PIXI.RenderTexture(window.GLOBAL.renderer, 242, 242);
-        render2 = new PIXI.RenderTexture(window.GLOBAL.renderer, 242, 242);
-        render3 = new PIXI.RenderTexture(window.GLOBAL.renderer, 242, 242);
+        render1 = new PIXI.RenderTexture(GLOBAL.renderer, 242, 242);
+        render2 = new PIXI.RenderTexture(GLOBAL.renderer, 242, 242);
+        render3 = new PIXI.RenderTexture(GLOBAL.renderer, 242, 242);
         fog_texture = new PIXI.Texture(render3.baseTexture, new PIXI.Rectangle(0, 0, 242, 242));
         fog_sprite = new PIXI.Sprite(fog_texture);
 
@@ -124,10 +128,10 @@ var FOG_GRAPGICH = new (function () {
 
 
 
-var MINIMAP = new (function () {
+export const MINIMAP = new (function () {
     //var renderer = PIXI.autoDetectRenderer(242, 242, { transparent: true, antialias: false });
-    var renderer = new PIXI.RenderTexture(window.GLOBAL.renderer, 242, 242);
-    var particle_renderer = new PIXI.RenderTexture(window.GLOBAL.renderer, 242, 242);
+    var renderer = new PIXI.RenderTexture(GLOBAL.renderer, 242, 242);
+    var particle_renderer = new PIXI.RenderTexture(GLOBAL.renderer, 242, 242);
     var stage = new PIXI.Container();
     var mainstage = new PIXI.Container();
     var background_sprite = new PIXI.Sprite(new PIXI.Texture.fromImage("IMG/minimap_background.jpg"))
@@ -137,7 +141,7 @@ var MINIMAP = new (function () {
     var paticile_sprite = new PIXI.Sprite(particle_renderer);
     var graphich = new PIXI.Graphics();
     var mouse_l_hold = false;
-    var filter = new PIXI.filters.BlurXFilter();
+    var filter = new NoiseFilter();
     var rada_state = false;
     var rada_state_delay = 0;
 

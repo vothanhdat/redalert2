@@ -3,6 +3,7 @@
   "packageManager": "yarn@4.9.2",
   "dependencies": {
     "@types/pixi.js": "3",
+    "jquery": "2.1.4",
     "pixi.js": "3",
     "vite": "^7.1.10"
   },

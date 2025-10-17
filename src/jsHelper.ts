@@ -1,5 +1,5 @@
 
-import PIXI, { RenderTarget, WebGLRenderer } from "pixi.js"
+// import PIXI, { RenderTarget, WebGLRenderer } from "pixi.js"
 import { GLOBAL } from "./GLOBAL"
 
 export enum STATE {
@@ -406,7 +406,7 @@ export class NoiseFilter extends PIXI.AbstractFilter {
 
 
 
-class InverseAlpha extends PIXI.AbstractFilter {
+export class InverseAlpha extends PIXI.AbstractFilter {
     constructor() {
         var vertexShader = undefined;
         var fragmentShader = [

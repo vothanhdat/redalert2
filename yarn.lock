@@ -1109,6 +1109,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jquery@npm:2.1.4":
+  version: 2.1.4
+  resolution: "jquery@npm:2.1.4"
+  checksum: 10c0/7c56721f3315186127984bae36dda20237a8fbc1bd48a435f2e5e87ff2593197d733351577ea6bacf5ee163e148a69e45634e23a8ebcc4825ff59c9ccfb31854
+  languageName: node
+  linkType: hard
+
 "levn@npm:~0.3.0":
   version: 0.3.0
   resolution: "levn@npm:0.3.0"
@@ -1498,6 +1505,7 @@ __metadata:
   resolution: "redalert2-html5@workspace:."
   dependencies:
     "@types/pixi.js": "npm:3"
+    jquery: "npm:2.1.4"
     pixi.js: "npm:3"
     vite: "npm:^7.1.10"
   languageName: unknown

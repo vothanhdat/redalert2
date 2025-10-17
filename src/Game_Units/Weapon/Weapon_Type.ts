@@ -2,9 +2,14 @@
 
 import { AUDIO } from "../../Audio";
 import { TEAM } from "../../CONTROLLER";
+import { firecontainer, variouscontainer } from "../../Game_Container";
 import { GAME_OBJECT } from "../../Game_object_All";
 import { GLOBAL } from "../../GLOBAL";
-import { Light_Effect_Autoscale } from "../Effect/Effect";
+import { GRID } from "../../GRID";
+import { STATE } from "../../jsHelper";
+import { UnitRegistryClass } from "../../UnitRegistry";
+import { check_available_screen, convert2screen } from "../../utils";
+import { Effect, EFFECT_TYPE, Light_Effect_Autoscale } from "../Effect/Effect";
 import { Game_weapon, WEAPON } from "./Weapon";
 
 
@@ -577,7 +582,7 @@ ATTACK_TYPE.attack_cannon = {
     },
     init (object, static_object) {
         var distination = { __proto__: object.distination };
-        if (object.distination instanceof Movealbe_unit) {
+        if (object.distination instanceof UnitRegistryClass['Movealbe_unit']) {
             var predict = static_object.predict_position(object.distination, object.x, object.y, static_object.property.speed);
             if (predict) {
                 distination.x = predict.x;
@@ -815,7 +820,7 @@ ATTACK_TYPE.attack_bomb_explorer = {
         GAME_OBJECT.add_effect(object.x, object.y, object.z, EFFECT_TYPE.exploit5);
         object.team = -1.5;
         object.on_attack = function (ob, dam) {
-            ob.health -= dam * (ob instanceof Movealbe_unit?4:1);
+            ob.health -= dam * (ob instanceof UnitRegistryClass['Movealbe_unit']?4:1);
         }
     },
     property: {

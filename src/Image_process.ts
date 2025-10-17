@@ -2,7 +2,8 @@
 import { TEAM } from "./CONTROLLER";
 import { GLOBAL } from "./GLOBAL";
 import { TeamColorFilter } from "./jsHelper";
-
+import { UnitRegistryClass } from "./UnitRegistry";
+import { createline2 } from "./utils"
 const dashtt = new PIXI.Texture.fromImage("IMG/dash.png");
 const healthtt = new PIXI.Texture.fromImage("IMG/health_1.png");
 const humtt = new PIXI.Texture.fromImage("IMG/hum.png");
@@ -371,7 +372,7 @@ export const IMAGE_PROCESS = {
      * @param {Game_unit} ob
      */
     gethealthsprite: function (ob) {
-        if (ob instanceof Movealbe_unit) {
+        if (ob instanceof UnitRegistryClass['Movealbe_unit']) {
             //#region   Movealbe_unit
             var con = new PIXI.Container();
             var sprite = new PIXI.Sprite(healthtexture[0]);
@@ -384,9 +385,9 @@ export const IMAGE_PROCESS = {
                 this._sprite2_.scale.x = health;
                 this._sprite2_.tint = calc_health_color(health);
             }
-            if (ob instanceof Solider_unit || ob instanceof Parachutist) {
+            if (ob instanceof UnitRegistryClass['Solider_unit'] || ob instanceof UnitRegistryClass['Parachutist']) {
                 con.scale.x = 0.5;
-            } else if (ob instanceof PLANE_UNIT_TYPE.beag.class) {
+            } else if (ob instanceof UnitRegistryClass["PLANE_UNIT_TYPE.beag.class"] ) {
                 con.con_sprite_0 = new PIXI.extras.TilingSprite(contain_sprite0, 0, 6);
                 con.con_sprite_1 = new PIXI.extras.TilingSprite(contain_sprite1, 0, 5);
                 con.con_sprite_1.tint = 0x00ff00;
@@ -402,7 +403,7 @@ export const IMAGE_PROCESS = {
             }
             return con;
             //#endregion
-        } else if (ob instanceof Construction_unit || ob instanceof Map_Construction_unit) {
+        } else if (ob instanceof UnitRegistryClass['Construction_unit'] || ob instanceof UnitRegistryClass['Map_Construction_unit']) {
             //#region Construction_unit or Map_Construction_unit
 
             var width = ob.size.h * 30;
@@ -441,7 +442,7 @@ export const IMAGE_PROCESS = {
             ].forEach(e => e && sprite.addChild(e) && (e.alpha = 0.7));
 
 
-            if (ob instanceof Map_Building_Construction_unit && ob.property.property.can_go_into) {
+            if (ob instanceof UnitRegistryClass['Map_Building_Construction_unit'] && ob.property.property.can_go_into) {
                 var capacity = ob.property.property.capacity;
                 sprite.list_ob = [];
                 for (var i = 0; i < capacity; i++) {

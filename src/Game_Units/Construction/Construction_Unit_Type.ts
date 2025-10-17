@@ -1,7 +1,13 @@
 ﻿/// <reference path="Construction_Unit.js" />
 "use strict";
 
+import { GAME_OBJECT } from "../../Game_object_All";
+import { GRID } from "../../GRID";
 import { IMAGE_PROCESS } from "../../Image_process";
+import { STATE } from "../../jsHelper";
+import { UnitRegistryClass } from "../../UnitRegistry";
+import { SmokeEffect } from "../Effect/Effect";
+import { VEHICLE_TYPE } from "../MoviableUnit/Vihicle_Unit/Vehicle_Unit_Type";
 import { Buy_Construction_unit, Construction_unit, Rotate_Construction_unit } from "./Construction_Unit";
 
 export const CONSTRUCTION_TYPE = {};
@@ -79,8 +85,6 @@ CONSTRUCTION_TYPE.con_contruction_allied = {
     can_change: true,
 };
 
-
-
 CONSTRUCTION_TYPE.con_power_allied = {
     name: "con_power_allied",
     type: "contruction",
@@ -109,8 +113,6 @@ CONSTRUCTION_TYPE.con_power_allied = {
     },
     require: ["con_contruction_allied"]
 }
-
-
 
 CONSTRUCTION_TYPE.con_refinery_allied = {
     name: "con_refinery_allied",
@@ -171,8 +173,6 @@ CONSTRUCTION_TYPE.con_refinery_allied = {
 }
 
 
-
-
 CONSTRUCTION_TYPE.con_barracks_allied = {
     name: "con_barracks_allied",
     type: "contruction",
@@ -204,15 +204,13 @@ CONSTRUCTION_TYPE.con_barracks_allied = {
     class: Buy_Construction_unit,
     functional: {
         get solider() {
-            return Object.keys(SOLIDER_TYPE);
+            return Object.keys(window.SOLIDER_TYPE);
         },
     },
     get functional_type() {
-        return SOLIDER_TYPE;
+        return window.SOLIDER_TYPE;
     }
 }
-
-
 
 
 CONSTRUCTION_TYPE.con_factory_allied = {
@@ -260,19 +258,9 @@ CONSTRUCTION_TYPE.con_factory_allied = {
         plane: ["zeg"]
     },
     get functional_type() {
-        return this._functional_type_ || (this._functional_type_ = Object.assign({}, VEHICLE_TYPE, PLANE_UNIT_TYPE));
+        return this._functional_type_ || (this._functional_type_ = Object.assign({}, window.VEHICLE_TYPE, window.PLANE_UNIT_TYPE));
     }
 }
-
-
-
-
-
-
-
-
-
-
 
 CONSTRUCTION_TYPE.con_airplan_allied = {
     name: "con_airplan_allied",
@@ -365,9 +353,6 @@ CONSTRUCTION_TYPE.con_airplan_allied = {
     }
 }
 
-
-
-
 CONSTRUCTION_TYPE.con_garage_allied = {
     name: "con_garage_allied",
     type: "contruction",
@@ -392,8 +377,6 @@ CONSTRUCTION_TYPE.con_garage_allied = {
     },
     require: ["con_power_allied", "con_contruction_allied", "con_refinery_allied", "con_factory_allied"],
 }
-
-
 
 CONSTRUCTION_TYPE.con_tech_allied = {
     name: "con_tech_allied",
@@ -423,8 +406,6 @@ CONSTRUCTION_TYPE.con_tech_allied = {
     require: ["con_power_allied", "con_contruction_allied", "con_airplan_allied", "con_refinery_allied", "con_factory_allied"],
 }
 
-
-
 CONSTRUCTION_TYPE.pillbox = {
     name: "pillbox",
     type: "contruction_denfense",
@@ -453,10 +434,6 @@ CONSTRUCTION_TYPE.pillbox = {
     },
     require: ["con_refinery_allied", "con_barracks_allied"]
 }
-
-
-
-
 
 CONSTRUCTION_TYPE.con_air_missle = {
     name: "con_air_missle",
@@ -505,8 +482,6 @@ CONSTRUCTION_TYPE.con_air_missle = {
 }
 
 
-
-
 CONSTRUCTION_TYPE.con_primtower_allied = {
     name: "con_primtower_allied",
     type: "contruction_denfense",
@@ -544,9 +519,6 @@ CONSTRUCTION_TYPE.con_primtower_allied = {
 
 }
 
-
-
-
 CONSTRUCTION_TYPE.con_teslatower_soviet = {
     name: "con_teslatower_soviet",
     type: "contruction_denfense",
@@ -581,8 +553,6 @@ CONSTRUCTION_TYPE.con_teslatower_soviet = {
     },
     require: ["con_contruction_allied", "con_power_allied", "con_factory_allied", "con_tech_allied"]
 }
-
-
 
 
 CONSTRUCTION_TYPE.con_super_cannon = {
@@ -643,6 +613,15 @@ CONSTRUCTION_TYPE.con_super_cannon = {
     },
     require: ["con_contruction_allied", "con_power_allied", "con_factory_allied", "con_tech_allied"]
 }
+
+for(let i in CONSTRUCTION_TYPE){
+    UnitRegistryClass[`CONSTRUCTION_TYPE.${i}.class`] = CONSTRUCTION_TYPE[i].class;
+
+    // console.log({UnitRegistryClass})
+
+}
+
+window.CONSTRUCTION_TYPE = CONSTRUCTION_TYPE
 
 
 

@@ -1,4 +1,9 @@
-﻿import { Solider_unit } from "./Solider_Unit";
+﻿import { AUDIO } from "../../../Audio";
+import { GRID } from "../../../GRID";
+import { STATE } from "../../../jsHelper";
+import { check_available_screen, checkcircle } from "../../../utils";
+import { MOVEABLE_UNIT } from "../MoviableUnit";
+import { Solider_unit } from "./Solider_Unit";
 
 var SOLIDER_AUDIO_TYPE = {
     die0: "Audio/igidia.wav",
@@ -976,3 +981,5 @@ SOLIDER_TYPE.sol_tany = {
         range: 13,
     }
 }
+
+window.SOLIDER_TYPE = SOLIDER_TYPE

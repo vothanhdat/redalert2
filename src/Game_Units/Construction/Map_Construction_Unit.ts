@@ -7,6 +7,11 @@ import { Construction_unit } from "./Construction_Unit";
 import { Map_scrap_Base } from "../../Game_object";
 import { on_texture_load_done } from "../../Done";
 import { GAME_OBJECT } from "../../Game_object_All";
+import { UnitRegistryClass } from "../../UnitRegistry";
+import { AUDIO } from "../../Audio";
+import { STATE } from "../../jsHelper";
+import { checkcircle } from "../../utils";
+import { Weapon } from "../Weapon/Weapon";
 
 PIXI.loader.add({ name: "mapcon", url: "IMG/Unit/MapConstruction/img.json" });
 
@@ -143,15 +148,15 @@ export class Map_Building_Construction_unit extends Map_Construction_unit {
     }
 
     fire() {
-        this.enemy && GAME_OBJECT.add_instance(new Weapon(this, this.enemy, ATTACK_TYPE[this.property.property.attack_type]));
+        this.enemy && GAME_OBJECT.add_instance(new Weapon(this, this.enemy, window.ATTACK_TYPE[this.property.property.attack_type]));
     }
 
     scan_enemy() {
-        return Defender_Construction_unit.prototype.scan_enemy.call(this);
+        return UnitRegistryClass['Defender_Construction_unit'].prototype.scan_enemy.call(this);
     }
 
     filter_enemy(ob) {
-        return (ob instanceof Ground_moveable_unit || ob instanceof Construction_unit);
+        return (ob instanceof UnitRegistryClass['Ground_moveable_unit'] || ob instanceof UnitRegistryClass['Construction_unit']);
     }
 
 
@@ -169,7 +174,7 @@ export class Map_Building_Construction_unit extends Map_Construction_unit {
     }
 
     check_can_going_to(object) {
-        return (object instanceof Ground_moveable_unit || object instanceof Parachutist)
+        return (object instanceof UnitRegistryClass['Ground_moveable_unit'] || object instanceof UnitRegistryClass['Parachutist'])
             && (this.team == -1 || object.team == this.team)
             && (this.list_ob.length < this.property.property.capacity)
             && (this.health > this.totalhealth * 0.3);
@@ -243,6 +248,10 @@ export class Map_scrap extends Map_scrap_Base {
         super.delete();
     }
 }
+
+
+UnitRegistryClass["Map_Building_Construction_unit"] = Map_Building_Construction_unit
+UnitRegistryClass["Map_scrap"] = Map_scrap
 
 
 export const MAP_CONSTRUCTION_UNIT_TYPE = {};

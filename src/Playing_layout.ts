@@ -1,3 +1,8 @@
+import { USER_CONTROLER } from "./CONTROLLER";
+import { CONSTRUCTION_TYPE } from "./Game_Units/Construction/Construction_Unit_Type";
+import { ADDITIONAL_TYPE, PLANE_UNIT_TYPE } from "./Game_Units/MoviableUnit/Flyable_Unit";
+import { SOLIDER_TYPE } from "./Game_Units/MoviableUnit/Solider_Unit/Solider_Unit_Type";
+import { VEHICLE_TYPE } from "./Game_Units/MoviableUnit/Vihicle_Unit/Vehicle_Unit_Type";
 
 
 /** @description This.Object to Constrol Playing layout(HTML)
@@ -274,3 +279,6 @@ export const PLAYING_LAYOUT = new (function () {
     this.now_type = 0;
 
 })();
+
+
+window.PLAYING_LAYOUT = PLAYING_LAYOUT

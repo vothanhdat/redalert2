@@ -1,8 +1,18 @@
-﻿import { GAME_OBJECT } from "./Game_object_All";
+﻿import { graphics, mouse_stage } from "./Game_Container";
+import { GAME_OBJECT } from "./Game_object_All";
 import { CONSTRUCTION_TYPE } from "./Game_Units/Construction/Construction_Unit_Type";
 import { GLOBAL } from "./GLOBAL";
-import { convert2codinate } from "./utils";
-
+import { GRID } from "./GRID";
+import { KEYBOARD, STATE } from "./jsHelper";
+import { FOG_GRAPGICH, MINIMAP } from "./Minimap";
+import { UnitRegistryClass } from "./UnitRegistry";
+import { calcfar, calcfar2, convert2codinate, convert2screen, convert2screenwithoutsrcpos } from "./utils";
+import { PLAYING_LAYOUT } from "./Playing_layout"
+import { AUDIO } from "./Audio";
+import { VEHICLE_TYPE } from "./Game_Units/MoviableUnit/Vihicle_Unit/Vehicle_Unit_Type";
+import { EFFECT_TYPE } from "./Game_Units/Effect/Effect";
+import { SOLIDER_TYPE } from "./Game_Units/MoviableUnit/Solider_Unit/Solider_Unit_Type";
+import { PLANE_UNIT_TYPE } from "./Game_Units/MoviableUnit/Flyable_Unit";
 
 export function Team_Controler(team: number) {
     this.team = team;
@@ -57,7 +67,7 @@ export function Team_Controler(team: number) {
         //console.log(command);
         var team = this.team;
 
-        list = list.filter(e => (e && e instanceof Game_unit && e.team == team));
+        list = list.filter(e => (e && e instanceof UnitRegistryClass['Game_unit'] && e.team == team));
         //list = list.filter(e => (e && e instanceof Game_unit));
 
         switch (command.com) {
@@ -104,7 +114,7 @@ export function Team_Controler(team: number) {
                 var pos = command.pos;
                 var radius = command.radius;
                 var list_tmp = sort_unique(
-                    GAME_OBJECT.listobject.filter(e => e instanceof Movealbe_unit && e.team == this.team)
+                    GAME_OBJECT.listobject.filter(e => e instanceof UnitRegistryClass['Movealbe_unit'] && e.team == this.team)
                         .map(e => e.group)).filter(e => e && e.pos);
                 var find = list_tmp.find(e => e.pos.x == pos.x && e.pos.y == pos.y && e.radius == radius);
                 var groupunit;
@@ -143,7 +153,7 @@ export function Team_Controler(team: number) {
      * @param {Construction_unit} ob The Construction Unit.
      */
     this.register = function (ob) {
-        if (ob instanceof Construction_unit) {
+        if (ob instanceof UnitRegistryClass['Construction_unit']) {
             this.construction_type[ob.property.name] = 1 + (this.construction_type[ob.property.name] || 0);
 
             if (ob.property.functional) {
@@ -191,7 +201,7 @@ export function Team_Controler(team: number) {
      * @param {Construction_unit} ob The Construction Unit.
      */
     this.unregister = function (ob) {
-        if (ob instanceof Construction_unit) {
+        if (ob instanceof UnitRegistryClass['Construction_unit']) {
             if (this.construction_type[ob.property.name] > 0)
                 this.construction_type[ob.property.name]--;
             if (ob.property.functional) {
@@ -505,7 +515,7 @@ export var User_Controler = function (team_controller: Team_Controler) {
                 this.stack_construction_done.splice(tmp, 1);
                 is_building = false;
                 building_construction = null;
-                PLAYING_LAYOUT.on_building_construction_done(data);
+                PLAYING_LAYOUT?.on_building_construction_done(data);
                 return true;
             }
         }
@@ -523,7 +533,7 @@ export var User_Controler = function (team_controller: Team_Controler) {
 
     this.on_addtional_done = function (data) {
         this.stack_addtional_done.push(data);
-        PLAYING_LAYOUT.on_addtional_done(data);
+        PLAYING_LAYOUT?.on_addtional_done(data);
     }
 
 
@@ -535,7 +545,7 @@ export var User_Controler = function (team_controller: Team_Controler) {
                 this.stack_addtional_done.splice(tmp, 1);
                 is_choose_postion = false;
                 addtional_functional = null;
-                PLAYING_LAYOUT.on_addtional_set_pos_done(data);
+                PLAYING_LAYOUT?.on_addtional_set_pos_done(data);
                 return true;
             }
         }
@@ -575,15 +585,15 @@ export var User_Controler = function (team_controller: Team_Controler) {
     }
 
     this.update_unit_can_buy = function (data) {
-        PLAYING_LAYOUT.update_display_unit(data);
+        PLAYING_LAYOUT?.update_display_unit(data);
     }
 
     this.on_attacked = function (data) {
-        MINIMAP.on_notify("on_attacked", data);
+        MINIMAP?.on_notify("on_attacked", data);
     }
 
     this.on_detect_enemy = function (data) {
-        MINIMAP.on_notify("on_detect_enemy", data);
+        MINIMAP?.on_notify("on_detect_enemy", data);
     }
 
     this.minimap_on = function (data) {
@@ -601,8 +611,8 @@ export var User_Controler = function (team_controller: Team_Controler) {
 
         if (main_constrution) {
             var pos = convert2screenwithoutsrcpos(main_constrution.x, main_constrution.y, main_constrution.z);
-            window.GLOBAL.screen_x = (pos.x - GLOBAL.DISPLAY_WIDTH / 2) / 60;
-            window.GLOBAL.screen_y = (pos.y - GLOBAL.DISPLAY_HEIGHT / 2) / 30;
+            GLOBAL.screen_x = (pos.x - GLOBAL.DISPLAY_WIDTH / 2) / 60;
+            GLOBAL.screen_y = (pos.y - GLOBAL.DISPLAY_HEIGHT / 2) / 30;
         }
     }
 
@@ -791,15 +801,15 @@ export var User_Controler = function (team_controller: Team_Controler) {
 
     this.update = function (time) {
 
-        PLAYING_LAYOUT.process(time);
+        window?.PLAYING_LAYOUT?.process(time);
         this.team_controler.update(time);
         mouse_texture.process(time);
 
         this.chooselist = this.chooselist.filter(e => e.state != STATE.DELETE);
 
 
-        var back_screen_x = window.GLOBAL.screen_x,
-            back_screen_y = window.GLOBAL.screen_y;
+        var back_screen_x = GLOBAL.screen_x,
+            back_screen_y = GLOBAL.screen_y;
 
         if (follow_mode) {
 
@@ -808,15 +818,15 @@ export var User_Controler = function (team_controller: Team_Controler) {
                     .reduce((a, b) => (a.x += b.x) && (a.y += b.y) && a, { x: 0, y: 0 });
                 var avg_x = (total.x / this.chooselist.length - GLOBAL.DISPLAY_WIDTH / 2) / 60;
                 var avg_y = (total.y / this.chooselist.length - GLOBAL.DISPLAY_HEIGHT / 2) / 30;
-                window.GLOBAL.screen_x += (avg_x - window.GLOBAL.screen_x) * 0.1;
-                window.GLOBAL.screen_y += (avg_y - window.GLOBAL.screen_y) * 0.1;
+                GLOBAL.screen_x += (avg_x - GLOBAL.screen_x) * 0.1;
+                GLOBAL.screen_y += (avg_y - GLOBAL.screen_y) * 0.1;
 
             }
 
         } else if (!mousehold) {
-            if (mousex < conner && window.GLOBAL.screen_x >= 0)
+            if (mousex < conner && GLOBAL.screen_x >= 0)
                 moveleftright -= 0.015;
-            else if (mousex + conner > window.GLOBAL.SCREEN_WIDTH && window.GLOBAL.screen_x < (window.GLOBAL.max_x - window.GLOBAL.screen_w))
+            else if (mousex + conner > GLOBAL.SCREEN_WIDTH && GLOBAL.screen_x < (GLOBAL.max_x - GLOBAL.screen_w))
                 moveleftright += 0.015;
             else
                 moveleftright = 0;
@@ -824,20 +834,20 @@ export var User_Controler = function (team_controller: Team_Controler) {
             moveupdown = Math.min(0.3, Math.max(-0.3, moveupdown));
 
 
-            if (mousey < conner && window.GLOBAL.screen_y >= 0)
+            if (mousey < conner && GLOBAL.screen_y >= 0)
                 moveupdown -= 0.015 * time;
-            else if (mousey + conner > window.GLOBAL.SCREEN_HEIGHT && window.GLOBAL.screen_y < (window.GLOBAL.max_y - window.GLOBAL.screen_h))
+            else if (mousey + conner > GLOBAL.SCREEN_HEIGHT && GLOBAL.screen_y < (GLOBAL.max_y - GLOBAL.screen_h))
                 moveupdown += 0.015 * time;
             else
                 moveupdown = 0;
 
-            window.GLOBAL.screen_x += moveleftright * time;
-            window.GLOBAL.screen_y += moveupdown * time;
+            GLOBAL.screen_x += moveleftright * time;
+            GLOBAL.screen_y += moveupdown * time;
         }
 
 
-        window.GLOBAL.screen_x = Math.max(0, Math.min(window.GLOBAL.max_x - window.GLOBAL.screen_w, window.GLOBAL.screen_x));
-        window.GLOBAL.screen_y = Math.max(0, Math.min(window.GLOBAL.max_y - window.GLOBAL.screen_h, window.GLOBAL.screen_y));
+        GLOBAL.screen_x = Math.max(0, Math.min(GLOBAL.max_x - GLOBAL.screen_w, GLOBAL.screen_x));
+        GLOBAL.screen_y = Math.max(0, Math.min(GLOBAL.max_y - GLOBAL.screen_h, GLOBAL.screen_y));
 
 
         if (is_building && building_construction && convert2codinate(mousex, mousey)) {
@@ -886,13 +896,13 @@ export var User_Controler = function (team_controller: Team_Controler) {
 
         //Mouse curso 
         {
-            var dx = (mousex < conner) ? -1 : ((mousex + conner > window.GLOBAL.SCREEN_WIDTH) ? 1 : 0);
-            var dy = (mousey < conner) ? -1 : ((mousey + conner > window.GLOBAL.SCREEN_HEIGHT) ? 1 : 0);
+            var dx = (mousex < conner) ? -1 : ((mousex + conner > GLOBAL.SCREEN_WIDTH) ? 1 : 0);
+            var dy = (mousey < conner) ? -1 : ((mousey + conner > GLOBAL.SCREEN_HEIGHT) ? 1 : 0);
 
-            var choose_ob = GAME_OBJECT.listobject.filter(e => e instanceof Game_unit)
+            var choose_ob = GAME_OBJECT.listobject.filter(e => e instanceof UnitRegistryClass['Game_unit'])
                 .find(e => e.check_choose(mousex, mousey) && GRID.check_availble_user_fogmap(e));
             if (dx || dy) {
-                if ((back_screen_x == window.GLOBAL.screen_x) && (back_screen_y == window.GLOBAL.screen_y)) {
+                if ((back_screen_x == GLOBAL.screen_x) && (back_screen_y == GLOBAL.screen_y)) {
                     mouse_texture.state = mouse_texture.map.slide_coner_none;
                 } else {
                     mouse_texture.state = mouse_texture.map.slide_coner;
@@ -904,14 +914,14 @@ export var User_Controler = function (team_controller: Team_Controler) {
                 mouse_texture.state = mouse_texture.map.drop_animation;
                 /*addtional_functional*/
             } else if (sell_mode) {
-                if (choose_ob && choose_ob instanceof Construction_unit
+                if (choose_ob && choose_ob instanceof UnitRegistryClass['Construction_unit']
                     && choose_ob.team == this.team_controler.team) {
                     mouse_texture.state = mouse_texture.map.sell_animation;
                 } else {
                     mouse_texture.state = mouse_texture.map.sell_none;
                 }
             } else if (repair_mode) {
-                if (choose_ob && choose_ob instanceof Construction_unit
+                if (choose_ob && choose_ob instanceof UnitRegistryClass['Construction_unit']
                     && choose_ob.team == this.team_controler.team
                     && choose_ob.health < choose_ob.totalhealth) {
                     mouse_texture.state = mouse_texture.map.repair_action_animation;
@@ -921,14 +931,14 @@ export var User_Controler = function (team_controller: Team_Controler) {
             } else {
                 mouse_texture.state = mouse_texture.map.mouse;
                 var choose_0 = this.chooselist[0];
-                if (choose_0 && choose_0 instanceof Movealbe_unit) {
+                if (choose_0 && choose_0 instanceof UnitRegistryClass['Movealbe_unit']) {
                     mouse_texture.state = mouse_texture.map.move_animation;
                     var type = choose_0.property.name;
                     if (choose_ob) {
                         if (choose_ob.team != this.team_controler.team)
                             mouse_texture.state = mouse_texture.map.attack_animation;
 
-                        if (type == "sol_eng" && choose_ob instanceof Construction_unit) {
+                        if (type == "sol_eng" && choose_ob instanceof UnitRegistryClass['Construction_unit']) {
                             if (choose_ob.team != this.team_controler.team) {
                                 if (SOLIDER_TYPE.sol_eng.property.unit_can_recruit.indexOf(choose_ob.property.name) > -1) {
                                     mouse_texture.state = mouse_texture.map.go_into_animation;
@@ -943,7 +953,7 @@ export var User_Controler = function (team_controller: Team_Controler) {
                         }
 
                         if (type == "sol_spy_allied") {
-                            if (choose_ob instanceof Construction_unit && choose_ob.team != this.team_controler.team) {
+                            if (choose_ob instanceof UnitRegistryClass['Construction_unit'] && choose_ob.team != this.team_controler.team) {
                                 if (SOLIDER_TYPE.sol_spy_allied.property.unit_can_spy.indexOf(choose_ob.property.name) > -1) {
                                     mouse_texture.state = mouse_texture.map.go_into_animation;
                                 } else {
@@ -952,7 +962,7 @@ export var User_Controler = function (team_controller: Team_Controler) {
                             }
                         }
 
-                        if (choose_ob instanceof Map_Building_Construction_unit && choose_0.property.can_go_into_building) {
+                        if (choose_ob instanceof UnitRegistryClass['Map_Building_Construction_unit'] && choose_0.property.can_go_into_building) {
                             if (choose_ob.check_can_going_to(choose_0)) {
                                 mouse_texture.state = mouse_texture.map.go_into_animation;
                             } else {
@@ -972,8 +982,8 @@ export var User_Controler = function (team_controller: Team_Controler) {
                     } else {
 
                     }
-                } else if (choose_0 && choose_0 instanceof Construction_unit) {
-                    if (choose_0 instanceof Defender_Construction_unit) {
+                } else if (choose_0 && choose_0 instanceof UnitRegistryClass['Construction_unit']) {
+                    if (choose_0 instanceof UnitRegistryClass['Defender_Construction_unit']) {
                         if (choose_ob && choose_ob.team != this.team_controler.team)
                             mouse_texture.state = mouse_texture.map.attack_animation;
                     } else if (choose_0.property.name == "con_contruction_allied") {
@@ -1001,10 +1011,10 @@ export var User_Controler = function (team_controller: Team_Controler) {
             if (x > x1) { t = x; x = x1; x1 = t; };
             if (y > y1) { t = y; y = y1; y1 = t; };
             let filter = function (e) {
-                if (e instanceof Movealbe_unit) {
+                if (e instanceof UnitRegistryClass['Movealbe_unit']) {
                     if (e.pos && e.pos.x > x && e.pos.x < x1 && e.pos.y > y && e.pos.y < y1)
                         return true;
-                } else if (e instanceof Construction_unit) {
+                } else if (e instanceof UnitRegistryClass['Construction_unit']) {
 
                 }
                 return false;
@@ -1014,7 +1024,7 @@ export var User_Controler = function (team_controller: Team_Controler) {
             let length = GAME_OBJECT.listobject.length;
             for (var i = 0; i < length; i++) {
                 var e = GAME_OBJECT.listobject[i];
-                if (e instanceof Game_unit) {
+                if (e instanceof UnitRegistryClass['Game_unit']) {
                     if (e.check_choose(x, y))
                         return [e];
                 }
@@ -1030,10 +1040,10 @@ export var User_Controler = function (team_controller: Team_Controler) {
             return [];
 
         var filter = function (e) {
-            if (e instanceof Movealbe_unit && unit.property == e.property && unit.team == e.team) {
+            if (e instanceof UnitRegistryClass['Movealbe_unit'] && unit.property == e.property && unit.team == e.team) {
                 if (chooseall || (e.pos && e.pos.x > 0 && e.pos.x < GLOBAL.DISPLAY_WIDTH && e.pos.y > 0 && e.pos.y < GLOBAL.DISPLAY_HEIGHT))
                     return true;
-            } else if (e instanceof Construction_unit && unit.property == e.property && unit.team == e.team) {
+            } else if (e instanceof UnitRegistryClass['Construction_unit'] && unit.property == e.property && unit.team == e.team) {
                 if (chooseall || (e.pos && e.pos.x > 0 && e.pos.x < GLOBAL.DISPLAY_WIDTH && e.pos.y > 0 && e.pos.y < GLOBAL.DISPLAY_HEIGHT))
                     return true;
             }
@@ -1047,7 +1057,7 @@ export var User_Controler = function (team_controller: Team_Controler) {
         switch (event.which) {
             case 1:
                 var choose_ob = GAME_OBJECT.listobject
-                    .filter(e => e instanceof Game_unit || e instanceof Tree)
+                    .filter(e => e instanceof UnitRegistryClass['Game_unit'] || e instanceof UnitRegistryClass['Tree'])
                     .find(e => e.check_choose(event.x, event.y));
 
                 choose_ob && this.setchooselist(this.choose_same_unit(choose_ob));
@@ -1083,7 +1093,7 @@ export var User_Controler = function (team_controller: Team_Controler) {
             case 1:
                 //debugger;
                 var choose_ob = GAME_OBJECT.listobject
-                    .filter(e => e instanceof Game_unit || e instanceof Tree)
+                    .filter(e => e instanceof UnitRegistryClass['Game_unit'] || e instanceof UnitRegistryClass['Tree'])
                     .find(e => e.check_choose(event.x, event.y));
                 if (performance.now() - this.__last__dblclick__time__ < 200) {
                     choose_ob && this.setchooselist(this.choose_same_unit(choose_ob, true));
@@ -1103,11 +1113,11 @@ export var User_Controler = function (team_controller: Team_Controler) {
                     var point = { x: p.x, y: p.y };
                     this.set_addtional_pos(addtional_functional, point)
                 } else if (sell_mode) {
-                    var object = this.team_controler.get_listobject().filter(e => e instanceof Construction_unit).find(e => e.check_choose(event.x, event.y));
+                    var object = this.team_controler.get_listobject().filter(e => e instanceof UnitRegistryClass['Construction_unit']).find(e => e.check_choose(event.x, event.y));
                     if (object)
                         this.team_controler.send_command([object], { com: "sell" });
                 } else if (repair_mode) {
-                    var object = this.team_controler.get_listobject().filter(e => e instanceof Construction_unit).find(e => e.check_choose(event.x, event.y));
+                    var object = this.team_controler.get_listobject().filter(e => e instanceof UnitRegistryClass['Construction_unit']).find(e => e.check_choose(event.x, event.y));
                     if (object) {
                         this.team_controler.send_command([object], { com: "repaircon" });
                         GAME_OBJECT.add_instance(new Repair_Effect(object));
@@ -1140,7 +1150,7 @@ export var User_Controler = function (team_controller: Team_Controler) {
                     var heapmine = GRID.heapmine[goalpoint.x * GRID.dim + goalpoint.y];
 
                     var choose_ob = GAME_OBJECT.listobject
-                        .filter(e => e instanceof Game_unit || e instanceof Tree)
+                        .filter(e => e instanceof UnitRegistryClass['Game_unit'] || e instanceof UnitRegistryClass['Tree'])
                         .find(e => e.check_choose(event.x, event.y) && GRID.check_availble_user_fogmap(e));
 
                     var tmp;
@@ -1151,38 +1161,38 @@ export var User_Controler = function (team_controller: Team_Controler) {
                         this.team_controler.send_command([choose_ob], { com: "change" });
                     } else if (choose_ob && (choose_ob.team != this.team_controler.team)) {
 
-                        e.length || choose_ob instanceof Construction_unit
+                        e.length || choose_ob instanceof UnitRegistryClass['Construction_unit']
                             && choose_ob.team == -1
                             && choose_ob.health < choose_ob.totalhealth
                             && this.team_controler.send_command(
-                                e = this.chooselist.filter(e => e instanceof SOLIDER_TYPE.sol_eng.class),
+                                e = this.chooselist.filter(e => e instanceof UnitRegistryClass['SOLIDER_TYPE.sol_eng.class']),
                                 { com: "repair", enemy: choose_ob }
                             );
 
-                        e.length || choose_ob instanceof Map_Building_Construction_unit
+                        e.length || choose_ob instanceof UnitRegistryClass['Map_Building_Construction_unit']
                             && choose_ob.team == -1
                             && this.team_controler.send_command(
-                                e = this.chooselist.filter(e => (e instanceof Solider_unit || e instanceof Parachutist) && e.property.can_go_into_building),
+                                e = this.chooselist.filter(e => (e instanceof UnitRegistryClass['Solider_unit'] || e instanceof UnitRegistryClass['Parachutist']) && e.property.can_go_into_building),
                                 { com: "gointo", ob: choose_ob, commandstack }
                             );
 
 
 
                         e.length || this.team_controler.send_command(
-                            e = this.chooselist.filter(e => e instanceof Movealbe_unit || e instanceof Defender_Construction_unit),
+                            e = this.chooselist.filter(e => e instanceof UnitRegistryClass['Movealbe_unit'] || e instanceof UnitRegistryClass['Defender_Construction_unit']),
                             { com: "attack", enemy: choose_ob, commandstack }
                         );
 
                     } else if (choose_ob && (choose_ob.team == this.team_controler.team)) {
-                        e.length || (choose_ob instanceof Construction_unit && choose_ob.health < choose_ob.totalhealth)
+                        e.length || (choose_ob instanceof UnitRegistryClass['Construction_unit'] && choose_ob.health < choose_ob.totalhealth)
                             && this.team_controler.send_command(
-                                e = this.chooselist.filter(e => e instanceof SOLIDER_TYPE.sol_eng.class),
+                                e = this.chooselist.filter(e => e instanceof UnitRegistryClass['SOLIDER_TYPE.sol_eng.class']),
                                 { com: "repair", enemy: choose_ob, commandstack }
                             );
                         console.log()
-                        e.length || (choose_ob instanceof Map_Building_Construction_unit && choose_ob.check_can_going_to(this.chooselist[0])) &&
+                        e.length || (choose_ob instanceof UnitRegistryClass['Map_Building_Construction_unit'] && choose_ob.check_can_going_to(this.chooselist[0])) &&
                             this.team_controler.send_command(
-                                e = this.chooselist.filter(e => e instanceof Solider_unit && e.property.can_go_into_building),
+                                e = this.chooselist.filter(e => e instanceof UnitRegistryClass['Solider_unit'] && e.property.can_go_into_building),
                                 { com: "gointo", ob: choose_ob, commandstack }
                             );
 
@@ -1197,7 +1207,7 @@ export var User_Controler = function (team_controller: Team_Controler) {
                             && this.team_controler.send_command(e = list, { com: "set", ob: workpoint });
 
                         e.length || this.team_controler.send_command(
-                            e = this.chooselist.filter(e => e instanceof Movealbe_unit),
+                            e = this.chooselist.filter(e => e instanceof UnitRegistryClass['Movealbe_unit']),
                             { com: "move", goal: goalpoint, commandstack }
                         ) || (
                                 GAME_OBJECT.add_effect(goalpoint.x, goalpoint.y, 0, EFFECT_TYPE.mouse_move)
@@ -1207,11 +1217,11 @@ export var User_Controler = function (team_controller: Team_Controler) {
 
 
                         e.length || this.team_controler.send_command(
-                            e = this.chooselist.filter(e => e instanceof Construction_unit && e.property.workpoint),
+                            e = this.chooselist.filter(e => e instanceof UnitRegistryClass['Construction_unit'] && e.property.workpoint),
                             { com: "setworkpoint", workpoint: goalpoint }
                         );
                         e.length || this.team_controler.send_command(
-                            e = this.chooselist.filter(e => e instanceof Construction_unit && e.property.can_change && !(e instanceof Map_Building_Construction_unit)),
+                            e = this.chooselist.filter(e => e instanceof UnitRegistryClass['Construction_unit'] && e.property.can_change && !(e instanceof UnitRegistryClass['Map_Building_Construction_unit'])),
                             { com: "change", goal: goalpoint }
                         );
 
@@ -1276,17 +1286,17 @@ export var User_Controler = function (team_controller: Team_Controler) {
             building_construction = this.stack_construction_done[0];
         } else if (event.keyCode == KEYBOARD.KEY_F
             && this.chooselist.length
-            && this.chooselist.every(e => e instanceof Movealbe_unit)) {
+            && this.chooselist.every(e => e instanceof UnitRegistryClass['Movealbe_unit'])) {
             follow_mode = !follow_mode;
         } else if (event.keyCode == KEYBOARD.KEY_D
-            && this.chooselist.some(e => (e instanceof Movealbe_unit && e.property.can_change) || e.property.property.can_go_into)) {
+            && this.chooselist.some(e => (e instanceof UnitRegistryClass['Movealbe_unit'] && e.property.can_change) || e.property.property.can_go_into)) {
             this.team_controler.send_command(
-                this.chooselist.filter(e => (e instanceof Movealbe_unit && e.property.can_change) || e.property.property.can_go_into),
+                this.chooselist.filter(e => (e instanceof UnitRegistryClass['Movealbe_unit'] && e.property.can_change) || e.property.property.can_go_into),
                 { com: "change" }
             );
         } else if (event.keyCode == KEYBOARD.KEY_G) {
             this.team_controler.send_command(
-                this.chooselist.filter(e => e instanceof Movealbe_unit),
+                this.chooselist.filter(e => e instanceof UnitRegistryClass['Movealbe_unit']),
                 { com: "auto" }
             );
         } else if (event.keyCode == KEYBOARD.KEY_S) {
@@ -1310,7 +1320,7 @@ export var User_Controler = function (team_controller: Team_Controler) {
 
                 if (this.__last__key__T__ && performance.now() - this.__last__key__T__ < 200) {
                     for (var e of GAME_OBJECT.listobject) {
-                        if (e instanceof Game_unit
+                        if (e instanceof UnitRegistryClass['Game_unit']
                             && index_type_name[e.property.name]
                             && e.team == this.team_controler.team) {
                             list_choose.push(e);
@@ -1318,7 +1328,7 @@ export var User_Controler = function (team_controller: Team_Controler) {
                     }
                 } else {
                     for (var e of GAME_OBJECT.listobject) {
-                        if (e instanceof Game_unit
+                        if (e instanceof UnitRegistryClass['Game_unit']
                             && index_type_name[e.property.name]
                             && e.team == this.team_controler.team
                             && e.pos && e.pos.x > 0 && e.pos.x < GLOBAL.DISPLAY_WIDTH && e.pos.y > 0 && e.pos.y < GLOBAL.DISPLAY_HEIGHT) {
@@ -1372,7 +1382,7 @@ export var User_Controler = function (team_controller: Team_Controler) {
 
             if (this.__last__key__P__ && performance.now() - this.__last__key__P__ < 200) {
                 for (var e of GAME_OBJECT.listobject) {
-                    if (e instanceof Game_unit
+                    if (e instanceof UnitRegistryClass['Game_unit']
                         && e.property.property.attack_dam
                         && e.team == this.team_controler.team) {
                         list_choose.push(e);
@@ -1380,7 +1390,7 @@ export var User_Controler = function (team_controller: Team_Controler) {
                 }
             } else {
                 for (var e of GAME_OBJECT.listobject) {
-                    if (e instanceof Game_unit
+                    if (e instanceof UnitRegistryClass['Game_unit']
                         && e.team == this.team_controler.team
                         && e.property.property.attack_dam
                         && e.pos && e.pos.x > 0 && e.pos.x < GLOBAL.DISPLAY_WIDTH && e.pos.y > 0 && e.pos.y < GLOBAL.DISPLAY_HEIGHT) {
@@ -1393,7 +1403,7 @@ export var User_Controler = function (team_controller: Team_Controler) {
 
         } else if (event.keyCode == KEYBOARD.KEY_N) {
             var pos = convert2codinate(mousex, mousey);
-            GAME_OBJECT.add_instance(new Parachutist(pos.x, pos.y, GRID.heightmap[pos.x * GRID.dim + pos.y] + 35, 0, SOLIDER_TYPE.sol_gi_allied));
+            GAME_OBJECT.add_instance(new UnitRegistryClass['Parachutist'](pos.x, pos.y, GRID.heightmap[pos.x * GRID.dim + pos.y] + 35, 0, SOLIDER_TYPE.sol_gi_allied));
         } else if (event.keyCode == KEYBOARD.KEY_H) {
             this.nav_to_home_point();
         } else if (event.keyCode >= KEYBOARD.KEY_0 && event.keyCode <= KEYBOARD.KEY_9) {
@@ -1449,39 +1459,39 @@ export var Ai_Controlder = function (team_controller: Team_Controler) {
 
 
     this.set_position_construction = function (data, postition) {
-        return this.team_controler.set_position_construction(data, postition);
+        return this.team_controler?.set_position_construction(data, postition);
     }
 
 
     this.on_buy = function (data) {
-        this.team_controler.on_buy(data);
+        this.team_controler?.on_buy(data);
     }
 
     this.on_cancel_buy = function (data) {
-        this.team_controler.on_cancel_buy(data);
+        this.team_controler?.on_cancel_buy(data);
     }
 
     this.on_buy_construction_done = function (data) {
-        this.worker.on_buy_construction_done(data);
+        this.worker?.on_buy_construction_done(data);
     }
 
     this.on_send_command = function (list, command) {
-        this.team_controler.send_command(list, command);
+        this.team_controler?.send_command(list, command);
     }
 
     this.update_unit_can_buy = function (data) {
-        this.worker.update_unit_can_buy(data);
+        this.worker?.update_unit_can_buy(data);
     }
 
     this.on_attacked = function (data) {
         //console.log("on_attacked", data);
-        this.worker.on_attacked(data.get_data(this.team_controler.team));
+        this.worker?.on_attacked(data.get_data(this.team_controler.team));
     }
 
     this.on_detect_enemy = function (data) {
         //console.log("on_detect_enemy", data);
 
-        this.worker.on_detect_enemy(data.get_data(this.team_controler.team));
+        this.worker?.on_detect_enemy(data.get_data(this.team_controler.team));
     }
 
     this.minimap_on = function (data) {
@@ -1496,14 +1506,14 @@ export var Ai_Controlder = function (team_controller: Team_Controler) {
      @param {Game_unit}ob
     */
     this.on_unit_destroyed = function (ob) {
-        this.worker.on_unit_destroyed(ob.get_data(this.team_controler.team));
+        this.worker?.on_unit_destroyed(ob.get_data(this.team_controler.team));
     }
 
     /**
      @param {Game_unit} ob
     */
     this.on_new_unit_ready = function (ob) {
-        this.worker.on_new_unit_ready(ob.get_data(this.team_controler.team));
+        this.worker?.on_new_unit_ready(ob.get_data(this.team_controler.team));
     }
 
     /**
@@ -1511,11 +1521,11 @@ export var Ai_Controlder = function (team_controller: Team_Controler) {
     */
     this.on_move_done = function (ob) {
         //console.log("AI_WORKER.on_move_done(ob.get_data(this.team_controler.team));");
-        this.worker.on_move_done(ob.get_data(this.team_controler.team));
+        this.worker?.on_move_done(ob.get_data(this.team_controler.team));
     }
 
     this.update = function (time) {
-        this.worker.process(time);
+        this.worker?.process(time);
         this.team_controler.update();
     }
 

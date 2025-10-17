@@ -1,12 +1,18 @@
 
 
 // import PIXI from "pixi.js";
+import { AUDIO } from "../../../Audio";
 import { TEAM } from "../../../CONTROLLER";
 import { on_texture_load_done } from "../../../Done";
+import { healthcontainer, stage } from "../../../Game_Container";
 import { GAME_OBJECT } from "../../../Game_object_All";
+import { GRID } from "../../../GRID";
 import { IMAGE_PROCESS } from "../../../Image_process";
+import { STATE } from "../../../jsHelper";
+import { UnitRegistryClass } from "../../../UnitRegistry";
+import { check_available_screen, convert2screen } from "../../../utils";
 import { Parachutist } from "../Flyable_Unit";
-import { Ground_moveable_unit } from "../MoviableUnit"
+import { Ground_moveable_unit, MOVEABLE_UNIT } from "../MoviableUnit"
 import { SOLIDER_TYPE } from "./Solider_Unit_Type";
 
 PIXI.loader.add({ name: "sol", url: "IMG/Unit/Solider/solider.json" });
@@ -270,7 +276,7 @@ export class Solider_unit extends Ground_moveable_unit {
     on_destroy(attackobject) {
         super.on_destroy(attackobject)
         if (attackobject.property.die_effect_solider) {
-            var tmp = EFFECT_TYPE[attackobject.property.die_effect_solider];
+            var tmp = window.EFFECT_TYPE[attackobject.property.die_effect_solider];
             tmp && GAME_OBJECT.add_effect(this.x, this.y, this.z, tmp, true);
         } else if (this.property.img.die) {
             var tmp = this.property.img.die.random().imgs[this.team];
@@ -300,6 +306,7 @@ export class Solider_unit extends Ground_moveable_unit {
 
 GAME_OBJECT.add_class(Solider_unit, "solider");
 
+UnitRegistryClass["Solider_unit"] = Solider_unit
 
 
 

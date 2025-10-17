@@ -6,7 +6,8 @@ import { stage } from "../../Game_Container";
 import { Map_object_Base } from "../../Game_object";
 import { GRID } from "../../GRID";
 import { GAME_OBJECT } from "../../Game_object_All";
-import { calcfar2 } from "../../utils";
+import { calcfar2, check_available_screen, convert2screen } from "../../utils";
+import { UnitRegistryClass } from "../../UnitRegistry";
 
 PIXI.loader.add({ name: "map_ob", url: "IMG/Unit/MapObject/img.json" });
 
@@ -303,6 +304,12 @@ export class Tree extends Map_object {
     }
 }
 
+UnitRegistryClass["Map_object"] = Map_object
+UnitRegistryClass["Heap_mine"] = Heap_mine
+UnitRegistryClass["Mine"] = Mine
+UnitRegistryClass["Grouph_mine"] = Grouph_mine
+UnitRegistryClass["Tree"] = Tree
+UnitRegistryClass["Simple_map_object"] = Simple_map_object
 
 
 export const MAP_OBJECT_TYPE = {};
@@ -324,6 +331,7 @@ MAP_OBJECT_TYPE.goldheap1 = {
         shield: {},
     }
 }
+
 
 
 MAP_OBJECT_TYPE.goldheap2 = {

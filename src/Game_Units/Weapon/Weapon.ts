@@ -1,6 +1,9 @@
 // import PIXI from "pixi.js";
 
 import { Game_weapon_Base } from "../../Game_object";
+import { GRID } from "../../GRID";
+import { UnitRegistryClass } from "../../UnitRegistry";
+import { convert2screen } from "../../utils";
 
 export const WEAPON = {
     init: function (property) {
@@ -96,7 +99,7 @@ export class Weapon extends Game_weapon {
         var center_y = distination.ny || Math.round(distination.y);
         if (center_x < 0 || center_y < 0 || center_x >= GRID.objectmap.length || center_y >= GRID.objectmap.length)
             return;
-        if (distination instanceof Game_unit) {
+        if (distination instanceof UnitRegistryClass['Game_unit']) {
             damage = dam * ob.calcdammage(distination);
             ob.on_attack && ob.on_attack(distination, damage);
             distination.on_attacked && distination.on_attacked(ob, damage);
@@ -145,47 +148,6 @@ export class Weapon extends Game_weapon {
 
 }
 
-var linetexture = new PIXI.Texture.fromImage("IMG/Unit/Attack/Laser/laser.png");
-var linetexture_rgb = new PIXI.Texture(linetexture.baseTexture, new PIXI.Rectangle(0, 1, 1, 3));
-var linetexture_simple = new PIXI.Texture(linetexture.baseTexture, new PIXI.Rectangle(0, 2, 1, 1));
-
-
-
-var updateline = function (line, pos1, pos2) {
-    var distX = pos1.x - pos2.x;
-    var distY = pos1.y - pos2.y;
-    var dist = Math.sqrt(distX * distX + distY * distY);
-    line.scale.x = dist;
-    line.anchor.y = 0.5;
-    line.position.x = pos1.x;//viewWidth/2;
-    line.position.y = pos1.y;//viewHeight/2;
-    line.blendMode = PIXI.BLEND_MODES.ADD;
-    line.rotation = Math.atan2(distY, distX) + Math.PI;
-}
-
-var createline = function (pos1, pos2) {
-    var distX = pos1.x - pos2.x;
-    var distY = pos1.y - pos2.y;
-    var dist = Math.sqrt(distX * distX + distY * distY);
-    var sprite = new PIXI.Sprite(linetexture);
-    sprite.scale.x = dist;
-    sprite.anchor.y = 0.5;
-    sprite.position.x = pos1.x;//viewWidth/2;
-    sprite.position.y = pos1.y;//viewHeight/2;
-    sprite.blendMode = PIXI.BLEND_MODES.ADD;
-    sprite.rotation = Math.atan2(distY, distX) + Math.PI;
-    return sprite;
-}
-
-var createline2 = function (pos, w, h) {
-    var dist = Math.sqrt(w * w + h * h);
-    var sprite = new PIXI.Sprite(linetexture_simple);
-    sprite.scale.x = dist;
-    sprite.scale.y = 2;
-    sprite.anchor.y = 0.5;
-    sprite.position.x = pos.x;//viewWidth/2;
-    sprite.position.y = pos.y;//viewHeight/2;
-    sprite.rotation = Math.atan2(h, w);
-    return sprite;
-}
-
+UnitRegistryClass['Game_weapon_Base'] = Game_weapon_Base
+UnitRegistryClass['Game_weapon'] = Game_weapon
+UnitRegistryClass['Weapon'] = Weapon

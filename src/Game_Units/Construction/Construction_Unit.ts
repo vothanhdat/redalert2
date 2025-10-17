@@ -8,6 +8,14 @@ import { TEAM } from "../../CONTROLLER";
 import { CONSTRUCTION_TYPE } from "./Construction_Unit_Type";
 import { on_texture_load_done } from "../../Done"
 import { GAME_OBJECT } from "../../Game_object_All";
+import { UnitRegistryClass } from "../../UnitRegistry";
+import { healthcontainer, stage } from "../../Game_Container";
+import { check_point_inside, STATE } from "../../jsHelper";
+import { calcfar2, calcfar2_full, check_available_screen, checkcircle, convert2screen, convert2screenwithoutsrcpos, reverseArray } from "../../utils";
+import { GRID } from "../../GRID";
+import { AUDIO } from "../../Audio";
+import { EFFECT_FIRE_TYPE, EFFECT_TYPE, FireEffect } from "../Effect/Effect";
+import { Weapon } from "../Weapon/Weapon";
 PIXI.loader.add({ name: "con", url: "IMG/Unit/Construction/construction.json" });
 
 export const CONSTRUCTION_UNIT = {
@@ -442,7 +450,7 @@ export class Defender_Construction_unit extends Construction_unit {
     }
 
     filter_enemy(ob) {
-        return (ob instanceof Ground_moveable_unit || ob instanceof Construction_unit);
+        return (ob instanceof UnitRegistryClass['Ground_moveable_unit'] || ob instanceof UnitRegistryClass['Construction_unit']);
     }
 
     process(time) {
@@ -496,14 +504,14 @@ export class Defender_Construction_unit extends Construction_unit {
             this.sprites_run.onComplete = function () {
                 This.sprites_run.renderable = false;
                 This.sprites.resume();
-                This.enemy && GAME_OBJECT.add_instance(new Weapon(This, This.enemy, ATTACK_TYPE[This.property.property.attack_type]));
+                This.enemy && GAME_OBJECT.add_instance(new Weapon(This, This.enemy, window.ATTACK_TYPE[This.property.property.attack_type]));
             };
 
             if (this.property.audio.prepair_attack)
                 AUDIO.createsound(this.property.audio.prepair_attack, this, 0.1);
 
         } else {
-            this.enemy && GAME_OBJECT.add_instance(new Weapon(this, this.enemy, ATTACK_TYPE[this.property.property.attack_type]));
+            this.enemy && GAME_OBJECT.add_instance(new Weapon(this, this.enemy, window.ATTACK_TYPE[this.property.property.attack_type]));
         }
 
     }
@@ -733,6 +741,10 @@ GAME_OBJECT.add_class(Construction_unit, "contruction");
 GAME_OBJECT.add_class(Defender_Construction_unit, "contruction_denfense");
 
 
+UnitRegistryClass["Construction_unit"] = Construction_unit
+UnitRegistryClass["Defender_Construction_unit"] = Defender_Construction_unit
+UnitRegistryClass["Buy_Construction_unit"] = Buy_Construction_unit
+UnitRegistryClass["Rotate_Construction_unit"] = Rotate_Construction_unit
 
 
 /**/

@@ -7,6 +7,7 @@ import { IMAGE_PROCESS } from "../../Image_process";
 import { TEAM } from "../../CONTROLLER";
 import { on_texture_load_done } from "../../Done";
 import { GAME_OBJECT } from "../../Game_object_All";
+import { UnitRegistryClass } from "../../UnitRegistry";
 
 export class Flyable_Unit extends Movealbe_unit {
 
@@ -351,6 +352,8 @@ export class Plane_unit_failout extends Game_unit {
 
 
 GAME_OBJECT.add_class(Plane_unit, "plane");
+UnitRegistryClass["Plane_unit"] = Plane_unit
+
 
 
 export class Parachutist extends Flyable_Unit {
@@ -482,6 +485,7 @@ export class Parachutist extends Flyable_Unit {
         return false;
     }
 }
+UnitRegistryClass["Parachutist"] = Parachutist
 
 
 
@@ -675,6 +679,7 @@ export class V3Rocket extends Flyable_Unit {
     filter_enemy() { return false; }
 }
 
+UnitRegistryClass["V3Rocket"] = V3Rocket
 
 
 
@@ -866,6 +871,8 @@ export class Rocker extends Flyable_Unit {
 
     filter_enemy() { return false; }
 }
+
+UnitRegistryClass["Rocker"] = Rocker
 
 
 export var PLANE_UNIT_TYPE = {};
@@ -1089,6 +1096,8 @@ PLANE_UNIT_TYPE.beag = {
 
 }
 
+UnitRegistryClass["PLANE_UNIT_TYPE.beag.class"] = PLANE_UNIT_TYPE.beag.class
+
 
 PLANE_UNIT_TYPE.plane = {
     name: "plane",
@@ -1243,12 +1252,13 @@ PLANE_UNIT_TYPE.rocket = {
         return new V3Rocket(x, y, z, t, this, enemy);
     }
 }
+window.PLANE_UNIT_TYPE = PLANE_UNIT_TYPE
 
 
 
+export const ADDITIONAL_TYPE = {};
 
-var ADDITIONAL_TYPE = {};
-
+window.ADDITIONAL_TYPE = ADDITIONAL_TYPE
 
 
 

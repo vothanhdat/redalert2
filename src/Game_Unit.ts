@@ -1,7 +1,15 @@
 ﻿
 "use strict";
 
+import { GAME_UNIT_INFO_GLOBAL } from "./AI_worker_comunication";
+import { TEAM } from "./CONTROLLER";
+import { healthcontainer } from "./Game_Container";
 import { Game_Unit_Base } from "./Game_object";
+import { GAME_OBJECT } from "./Game_object_All";
+import { GRID } from "./GRID";
+import { STATE } from "./jsHelper";
+import { MINIMAP } from "./Minimap";
+import { UnitRegistryClass } from "./UnitRegistry";
 
 export class Game_unit extends Game_Unit_Base {
     /**
@@ -229,3 +237,6 @@ export class Game_unit extends Game_Unit_Base {
 
 
 }
+
+
+UnitRegistryClass['Game_unit'] = Game_unit

@@ -1,4 +1,11 @@
+import { GAME_OBJECT } from "../../Game_object_All";
 import { Game_unit } from "../../Game_Unit";
+import { GRID } from "../../GRID";
+import { STATE } from "../../jsHelper";
+import { UnitRegistryClass } from "../../UnitRegistry";
+import { calcfar2, calcfar2_full, checkcircle } from "../../utils";
+import { Weapon } from "../Weapon/Weapon";
+import { ATTACK_TYPE } from "../Weapon/Weapon_Type";
 
 
 export const MOVEABLE_UNIT = {
@@ -293,8 +300,8 @@ export class Ground_moveable_unit extends Movealbe_unit {
         var v = time * this.v / 60,
              dx = ax + this.nx - this.x,
              dy = ay + this.ny - this.y;
-        var direct_idx = MOVEABLE_UNIT.get_direction_idx(dx, dy);
-        var posp = MOVEABLE_UNIT.idx_xy_map[direct_idx];
+        var direct_idx = window.MOVEABLE_UNIT.get_direction_idx(dx, dy);
+        var posp = window.MOVEABLE_UNIT.idx_xy_map[direct_idx];
         if (Math.abs(posp.x * v) > Math.abs(dx) || Math.abs(posp.y * v) > Math.abs(dy)) {
             this.x = this.nx + ax;
             this.y = this.ny + ay;
@@ -319,11 +326,11 @@ export class Ground_moveable_unit extends Movealbe_unit {
 
 
     filter_enemy(ob) {
-        if (ob instanceof VEHICLE_TYPE.veh_ore_allied.class)
+        if (ob instanceof window.VEHICLE_TYPE.veh_ore_allied.class)
             ob.__calc_tmp__ += 10000;
-        else if (ob instanceof Construction_unit && !(ob instanceof Defender_Construction_unit))
+        else if (ob instanceof UnitRegistryClass['Construction_unit'] && !(ob instanceof UnitRegistryClass['Defender_Construction_unit']))
             ob.__calc_tmp__ += 5000;
-        return (ob instanceof Ground_moveable_unit || ob instanceof Construction_unit);
+        return (ob instanceof UnitRegistryClass['Ground_moveable_unit'] || ob instanceof UnitRegistryClass['Construction_unit']);
     }
 
 
@@ -561,7 +568,7 @@ export class Ground_moveable_unit extends Movealbe_unit {
         var This = this;
         for (var i = 0; i < arr.length; i++) {
             var direct_ = (direct + arr[i] + 7) % 8 + 1;
-            var directtmp = MOVEABLE_UNIT.idx_xy_map_round[direct_];
+            var directtmp = window.MOVEABLE_UNIT.idx_xy_map_round[direct_];
             var x = Math.round(this.x + directtmp.x),
                 y = Math.round(this.y + directtmp.y);
             if (GRID.check_moveable(x, y, height, this))
@@ -570,7 +577,7 @@ export class Ground_moveable_unit extends Movealbe_unit {
 
         for (var i = 0; i < arr.length; i++) {
             var direct_ = (direct + arr[i] + 7) % 8 + 1;
-            var directtmp = MOVEABLE_UNIT.idx_xy_map_round[direct_];
+            var directtmp = window.MOVEABLE_UNIT.idx_xy_map_round[direct_];
 
             var x = Math.round(this.x + directtmp.x),
                 y = Math.round(this.y + directtmp.y);
@@ -691,6 +698,10 @@ export class Ground_moveable_unit extends Movealbe_unit {
     }
 
 }
+
+UnitRegistryClass["Movealbe_unit"] = Movealbe_unit
+UnitRegistryClass["Ground_moveable_unit"] = Ground_moveable_unit
+window.MOVEABLE_UNIT = MOVEABLE_UNIT
 
 
 

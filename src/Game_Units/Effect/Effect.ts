@@ -1,7 +1,13 @@
 ﻿// import PIXI from "pixi.js"
+import { AUDIO } from "../../Audio";
 import { on_texture_load_done } from "../../Done";
+import { cloundcontainer, smokecontainer, smokecontainer2, stage, variouscontainer } from "../../Game_Container";
 import { Game_Effect_Base } from "../../Game_object";
+import { GAME_OBJECT } from "../../Game_object_All";
+import { GRID } from "../../GRID";
 import { IMAGE_PROCESS } from "../../Image_process";
+import { UnitRegistryClass } from "../../UnitRegistry";
+import { check_available_screen, convert2screen } from "../../utils";
 
 PIXI.loader.add({ name: "eff", url: "IMG/effect/effect.json" });
 
@@ -75,7 +81,7 @@ export class Effect extends Game_Effect {
             this.sprite.renderable = false;
         }
     }
-    delete () {
+    delete() {
         super.delete();
         this.on_done && this.on_done(this);
         this.sort ? stage.removeChild(this.sprite) : variouscontainer.removeChild(this.sprite);
@@ -126,7 +132,7 @@ export class CloundParticle extends Game_Effect {
             this.sprite.renderable = false;
         }
     }
-    delete () {
+    delete() {
         super.delete();
         cloundcontainer.removeChild(this.sprite);
     }
@@ -254,12 +260,13 @@ export class SmokeEffect extends Game_Effect {
             this.sprite.renderable = false;
         }
     }
-    delete () {
+    delete() {
         super.delete();
         HIGH_PERFOMANCE_REMOVE_SPRITE(this.sprite, smokecontainer, Sprite_SmokeEffect_back);
     }
 }
 
+UnitRegistryClass['SmokeEffect'] = SmokeEffect
 
 export class SmokeEffect2 extends Game_Effect {
     static process() {
@@ -329,11 +336,12 @@ export class SmokeEffect2 extends Game_Effect {
     draw() {
         SmokeEffect.prototype.draw.call(this);
     }
-    delete () {
+    delete() {
         super.delete();
         HIGH_PERFOMANCE_REMOVE_SPRITE(this.sprite, smokecontainer2, Sprite_SmokeEffect2_back);
     }
 }
+UnitRegistryClass['SmokeEffect2'] = SmokeEffect2
 
 
 
@@ -404,7 +412,7 @@ export class Light_Effect extends Game_Effect {
         var pos = convert2screen(this.x, this.y, this.z);
         this.sprite.position.set(pos.x, pos.y);
     }
-    delete () {
+    delete() {
         variouscontainer.removeChild(this.sprite);
         super.delete();
     }
@@ -419,7 +427,7 @@ export class Light_Effect_Autoscale extends Light_Effect {
         this.sprite.scale.set((scale || 2) * (Light_Effect_Autoscale_List[this._idx_] * (ratio || 0.05) + 1));
     }
 
-    delete () {
+    delete() {
         super.delete();
         Light_Effect_Autoscale_List[this._idx_]--;
     }
@@ -459,7 +467,7 @@ export class Repair_Effect extends Game_Effect {
         }
     }
 
-    delete () {
+    delete() {
         variouscontainer.removeChild(this.sprite);
         super.delete();
     }
@@ -542,7 +550,7 @@ export class Parachutist_Sprite extends Game_Effect {
         }
     }
 
-    delete () {
+    delete() {
         stage.removeChild(this.dropsprite);
         stage.removeChild(this.shadowsprite);
         super.delete();
@@ -578,7 +586,7 @@ export class Controler_Animation extends Game_Effect {
             this.sprite.renderable = false;
         }
     }
-    delete () {
+    delete() {
         super.delete();
         this.sort ? stage.removeChild(this.sprite) : variouscontainer.removeChild(this.sprite);
     }
@@ -817,6 +825,8 @@ EFFECT_TYPE.mouse_move = {
     }
 };
 
+window.EFFECT_TYPE = EFFECT_TYPE
+
 
 
 
@@ -825,7 +835,7 @@ EFFECT_TYPE.mouse_move = {
 
 export const CLOUND = {
     init() {
-        for (var i = 0 ; i < 25; i++) {
+        for (var i = 0; i < 25; i++) {
             var Rx = Math.random() * 200;
             var Ry = Math.random() * 200;
             if (Math.abs(Rx - 100) + Math.abs(Ry - 100) < 100) {
@@ -839,11 +849,11 @@ export const CLOUND = {
         large |= 1;
         var size = 5;
         var count = size * size * 0.3;
-        for (var i = 0 ; i < count; i++) {
+        for (var i = 0; i < count; i++) {
             var count2 = 3 + Math.random() * 4;
             var X = (Math.random() - 0.5) * size * 2 * large + x;
             var Y = (Math.random() - 0.5) * size * 2 * large + y;
-            for (var j = 0 ; j < count2; j++) {
+            for (var j = 0; j < count2; j++) {
                 var XX = X + (Math.random() - 0.5) * 2.5 * large;
                 var YY = Y + (Math.random() - 0.5) * 2.5 * large;
                 GAME_OBJECT.add_instance(new CloundParticle(XX, YY, 60, large));
@@ -853,5 +863,18 @@ export const CLOUND = {
 }
 
 
+UnitRegistryClass['Game_Effect'] = Game_Effect
+UnitRegistryClass['Effect'] = Effect
+UnitRegistryClass['Effect_with_smooke'] = Effect_with_smooke
+UnitRegistryClass['CloundParticle'] = CloundParticle
+UnitRegistryClass['SmokeEffect'] = SmokeEffect
+UnitRegistryClass['SmokeEffect2'] = SmokeEffect2
+UnitRegistryClass['SmokeEffect2_supersort'] = SmokeEffect2_supersort
+UnitRegistryClass['FireEffect'] = FireEffect
+UnitRegistryClass['Light_Effect'] = Light_Effect
+UnitRegistryClass['Light_Effect_Autoscale'] = Light_Effect_Autoscale
+UnitRegistryClass['Repair_Effect'] = Repair_Effect
+UnitRegistryClass['Parachutist_Sprite'] = Parachutist_Sprite
+UnitRegistryClass['Controler_Animation'] = Controler_Animation
 
 

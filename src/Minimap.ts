@@ -1,7 +1,10 @@
 ﻿// import PIXI from "pixi.js";
+import { GAME_OBJECT } from "./Game_object_All";
 import { GLOBAL } from "./GLOBAL";
+import { GRID } from "./GRID";
 import { InverseAlpha, NoiseFilter } from "./jsHelper";
-import { TEAM } from "./CONTROLLER";
+import { UnitRegistryClass } from "./UnitRegistry";
+// import { TEAM } from "./CONTROLLER";
 
 
 export const FOG_GRAPGICH = new (function () {
@@ -238,7 +241,7 @@ export const MINIMAP = new (function () {
         texture[-1] = new PIXI.Texture(maintexture.baseTexture, new PIXI.Rectangle(18, 0, 2, 2));
 
         return texture;
-    })(TEAM);
+    })(window.TEAM);
 
 
     this.get_minimap_sprite = function () {
@@ -280,7 +283,7 @@ export const MINIMAP = new (function () {
         ob.minimap_sprite = new PIXI.Sprite(color_texture[ob.team]);
         ob.minimap_sprite.anchor.set(0.5, 0.5);
         ob.minimap_sprite.rotation = Math.PI / 4;
-        if (ob instanceof Construction_unit) {
+        if (ob instanceof UnitRegistryClass['Construction_unit']) {
             ob.minimap_sprite.scale.set(ob.size.w * 242 / GRID.dim1_2 / 3, ob.size.h * 242 / GRID.dim1_2 / 3);
         } else {
             ob.minimap_sprite.scale.set(242 / GRID.dim1_2 / 3);

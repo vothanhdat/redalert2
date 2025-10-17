@@ -1,4 +1,7 @@
 import { AI_WORKER } from "./AI_worker_comunication";
+import { USER_CONTROLER } from "./CONTROLLER";
+import { FOG_GRAPGICH } from "./Minimap";
+import { UnitRegistryClass } from "./UnitRegistry";
 
 
 export const GRID = new (function () {
@@ -161,8 +164,8 @@ export const GRID = new (function () {
             var idx = this.objectmap[i * this.dim + j].indexOf(ob);
             if (idx > -1) {
                 this.objectmap[i * this.dim + j].splice(idx, 1);
-                if (ob instanceof Construction_unit || ob instanceof Tree)
-                    this.object_count[i * this.dim + j]--;
+                // if (ob instanceof Construction_unit || ob instanceof Tree)
+                //     this.object_count[i * this.dim + j]--;
                 this._object_count_[i * this.dim + j] -= add;
 
             }
@@ -176,8 +179,8 @@ export const GRID = new (function () {
                     var idx = this.objectmap[i * this.dim + j].indexOf(ob);
                     if (idx > -1) {
                         this.objectmap[i * this.dim + j].splice(idx, 1);
-                        if (ob instanceof Construction_unit || ob instanceof Tree)
-                            this.object_count[i * this.dim + j]--;
+                        // if (ob instanceof Construction_unit || ob instanceof Tree)
+                        //     this.object_count[i * this.dim + j]--;
                         this._object_count_[i * this.dim + j] -= add;
                     }
                 }
@@ -274,7 +277,7 @@ export const GRID = new (function () {
      * @return {Boolean} 
      */
     this.check_moveable = function (x, y, height, ob) {
-        var add = (ob instanceof Solider_unit) ? 1 : 3;
+        var add = (ob instanceof UnitRegistryClass['Solider_unit']) ? 1 : 3;
         return (this.checkcanmove(x, y, height) && GRID.get_tile_count(x, y) + add < 4);
     }
 
@@ -334,7 +337,7 @@ export const GRID = new (function () {
         console.time("GET GRID");
         var listgoal;
 
-        if (goal instanceof Game_unit || goal instanceof Map_object || goal instanceof Grouph_mine)
+        if (goal instanceof UnitRegistryClass['Game_unit'] || goal instanceof UnitRegistryClass['Map_object'] || goal instanceof UnitRegistryClass['Grouph_mine'])
             listgoal = goal.get_element_ceil();
         else
             listgoal = [goal];
@@ -429,7 +432,7 @@ export const GRID = new (function () {
                 //_object_count_: this._object_count_,
                 list_goal: list_goal, r: random, farest: farest
             });
-        } else if (goal instanceof Game_unit || goal instanceof Map_object) {
+        } else if (goal instanceof UnitRegistryClass['Game_unit'] || goal instanceof UnitRegistryClass['Map_object']) {
             var list_goal = goal.get_element_ceil();
             worker.postMessage({
                 flag: "find_path",
@@ -446,7 +449,7 @@ export const GRID = new (function () {
             }); */
         } else {
             var list_goal = [goal];
-            var ob_goal = this.objectmap[goal.x * dim + goal.y].find(e => e instanceof Construction_unit);
+            var ob_goal = this.objectmap[goal.x * dim + goal.y].find(e => e instanceof UnitRegistryClass['Construction_unit']);
             if (ob_goal)
                 list_goal = ob_goal.get_element_ceil();
 
@@ -540,7 +543,7 @@ export const GRID = new (function () {
 
 
     this.setfogmap = function (ob, x, y) {
-        if (ob instanceof Game_unit && ob.team != -1 && ob.property.property.sight) {
+        if (ob instanceof UnitRegistryClass['Game_unit'] && ob.team != -1 && ob.property.property.sight) {
             x = x || ob.x;
             y = y || ob.y;
 
@@ -567,7 +570,7 @@ export const GRID = new (function () {
     this.setmovefogmap = function (ob, bx, by, nx, ny) {
 
         if (Math.round(bx) != Math.round(nx) || Math.round(by) != Math.round(ny)) {
-            if (ob instanceof Game_unit && ob.team != -1 && ob.property.property.sight) {
+            if (ob instanceof UnitRegistryClass['Game_unit'] && ob.team != -1 && ob.property.property.sight) {
                 var fogmap = this.fogmap[ob.team];
                 var sight = ob.property.property.sight || 10;
                 var delta_arr = deltafogmap.get(sight, nx - bx, ny - by);
@@ -586,7 +589,7 @@ export const GRID = new (function () {
 
 
     this.unsetfogmap = function (ob, x, y) {
-        if (ob instanceof Game_unit && ob.team != -1 && ob.property.property.sight) {
+        if (ob instanceof UnitRegistryClass['Game_unit'] && ob.team != -1 && ob.property.property.sight) {
             x = x || ob.nx || ob.x;
             y = y || ob.ny || ob.y;
 
@@ -613,19 +616,19 @@ export const GRID = new (function () {
     this.check_availble_user_fogmap = function (ob, team) {
         //return true;
         var userteam = team || USER_CONTROLER.team_controler.team;
-        if (ob instanceof Game_unit) {
+        if (ob instanceof UnitRegistryClass['Game_unit']) {
             if (ob.team == userteam)
                 return true;
             else
                 return (this.fogmap[userteam][Math.round(ob.x) * this.dim + Math.round(ob.y)] > 0);
-        } else if (ob instanceof Game_weapon || ob instanceof Game_Effect || ob instanceof Tree) {
+        } else if (ob instanceof UnitRegistryClass['Game_weapon'] || ob instanceof UnitRegistryClass['Game_Effect'] || ob instanceof UnitRegistryClass['Tree']) {
             return (this.fogmap[userteam][Math.round(ob.x) * this.dim + Math.round(ob.y)] > 0);
         } 
     }
 
 
     this.fast_check_availble_user_fogmap = function (ob, team) {
-        if (ob instanceof Game_unit) {
+        if (ob instanceof UnitRegistryClass['Game_unit']) {
             if (ob.team == team)
                 return true;
             else

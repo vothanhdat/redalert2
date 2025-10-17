@@ -1,9 +1,14 @@
-﻿import { Vehicle_unit } from "./Vihicle_Unit"
+﻿import { GAME_OBJECT } from "../../../Game_object_All";
+import { GRID } from "../../../GRID";
+import { STATE, STATE_PLUS } from "../../../jsHelper";
+import { UnitRegistryClass } from "../../../UnitRegistry";
+import { calcfar, sort_unique } from "../../../utils";
+import { Vehicle_unit } from "./Vihicle_Unit"
 
 
 export const VEHICLE_TYPE = {};
 
-
+window.VEHICLE_TYPE = VEHICLE_TYPE
 
 VEHICLE_TYPE.veh_ore_allied = {
     name: "veh_ore_allied",
@@ -125,7 +130,7 @@ VEHICLE_TYPE.veh_ore_allied = {
                     var list_direct = [0, 1, -1, 2, -2];
                     for (var i of list_direct) {
                         var direct_ = (direct + i + 7) % 8 + 1;
-                        var directtmp = MOVEABLE_UNIT.idx_xy_map_round[direct_];
+                        var directtmp = window.MOVEABLE_UNIT.idx_xy_map_round[direct_];
                         if (GRID.check_moveable(this.nx + directtmp.x, this.ny + directtmp.y, height))
                             return { x: this.nx + directtmp.x, y: this.ny + directtmp.y };
                     }
@@ -180,7 +185,7 @@ VEHICLE_TYPE.veh_ore_allied = {
         }
 
         find_home_point() {
-            var list = GAME_OBJECT.listgameunit[this.team].filter(e => e instanceof CONSTRUCTION_TYPE.con_refinery_allied.class);
+            var list = GAME_OBJECT.listgameunit[this.team].filter(e => e instanceof window.CONSTRUCTION_TYPE.con_refinery_allied.class);
             var max = 100000, result = null;
             for (var e of list) {
                 var grid = e.get_grid(), ceil = grid.get(Math.round(this.x) * GRID.dim + Math.round(this.y));
@@ -236,12 +241,12 @@ VEHICLE_TYPE.veh_ore_allied = {
                     break;
                 case STATE_PLUS.WORKPENDING:
                     this.state = STATE.IDLE;
-                    this.headangel = MOVEABLE_UNIT.getangelmove(this.heapmine, this);
+                    this.headangel = window.MOVEABLE_UNIT.getangelmove(this.heapmine, this);
                     break;
                 case STATE_PLUS.HOMEPENDING:
                     //this.changetostate(STATE.IDLE);
                     this.state = STATE.IDLE;
-                    this.headangel = MOVEABLE_UNIT.getangelmove(this, this.homepoint);
+                    this.headangel = window.MOVEABLE_UNIT.getangelmove(this, this.homepoint);
                     break;
                 case STATE_PLUS.IDLE:
                     this.changetostate(STATE.IDLE);
@@ -483,14 +488,14 @@ VEHICLE_TYPE.veh_mcv_allied = {
             if (this._change_to_building_ && this.check_netxpoint()) {
                 var canbuild = this.check_area_for_construct();
                 if (canbuild) {
-                    var newunit = new CONSTRUCTION_TYPE.con_contruction_allied.class(
+                    var newunit = new window.CONSTRUCTION_TYPE.con_contruction_allied.class(
                         Math.round(this.x) - 0.5,
                         Math.round(this.y) - 0.5,
                         this.z,
                         this.team,
-                        CONSTRUCTION_TYPE.con_contruction_allied
+                        window.CONSTRUCTION_TYPE.con_contruction_allied
                     );
-                    this.change_type(CONSTRUCTION_TYPE.con_contruction_allied.class, newunit);
+                    this.change_type(window.CONSTRUCTION_TYPE.con_contruction_allied.class, newunit);
                 }
             }
         }

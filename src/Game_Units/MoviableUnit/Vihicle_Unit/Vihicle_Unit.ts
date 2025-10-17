@@ -1,7 +1,13 @@
 
+import { healthcontainer, stage } from "../../../Game_Container";
 import { GAME_OBJECT } from "../../../Game_object_All";
+import { GRID } from "../../../GRID";
 import { IMAGE_PROCESS } from "../../../Image_process";
-import { Ground_moveable_unit } from "../MoviableUnit";
+import { STATE } from "../../../jsHelper";
+import { UnitRegistryClass } from "../../../UnitRegistry";
+import { check_available_screen, convert2screen } from "../../../utils";
+import { SmokeEffect } from "../../Effect/Effect";
+import { Ground_moveable_unit, MOVEABLE_UNIT } from "../MoviableUnit";
 
 
 export class Vehicle_unit extends Ground_moveable_unit {
@@ -99,7 +105,7 @@ export class Vehicle_unit extends Ground_moveable_unit {
     }
 
     on_destroy(attackobject) {
-        GAME_OBJECT.add_effect(this.x, this.y, this.z, EFFECT_TYPE.exploit5);
+        GAME_OBJECT.add_effect(this.x, this.y, this.z, window.EFFECT_TYPE.exploit5);
         super.on_destroy(attackobject);
     }
 
@@ -119,5 +125,6 @@ export class Vehicle_unit extends Ground_moveable_unit {
 }
 
 GAME_OBJECT.add_class(Vehicle_unit, "vehicle");
+UnitRegistryClass["Vehicle_unit"] = Vehicle_unit
 
 

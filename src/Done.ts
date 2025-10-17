@@ -7,7 +7,9 @@
 
 import { AUDIO } from "./Audio";
 import { USER_CONTROLER } from "./CONTROLLER";
+import { GAME_OBJECT } from "./Game_object_All";
 import { CLOUND } from "./Game_Units/Effect/Effect";
+import { SOLIDER_TYPE } from "./Game_Units/MoviableUnit/Solider_Unit/Solider_Unit_Type";
 import { GLOBAL } from "./GLOBAL";
 import { LOADER_SCREEN } from "./LOADER_PROGESS";
 
@@ -36,11 +38,11 @@ async function load_list_object(data) {
     }
 
 
-    function load_object(ob) {
-        console.log(ob);
+    async function load_object(ob) {
+        // console.log(ob);
         switch (ob[0]) {
             case "TEAM":
-                load_team(parseInt(ob[1]), parseInt(ob[2]), 0, parseInt(ob[4]));
+                await load_team(parseInt(ob[1]), parseInt(ob[2]), 0, parseInt(ob[4]));
                 break;
             case "MapOb":
                 GAME_OBJECT.add_unit(parseInt(ob[1]), parseInt(ob[2]), 0, parseInt(ob[4]), AUTO_TYPE[ob[5]][ob[6]]);
@@ -75,14 +77,19 @@ async function load_list_object(data) {
     for (var e of list) {
         if (e[0] == "#")
             break;
-        load_object(e);
+        await load_object(e);
     }
 }
 
 
 
 
-export const load_team = function (x, y, z, team) {
+export const load_team = async function (x, y, z, team) {
+
+    const { VEHICLE_TYPE } = await import("./Game_Units/MoviableUnit/Vihicle_Unit/Vehicle_Unit_Type");
+
+
+
     GAME_OBJECT.add_unit(x, y, 0, team, VEHICLE_TYPE.veh_mcv_allied);
     var array = [
         { x: 0, y: 1, i: 1, j: 0 },

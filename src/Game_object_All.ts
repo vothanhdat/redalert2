@@ -1,6 +1,11 @@
+import { particlecontainer, stage } from "./Game_Container";
 import { Game_Effect_Base, Game_Unit_Base, Game_weapon_Base, Map_object_Base, Map_scrap_Base } from "./Game_object";
+// import { SmokeEffect, SmokeEffect2 } from "./Game_Units/Effect/Effect";
+import { WEAPON } from "./Game_Units/Weapon/Weapon";
 import { GLOBAL } from "./GLOBAL";
 import { GRID } from "./GRID";
+import { STATE } from "./jsHelper";
+import { UnitRegistryClass } from "./UnitRegistry";
 import { sort_unique } from "./utils"
 
 export const GAME_OBJECT = new (function () {
@@ -75,8 +80,8 @@ export const GAME_OBJECT = new (function () {
 
         // IF REMOVE IT, CACHE IS NOT CLEAN AND MEMORY WILL BE LEAK
 
-        SmokeEffect.process();
-        SmokeEffect2.process();
+        UnitRegistryClass['SmokeEffect'].process();
+        UnitRegistryClass['SmokeEffect2'].process();
 
         // #endregion
 
@@ -119,13 +124,13 @@ export const GAME_OBJECT = new (function () {
         if (property.class) {
             return this.add_instance(new (property.class)(x, y, z, property, is_sort, notsound));
         } else {
-            return this.add_instance(new Effect(x, y, z, property, is_sort, notsound));
+            return this.add_instance(new UnitRegistryClass['Effect'](x, y, z, property, is_sort, notsound));
         }
     }
 
 
     setInterval(function () {
-        var TMP = sort_unique(GAME_OBJECT.listobject.filter(e => e instanceof Movealbe_unit).map(e => e.group))
+        var TMP = sort_unique(GAME_OBJECT.listobject.filter(e => e instanceof UnitRegistryClass['Movealbe_unit']).map(e => e.group))
             .forEach(e => e && e.goal && !e.listgoal && GRID.get_grid_move_async(e, e.enemy || e.goal, e.farest));
     }, 5000 / GLOBAL.SPEED);
 

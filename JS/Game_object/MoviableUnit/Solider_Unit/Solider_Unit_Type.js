@@ -1,5 +1,8 @@
 ﻿/// <reference path="Solider_Unit.js" />
 "use strict";
+
+const { UnitRegistryClass } = require("../../../../src/UnitRegistry");
+
 var SOLIDER_AUDIO_TYPE = {
     die0: "Audio/igidia.wav",
     die1: "Audio/igidib.wav",
@@ -937,6 +940,8 @@ SOLIDER_TYPE.sol_eng = {
         }
     },
 };
+
+UnitRegistryClass['SOLIDER_TYPE.sol_eng.class'] = SOLIDER_TYPE.sol_eng.class
 
 
 SOLIDER_TYPE.sol_tany = {

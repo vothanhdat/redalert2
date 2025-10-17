@@ -28,6 +28,7 @@ import { PLANE_UNIT } from "./Game_Units/MoviableUnit/Flyable_Unit";
 import * as Weapon_Type from "./Game_Units/Weapon/Weapon_Type";
 import { FOG_GRAPGICH, MINIMAP } from "./Minimap";
 import { VEHICLE_UNIT } from "./Game_Units/MoviableUnit/Vihicle_Unit/Vihicle_Unit_ALL";
+import { GAME_OBJECT } from "./Game_object_All";
 
 console.log("RUN")
 console.log({ GLOBAL })
@@ -153,7 +154,7 @@ window.animate = function () {
     FOG_GRAPGICH.update(deltatime * GLOBAL.SPEED);
 
     // 2 - 6ms
-    Game_object.GAME_OBJECT.main_loop(deltatime * GLOBAL.SPEED);
+    GAME_OBJECT.main_loop(deltatime * GLOBAL.SPEED);
 
     AUDIO.process();
 
@@ -197,7 +198,7 @@ window.GAME_MANAGER = {
                 url: "JS/UI/Playing_layout.html",
                 async: false
             }).done(function (data) {
-                console.log(data)
+                // console.log(data)
                 document.body.appendChild(GLOBAL.renderer.view);
                 $("body").append(data);
                 $("body")[0].style.cursor = "none";

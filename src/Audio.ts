@@ -8,7 +8,7 @@ import { MAP_OBJECT_TYPE } from "./Game_Units/Map_Object/Map_object";
 import { SOLIDER_TYPE } from "./Game_Units/MoviableUnit/Solider_Unit/Solider_Unit_Type";
 import { VEHICLE_UNIT } from "./Game_Units/MoviableUnit/Vihicle_Unit/Vihicle_Unit_ALL";
 import { ATTACK_TYPE } from "./Game_Units/Weapon/Weapon_Type";
-import { sort_unique } from "./utils";
+import { convert2screen, sort_unique } from "./utils";
 // var origOpen = XMLHttpRequest.prototype.open;
 
 // XMLHttpRequest.prototype.open = function (method, url) {
@@ -154,6 +154,7 @@ export const AUDIO = new (function () {
 
 
         this.play_game_music = function () {
+            return;//TODO
             this.music.src = this.game_music_list[Math.floor(Math.random() * 4)];
             this.music.loop = false;
             this.music.list_src = this.game_music_list;

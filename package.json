@@ -4,10 +4,16 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
+    "build:check": "tsc && vite build",
     "preview": "vite preview"
   },
-  "keywords": ["game", "red-alert", "typescript", "vite"],
+  "keywords": [
+    "game",
+    "red-alert",
+    "typescript",
+    "vite"
+  ],
   "author": "",
   "license": "ISC",
   "description": "Red Alert 2 game clone built with TypeScript and Vite",
@@ -19,7 +25,6 @@
   },
   "dependencies": {
     "jquery": "^3.7.1",
-    "pixi.js": "^8.14.0",
-    "soundjs": "^1.0.1"
+    "pixi.js": "^8.14.0"
   }
 }

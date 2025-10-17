@@ -1,14 +1,13 @@
 // Main entry point for the Red Alert 2 game
 import * as PIXI from 'pixi.js';
 import $ from 'jquery';
-// @ts-ignore - SoundJS doesn't have proper type definitions
-import * as createjs from 'soundjs';
 
 // Make libraries globally available for legacy code
 (window as any).PIXI = PIXI;
 (window as any).$ = $;
 (window as any).jQuery = $;
-(window as any).createjs = createjs;
+// createjs is loaded from script tag in index.html
+(window as any).createjs = (window as any).createjs || {};
 
 // Import helper scripts
 import './lib/JavaScript_helper.js';

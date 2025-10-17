@@ -2,6 +2,8 @@
   "name": "redalert2-html5",
   "packageManager": "yarn@4.9.2",
   "dependencies": {
+    "@types/pixi.js": "3",
+    "pixi.js": "3",
     "vite": "^7.1.10"
   },
   "scripts": {

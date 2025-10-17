@@ -1,5 +1,5 @@
 ﻿// import PIXI from "pixi.js"
-import { TEAM } from "./Controler";
+import { TEAM } from "./CONTROLLER";
 import { GLOBAL } from "./GLOBAL";
 import { TeamColorFilter } from "./jsHelper";
 

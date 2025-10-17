@@ -1,9 +1,8 @@
-﻿import { GAME_OBJECT } from "./Game_object";
-import { MAP_OBJECT_TYPE, Mine, Tree } from "./Game_Units/Map_Object/Map_object";
+﻿import { MAP_OBJECT_TYPE, Mine, Tree } from "./Game_Units/Map_Object/Map_object";
 import { VEHICLE_TYPE } from "./Game_Units/MoviableUnit/Vihicle_Unit/Vehicle_Unit_Type";
 import { GLOBAL } from "./GLOBAL";
 import { LOADER_SCREEN } from "./LOADER_PROGESS";
-
+import { GAME_OBJECT } from "./Game_object_All"
 var list_wait_done = {
     "vehicle": false,
     "solider": false,
@@ -43,7 +42,7 @@ function load_list_object(data) {
             case "STATIC_DEFENSE_POINT_CENTER":
             case "STATIC_WAYPOINT":
             case "STATIC_WAYPOINT_HOME":
-                
+
                 AI_WORKER.add_ai_static_info(ob);
                 break;
         }
@@ -52,9 +51,9 @@ function load_list_object(data) {
         //.replace(/ +/g, ' ').trim()                         // remove unexpected space
         .split("\n")                                        // Split line by line
         .map(e => e.split(" ")                              // Split data in line
-        .filter(e => e.length > 0).map(e => e.trim()));     // filter and remove all space
+            .filter(e => e.length > 0).map(e => e.trim()));     // filter and remove all space
 
-    for(var e of list) {
+    for (var e of list) {
         if (e[0] == "#")
             break;
         load_object(e);
@@ -64,18 +63,18 @@ function load_list_object(data) {
 
 
 
-export const  load_team = function (x, y, z, team) {
+export const load_team = function (x, y, z, team) {
     GAME_OBJECT.add_unit(x, y, 0, team, VEHICLE_TYPE.veh_mcv_allied);
     var array = [
         { x: 0, y: 1, i: 1, j: 0 },
-        { x:0, y: 0, i: 0, j: 1 },
+        { x: 0, y: 0, i: 0, j: 1 },
         { x: 1, y: 1, i: 0, j: -1 },
         { x: 1, y: 0, i: -1, j: 0 },
     ];
-    for (var i = 0 ; i < 4; i++) {
+    for (var i = 0; i < 4; i++) {
         var startx = x + 6 * array[i].x - 3;
         var starty = y + 6 * array[i].y - 3;
-        for (var j = 0 ; j < 6; j++) {
+        for (var j = 0; j < 6; j++) {
             var posx = startx + array[i].i * j;
             var posy = starty + array[i].j * j;
             if (j == 0) {

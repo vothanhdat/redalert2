@@ -1,7 +1,6 @@
 ﻿/// <reference path="../Scripts/soundjs-0.6.1.min.js" />
 
-import { USER_CONTROLER } from "./Controler";
-import { sort_unique } from "./Game_object";
+import { USER_CONTROLER } from "./CONTROLLER";
 import { CONSTRUCTION_TYPE } from "./Game_Units/Construction/Construction_Unit_Type";
 import { MAP_CONSTRUCTION_UNIT_TYPE } from "./Game_Units/Construction/Map_Construction_Unit";
 import { EFFECT_TYPE } from "./Game_Units/Effect/Effect";
@@ -9,6 +8,7 @@ import { MAP_OBJECT_TYPE } from "./Game_Units/Map_Object/Map_object";
 import { SOLIDER_TYPE } from "./Game_Units/MoviableUnit/Solider_Unit/Solider_Unit_Type";
 import { VEHICLE_UNIT } from "./Game_Units/MoviableUnit/Vihicle_Unit/Vihicle_Unit";
 import { ATTACK_TYPE } from "./Game_Units/Weapon/Weapon_Type";
+import { sort_unique } from "./utils";
 // var origOpen = XMLHttpRequest.prototype.open;
 
 // XMLHttpRequest.prototype.open = function (method, url) {

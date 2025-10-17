@@ -1,8 +1,8 @@
 
 // import PIXI from "pixi.js";
-import { TEAM } from "../../../Controler";
+import { TEAM } from "../../../CONTROLLER";
 import { on_texture_load_done } from "../../../Done";
-import { GAME_OBJECT } from "../../../Game_object";
+import { GAME_OBJECT } from "../../../Game_object_All";
 import { IMAGE_PROCESS } from "../../../Image_process";
 import { Ground_moveable_unit } from "../MoviableUnit";
 import { VEHICLE_TYPE } from "./Vehicle_Unit_Type";

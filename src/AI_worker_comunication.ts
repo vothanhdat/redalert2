@@ -1,7 +1,7 @@
-﻿/// <reference path="Controler.js" />
-"use strict";
+﻿
 
-import { AI_CONTROLER2 } from "./Controler";
+import { INDEX_TYPE } from "./Game_Unit_All";
+import { GRID } from "./GRID";
 
 var TEST_TIME = false;
 

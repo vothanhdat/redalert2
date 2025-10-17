@@ -1,11 +1,12 @@
 ﻿
 // import PIXI from "pixi.js";
 import { IMAGE_PROCESS } from "../../Image_process";
-import { TEAM } from "../../Controler";
+import { TEAM } from "../../CONTROLLER";
 import { GLOBAL } from "../../GLOBAL";
 import { Construction_unit } from "./Construction_Unit";
-import {  GAME_OBJECT, Map_scrap_Base } from "../../Game_object";
+import { Map_scrap_Base } from "../../Game_object";
 import { on_texture_load_done } from "../../Done";
+import { GAME_OBJECT } from "../../Game_object_All";
 
 PIXI.loader.add({ name: "mapcon", url: "IMG/Unit/MapConstruction/img.json" });
 
@@ -40,7 +41,7 @@ export const MAP_CONSTRUCTION_UNIT = {
     },
     process_color_gl_done: function (textures, listresource) {
         var baseresource = listresource[0];
-        for (var i = -1 ; i < textures.length; i++) {
+        for (var i = -1; i < textures.length; i++) {
             if (i == 0)
                 continue;
             //console.log(i);
@@ -52,7 +53,7 @@ export const MAP_CONSTRUCTION_UNIT = {
                     baseresource[j].frame,
                     baseresource[j].crop,
                     baseresource[j].trim
-                    );
+                );
             listresource[i] = processresource;
         }
 
@@ -69,7 +70,7 @@ export class Map_Construction_unit extends Construction_unit {
         super(x, y, z, -1, property);
 
     }
-    delete () {
+    delete() {
         super.delete();
         GAME_OBJECT.add_instance(new Map_scrap(this.x, this.y, this.z, this.property));
     }
@@ -237,7 +238,7 @@ export class Map_scrap extends Map_scrap_Base {
         GRID.set_object(this);
         stage.addChild(this.sprite);
     }
-    delete () {
+    delete() {
         GRID.unset_object(this);
         super.delete();
     }
@@ -263,7 +264,7 @@ MAP_CONSTRUCTION_UNIT_TYPE.cuairp = {
         size: { w: 3, h: 3, h_: 13 },
         shield: { _1: 10000000, _2: 50, _3: 50, _4: 50 },
         life: 500,
-        sight : 8
+        sight: 8
     },
     functional: {
         additional: ["parachutist_plane"]
@@ -290,7 +291,7 @@ MAP_CONSTRUCTION_UNIT_TYPE.cuairp = {
                     var e_0 = e[0];
                     if (e_0.progess_load > 0 && TEAM[this.team].team.check_dependence(e_0)) {
                         if (((e_0.progess_load + e_0.progess - 0.001) % e_0.progess)
-                        < ((e_0.progess_load + e_0.progess - time / 60) % e_0.progess))
+                            < ((e_0.progess_load + e_0.progess - time / 60) % e_0.progess))
                             this.process_functional_done(e_0);
                         e_0.progess_load -= time / 60;
                     }

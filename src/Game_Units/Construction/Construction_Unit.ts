@@ -4,10 +4,10 @@
 import { IMAGE_PROCESS } from "../../Image_process";
 import { GLOBAL } from "../../GLOBAL";
 import { Game_unit } from "../../Game_Unit";
-import { GAME_OBJECT } from "../../Game_object";
-import { TEAM } from "../../Controler";
+import { TEAM } from "../../CONTROLLER";
 import { CONSTRUCTION_TYPE } from "./Construction_Unit_Type";
 import { on_texture_load_done } from "../../Done"
+import { GAME_OBJECT } from "../../Game_object_All";
 PIXI.loader.add({ name: "con", url: "IMG/Unit/Construction/construction.json" });
 
 export const CONSTRUCTION_UNIT = {

@@ -1,7 +1,8 @@
 ﻿
 
 import { AUDIO } from "../../Audio";
-import { GAME_OBJECT } from "../../Game_object";
+import { TEAM } from "../../CONTROLLER";
+import { GAME_OBJECT } from "../../Game_object_All";
 import { GLOBAL } from "../../GLOBAL";
 import { Light_Effect_Autoscale } from "../Effect/Effect";
 import { Game_weapon, WEAPON } from "./Weapon";

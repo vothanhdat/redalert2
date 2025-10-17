@@ -1,4 +1,4 @@
-import { AI_WORKER } from "./AI_worker_comunication";
+// import { AI_WORKER } from "./AI_worker_comunication";
 
 
 export const GRID = new (function () {

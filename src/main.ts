@@ -5,7 +5,7 @@ import { Circular_Queue, PriorityQueue, Queue } from "./priorityqueue"
 import { LOADER_SCREEN } from "./LOADER_PROGESS"
 import { AUDIO } from "./Audio"
 import { GameMap } from "./Map"
-import * as Controller from "./Controler"
+import * as Controller from "./CONTROLLER"
 import * as ImageProcess from "./Image_process"
 import { GRID } from "./GRID";
 import * as Game_object from "./Game_object";
@@ -121,8 +121,8 @@ window.onresize = function (e) {
 }
 
 window.onload = function () {
-    GAME_MANAGER.load_texture();
-
+    // console.log("window.GAME_MANAGER.load_texture")
+    window.GAME_MANAGER.load_texture();
 }
 
 window.oncontextmenu = function () {
@@ -189,7 +189,8 @@ window.GAME_MANAGER = {
     },
     on_start_game() {
         GLOBAL.map = new GameMap("map3");
-        MENU && MENU.display_progess(true);
+
+        window.MENU && window.MENU.display_progess(true);
 
         GLOBAL.map.promise.then(() => {
             $.ajax({
@@ -216,8 +217,10 @@ window.GAME_MANAGER = {
 
     },
     load_texture() {
+        console.log("Load Texture", LOADER_SCREEN)
         LOADER_SCREEN.on_start();
         PIXI.loader.on('progress', function (loader, loadedResource) {
+            // console.log("on Progress")
             LOADER_SCREEN.on_progess(loader.progress / 100);
         });
         PIXI.loader.load(function (loader, resources) {
@@ -229,7 +232,8 @@ window.GAME_MANAGER = {
             Map_Construction_Unit.MAP_CONSTRUCTION_UNIT.load_texture_done(loader, resources);
             PLANE_UNIT.load_texture_done(loader, resources);
             LOADER_SCREEN.on_done_texture();
-            GAME_MANAGER.on_menu();
+            window.GAME_MANAGER.on_start_game();
+            // window.GAME_MANAGER.on_menu();
         });
     },
     load_map() {

@@ -1,12 +1,12 @@
 ﻿
 // import PIXI from "pixi.js";
 import { Movealbe_unit } from "./MoviableUnit";
-import { GAME_OBJECT } from "../../Game_object";
 import { Game_unit } from "../../Game_Unit";
 import { STATE } from "../../jsHelper";
 import { IMAGE_PROCESS } from "../../Image_process";
-import { TEAM } from "../../Controler";
+import { TEAM } from "../../CONTROLLER";
 import { on_texture_load_done } from "../../Done";
+import { GAME_OBJECT } from "../../Game_object_All";
 
 export class Flyable_Unit extends Movealbe_unit {
 

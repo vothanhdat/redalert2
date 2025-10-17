@@ -15,6 +15,7 @@
         this.div.style.display = null;
         this.div.style.width = innerWidth;
         this.div.style.width = innerHeight;
+        // console.log(this)
     }
 
 

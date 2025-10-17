@@ -1,7 +1,7 @@
 ﻿// import PIXI from "pixi.js";
 import { GLOBAL } from "./GLOBAL";
 import { InverseAlpha, NoiseFilter } from "./jsHelper";
-import { TEAM } from "./Controler";
+import { TEAM } from "./CONTROLLER";
 
 
 export const FOG_GRAPGICH = new (function () {

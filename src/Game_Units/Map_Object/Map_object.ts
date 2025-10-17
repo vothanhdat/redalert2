@@ -3,7 +3,7 @@ import { IMAGE_PROCESS } from "../../Image_process";
 import { STATE } from "../../jsHelper";
 import { on_texture_load_done } from "../../Done";
 import { stage } from "../../Game_Container";
-import { calcfar2, GAME_OBJECT, Map_object_Base } from "../../Game_object";
+import { Map_object_Base } from "../../Game_object";
 import { GRID } from "../../GRID";
 
 PIXI.loader.add({ name: "map_ob", url: "IMG/Unit/MapObject/img.json" });
@@ -73,7 +73,7 @@ export class Heap_mine extends Map_object {
         return delta * this.property.property.quatity * this.property.property.ratio;
     }
 
-    delete () {
+    delete() {
         super.delete();
         stage.removeChild(this.sprites);
         GRID.heapmine[this.x * GRID.dim + this.y] = null;
@@ -150,7 +150,7 @@ export class Mine extends Map_object {
         this.total_temp += time / 600;
         var count = 0, c = 4;
         if (this.total_temp > time / 30) {
-            for(var e of this.list_mine) {
+            for (var e of this.list_mine) {
                 if (e.quatity >= 1)
                     continue;
                 else if (count++ < c) {
@@ -169,10 +169,10 @@ export class Mine extends Map_object {
         return total;
     }
 
-    delete () {
+    delete() {
         super.delete();
         stage.removeChild(this.sprites);
-        for(var e of this.list_mine) {
+        for (var e of this.list_mine) {
             e.delete();
         }
         GRID.unset_object(this);
@@ -190,7 +190,7 @@ export class Grouph_mine {
         return this.list_ceil;
     }
     get_quatity() {
-        return this.list_mine.map(e=> e.get_remain_heamine()).reduce((e, f) => e + f, 0);
+        return this.list_mine.map(e => e.get_remain_heamine()).reduce((e, f) => e + f, 0);
     }
 
     get_total_quatity() {
@@ -199,8 +199,8 @@ export class Grouph_mine {
     get_center() {
         if (this._center_)
             return this._center_;
-        var tmp = this.list_mine.map(e=> (e.x * 10000 + e.y)).reduce((e, f) => e + f, 0);
-        return (this._center_ = { x: Math.floor(tmp / this.list_mine.length / 10000), y: Math.floor((tmp % 10000) / this.list_mine.length)});
+        var tmp = this.list_mine.map(e => (e.x * 10000 + e.y)).reduce((e, f) => e + f, 0);
+        return (this._center_ = { x: Math.floor(tmp / this.list_mine.length / 10000), y: Math.floor((tmp % 10000) / this.list_mine.length) });
     }
 }
 
@@ -232,7 +232,7 @@ export class Simple_map_object extends Map_object {
         }
     }
 
-    delete () {
+    delete() {
 
     }
 }
@@ -294,7 +294,7 @@ export class Tree extends Map_object {
         return [{ x: this.x, y: this.y }];
     }
 
-    delete () {
+    delete() {
         stage.removeChild(this.sprite);
         GRID.unset_object(this);
         super.delete();

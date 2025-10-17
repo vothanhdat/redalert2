@@ -14,7 +14,7 @@ import './lib/JavaScript_helper.js';
 import './lib/priorityqueue.js';
 
 // Import game modules in order
-import './JS/LOADER_PROGESS.js';
+import './JS/LOADER_PROGESS';
 import './JS/Audio.js';
 import './JS/Map.js';
 import './JS/Controler.js';
@@ -39,7 +39,7 @@ import './JS/AI_worker_comunication.js';
 import './JS/UI/Playing_layout.js';
 import './JS/UI/Minimap.js';
 import './JS/Done.js';
-import './JS/Game_Container.js';
+import './JS/Game_Container';
 
 // Import game initialization
 import {

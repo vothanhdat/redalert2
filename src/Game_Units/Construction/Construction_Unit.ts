@@ -99,6 +99,7 @@ export class Construction_unit extends Game_unit {
         this.isrepair = false;
         this.isrepair_pause = false;
         this.list_impaire_fire = [];
+        this.grid_weight = 4;
 
     }
 

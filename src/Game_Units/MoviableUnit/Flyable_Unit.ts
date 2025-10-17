@@ -10,6 +10,10 @@ import { GAME_OBJECT } from "../../Game_object_All";
 
 export class Flyable_Unit extends Movealbe_unit {
 
+    constructor(...params){
+        super(...params)
+        this.use_grid = false;
+    }
 }
 
 Flyable_Unit.list_unit = [];

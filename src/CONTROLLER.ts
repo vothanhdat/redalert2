@@ -45,6 +45,8 @@ TEAM[-1] = {
     get ID() { return this._id_++ }
 }
 
+window.TEAM = TEAM
+
 
 
 

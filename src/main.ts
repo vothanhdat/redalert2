@@ -24,10 +24,10 @@ import { graphics, graphics2, mainstage, mouse_stage } from "./Game_Container"
 // import PIXI from "pixi.js";
 import { CONSTRUCTION_UNIT } from "./Game_Units/Construction/Construction_Unit";
 import { SOLIDER_UNIT } from "./Game_Units/MoviableUnit/Solider_Unit/Solider_Unit";
-import { VEHICLE_UNIT } from "./Game_Units/MoviableUnit/Vihicle_Unit/Vihicle_Unit";
 import { PLANE_UNIT } from "./Game_Units/MoviableUnit/Flyable_Unit";
 import * as Weapon_Type from "./Game_Units/Weapon/Weapon_Type";
 import { FOG_GRAPGICH, MINIMAP } from "./Minimap";
+import { VEHICLE_UNIT } from "./Game_Units/MoviableUnit/Vihicle_Unit/Vihicle_Unit_ALL";
 
 console.log("RUN")
 console.log({ GLOBAL })
@@ -185,7 +185,7 @@ window.GAME_MANAGER = {
         });
     },
     on_unloadmenu() {
-        $(".MENU")[0].remove();
+        $(".MENU")[0]?.remove();
     },
     on_start_game() {
         GLOBAL.map = new GameMap("map3");
@@ -202,15 +202,15 @@ window.GAME_MANAGER = {
                 $("body").append(data);
                 $("body")[0].style.cursor = "none";
                 document.body.appendChild(GLOBAL.mouserenderer.view);
-                MENU && MENU.display_progess(false);
-                GAME_MANAGER.on_unloadmenu();
+                window.MENU && window.MENU.display_progess(false);
+                window.GAME_MANAGER.on_unloadmenu();
             }).fail(function (xhr) {
 
             });
         })
 
         GLOBAL.map && (GLOBAL.map.on_load_progess = function (progess) {
-            MENU && MENU.set_progess(progess);
+            window.MENU && window.MENU.set_progess(progess);
         });
     },
     on_unload_game() {

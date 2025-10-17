@@ -1,12 +1,6 @@
 ﻿
 "use strict";
 
-import { CONSTRUCTION_TYPE } from "./Game_Units/Construction/Construction_Unit_Type";
-import { MAP_CONSTRUCTION_UNIT_TYPE } from "./Game_Units/Construction/Map_Construction_Unit";
-import { PLANE_UNIT_TYPE } from "./Game_Units/MoviableUnit/Flyable_Unit";
-import { SOLIDER_TYPE } from "./Game_Units/MoviableUnit/Solider_Unit/Solider_Unit_Type";
-import { VEHICLE_TYPE } from "./Game_Units/MoviableUnit/Vihicle_Unit/Vehicle_Unit_Type";
-
 
 export const INDEX_TYPE = new (function () {
     var arr = {};
@@ -15,7 +9,15 @@ export const INDEX_TYPE = new (function () {
     this.get = function (string) {
         return arr[string] || (arr[string] = ++id);
     }
-    this.init = function () {
+    this.init = async function () {
+
+        const { CONSTRUCTION_TYPE } = await import("./Game_Units/Construction/Construction_Unit_Type");
+        const { MAP_CONSTRUCTION_UNIT_TYPE } = await import("./Game_Units/Construction/Map_Construction_Unit");
+        const { PLANE_UNIT_TYPE } = await import("./Game_Units/MoviableUnit/Flyable_Unit");
+        const { SOLIDER_TYPE } = await import("./Game_Units/MoviableUnit/Solider_Unit/Solider_Unit_Type");
+        const { VEHICLE_TYPE } = await import("./Game_Units/MoviableUnit/Vihicle_Unit/Vehicle_Unit_Type");
+
+
         var object = {};
         Object.assign(object, CONSTRUCTION_TYPE, VEHICLE_TYPE, SOLIDER_TYPE, MAP_CONSTRUCTION_UNIT_TYPE, PLANE_UNIT_TYPE);
         for (var i in object) {

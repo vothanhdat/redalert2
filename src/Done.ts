@@ -1,8 +1,16 @@
-﻿import { MAP_OBJECT_TYPE, Mine, Tree } from "./Game_Units/Map_Object/Map_object";
-import { VEHICLE_TYPE } from "./Game_Units/MoviableUnit/Vihicle_Unit/Vehicle_Unit_Type";
+﻿// import { MAP_OBJECT_TYPE, Mine, Tree } from "./Game_Units/Map_Object/Map_object";
+// import { VEHICLE_TYPE } from "./Game_Units/MoviableUnit/Vihicle_Unit/Vehicle_Unit_Type";
+// import { GLOBAL } from "./GLOBAL";
+// import { LOADER_SCREEN } from "./LOADER_PROGESS";
+// import { GAME_OBJECT } from "./Game_object_All"
+// import { MAP_CONSTRUCTION_UNIT_TYPE } from "./Game_Units/Construction/Map_Construction_Unit";
+
+import { AUDIO } from "./Audio";
+import { USER_CONTROLER } from "./CONTROLLER";
+import { CLOUND } from "./Game_Units/Effect/Effect";
 import { GLOBAL } from "./GLOBAL";
 import { LOADER_SCREEN } from "./LOADER_PROGESS";
-import { GAME_OBJECT } from "./Game_object_All"
+
 var list_wait_done = {
     "vehicle": false,
     "solider": false,
@@ -14,11 +22,20 @@ var list_wait_done = {
     "plane": false
 }
 
-const AUTO_TYPE = {
-    MAP_OBJECT_TYPE,
-}
+async function load_list_object(data) {
 
-function load_list_object(data) {
+    const { GAME_OBJECT } = await import("./Game_object_All");
+    const { MAP_CONSTRUCTION_UNIT_TYPE } = await import("./Game_Units/Construction/Map_Construction_Unit");
+    const { MAP_OBJECT_TYPE, Mine, Tree } = await import("./Game_Units/Map_Object/Map_object");
+    const { AI_WORKER } = await import("./AI_worker_comunication");
+
+
+    const AUTO_TYPE = {
+        MAP_OBJECT_TYPE,
+        MAP_CONSTRUCTION_UNIT_TYPE,
+    }
+
+
     function load_object(ob) {
         console.log(ob);
         switch (ob[0]) {
@@ -47,6 +64,8 @@ function load_list_object(data) {
                 break;
         }
     }
+
+
     var list = data
         //.replace(/ +/g, ' ').trim()                         // remove unexpected space
         .split("\n")                                        // Split line by line
@@ -88,26 +107,31 @@ export const load_team = function (x, y, z, team) {
 
 
 
-export const on_texture_load_done = function (info) {
+export const on_texture_load_done = async function (info) {
+    const { AI_WORKER } = await import("./AI_worker_comunication");
+
     list_wait_done[info] = true;
 
     console.log(` =================>>> LOAD ${info.toUpperCase()} DONE <<<=================`);
     for (var i in list_wait_done)
         if (!list_wait_done[i])
             return;
+
     console.log('LOAD ALL TEXTURES DONE');
 
 
 
-    load_list_object(GLOBAL.map.list_object_data);
+    await load_list_object(GLOBAL.map.list_object_data);
 
     LOADER_SCREEN.on_done();
 
     window.setTimeout(function () { AI_WORKER.on_game_start(); }, 2000);
     window.animate();
+
     AUDIO.music.play_game_music();
 
     USER_CONTROLER.on_game_start();
+
     AI_WORKER.on_game_load_done();
 
 

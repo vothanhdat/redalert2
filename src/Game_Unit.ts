@@ -24,18 +24,20 @@ export class Game_unit extends Game_Unit_Base {
         this.attackload = 0;
         this.enemy = null;
         this.team = team;
-        this.ID = TEAM[team].ID;
+        this.ID = window.TEAM[team].ID;
         this.minimap_sprite = null;
         this.__hidesprite__ = null;
         this.group = null;
         this.enemy = null;
         this.goal = null;
+        this.use_grid = true
+        this.grid_weight = 1;
     }
 
     init() {
         super.init();
         GAME_OBJECT.map_id_unit[this.ID] = this;
-        GRID.set_object(this);
+        this.use_grid && GRID.set_object(this);
         GRID.setfogmap(this);
         MINIMAP.add(this);
         GAME_OBJECT.listgameunit[this.team] && GAME_OBJECT.listgameunit[this.team].push(this);
@@ -46,7 +48,7 @@ export class Game_unit extends Game_Unit_Base {
     delete() {
 
 
-        GRID.unset_object(this);
+        this.use_grid && GRID.unset_object(this);
         GRID.unsetfogmap(this);
         MINIMAP.remove(this);
 

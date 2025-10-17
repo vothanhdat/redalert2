@@ -1,4 +1,4 @@
-// import { AI_WORKER } from "./AI_worker_comunication";
+import { AI_WORKER } from "./AI_worker_comunication";
 
 
 export const GRID = new (function () {
@@ -109,12 +109,12 @@ export const GRID = new (function () {
      * @param {Number} y The axis y.
      */
     this.set_object = function (ob, x, y) {
-        if (ob instanceof Flyable_Unit)
-            return;
+        // if (ob instanceof Flyable_Unit)
+        //     return;
 
         x = x || ob.x;
         y = y || ob.y;
-        var add = (ob instanceof Solider_unit) ? 1 : 3;
+        var add = ob.grid_weight ?? 1;
         var sizeproperty = ob.property.property.size;
 
         if (!sizeproperty || (sizeproperty.h == 1 && sizeproperty.w == 1)) {
@@ -122,8 +122,8 @@ export const GRID = new (function () {
             var j = Math.round(y);
             this.objectmap[i * this.dim + j].push(ob);
             this._object_count_[i * this.dim + j] += add;
-            if (ob instanceof Construction_unit || ob instanceof Tree)
-                this.object_count[i * this.dim + j]++;
+            // if (ob instanceof Construction_unit || ob instanceof Tree)
+            //     this.object_count[i * this.dim + j]++;
         } else {
             var starx = Math.max(0, Math.round(x - sizeproperty.w / 2));
             var stary = Math.max(0, Math.round(y - sizeproperty.h / 2));
@@ -132,8 +132,8 @@ export const GRID = new (function () {
             for (var i = starx; i <= endx; i++)
                 for (var j = stary; j <= endy; j++) {
                     this.objectmap[i * this.dim + j].push(ob);
-                    if (ob instanceof Construction_unit || ob instanceof Tree)
-                        this.object_count[i * this.dim + j]++;
+                    // if (ob instanceof Construction_unit || ob instanceof Tree)
+                    //     this.object_count[i * this.dim + j]++;
                     this._object_count_[i * this.dim + j] += add;
                 }
         }
@@ -149,11 +149,11 @@ export const GRID = new (function () {
      * @param {Number} y The axis y.
      */
     this.unset_object = function (ob, x, y) {
-        if (ob instanceof Flyable_Unit)
-            return;
+        // if (ob instanceof Flyable_Unit)
+        //     return;
         x = x || ob.nx || ob.x;
         y = y || ob.ny || ob.y;
-        var add = (ob instanceof Solider_unit) ? 1 : 3;
+        var add = ob.grid_weight ?? 1;
         var sizeproperty = ob.property.property.size;
         if (!sizeproperty || (sizeproperty.h == 1 && sizeproperty.w == 1)) {
             var i = Math.round(x);

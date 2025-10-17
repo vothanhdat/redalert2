@@ -13,7 +13,7 @@ import { mainstage } from "./Game_Container";
 import { GLOBAL } from "./GLOBAL";
 import { GRID } from "./GRID";
 import { random } from "./jsHelper";
-
+import { MINIMAP } from "./Minimap"
 
 
 // const MAP_TEST_DEEP = false;

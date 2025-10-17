@@ -5,6 +5,8 @@ import { on_texture_load_done } from "../../Done";
 import { stage } from "../../Game_Container";
 import { Map_object_Base } from "../../Game_object";
 import { GRID } from "../../GRID";
+import { GAME_OBJECT } from "../../Game_object_All";
+import { calcfar2 } from "../../utils";
 
 PIXI.loader.add({ name: "map_ob", url: "IMG/Unit/MapObject/img.json" });
 

@@ -10,7 +10,7 @@ This project has been migrated from plain JavaScript to TypeScript with Vite as 
 
 - **TypeScript** - For type safety and better development experience
 - **Vite** - Fast build tool and development server
-- **PixiJS v8** - 2D rendering engine
+- **PixiJS v7** - 2D rendering engine
 - **jQuery** - DOM manipulation
 - **SoundJS** - Audio management
 
@@ -77,7 +77,8 @@ redalert2/
 ## Migration Notes
 
 - The original JavaScript files are kept in `src/JS/` directory
-- External libraries (PixiJS, jQuery) are now managed via npm
+- External libraries (PixiJS v7, jQuery) are now managed via npm
+- PixiJS v7 is used for compatibility (v8 migration will be in a separate PR)
 - SoundJS is loaded via script tag due to lack of ES module support
 - Build output goes to `dist/` directory
 - Assets are served from `public/` directory

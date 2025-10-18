@@ -51,10 +51,11 @@ redalert2/
 
 ## How Libraries are Loaded
 
-### PixiJS (v8.14.0)
+### PixiJS (v7.4.2)
 - **Method**: npm package, ES module import
 - **Usage**: `import * as PIXI from 'pixi.js'`
 - **Global**: Available as `window.PIXI` for legacy code
+- **Note**: v7 is used for compatibility; v8 migration will be in a separate PR
 
 ### jQuery (v3.7.1)
 - **Method**: npm package, ES module import

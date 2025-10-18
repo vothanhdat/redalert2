@@ -70,23 +70,19 @@ export function initGlobals() {
   window.max_y = 0;
   window.drawtime = performance.now();
 
-  // Initialize renderers with PIXI
+  // Initialize renderers with PIXI v7
   const PIXI = window.PIXI;
-  window.renderer = PIXI.autoDetectRenderer({
-    width: window.screen_width,
-    height: window.screen_height,
-    backgroundAlpha: 0,
-    antialias: false
+  window.renderer = PIXI.autoDetectRenderer(window.screen_width, window.screen_height, { 
+    transparent: true, 
+    antialias: false 
   });
   window.renderer.view.style.position = "absolute";
   window.renderer.view.style.top = "0px";
   window.renderer.view.style.left = "0px";
 
-  window.mouserenderer = PIXI.autoDetectRenderer({
-    width: 55,
-    height: 43,
-    backgroundAlpha: 0,
-    antialias: false
+  window.mouserenderer = PIXI.autoDetectRenderer(55, 43, { 
+    transparent: true, 
+    antialias: false 
   });
   window.mouserenderer.view.style.position = "absolute";
   window.mouserenderer.view.style.pointerEvents = "none";
@@ -232,19 +228,17 @@ export function createGameManager() {
     },
     load_texture() {
       window.LOADER_SCREEN.on_start();
-      window.PIXI.Assets.loader.onProgress.add((loader: any) => {
+      window.PIXI.loader.on('progress', function (loader: any, loadedResource: any) {
         window.LOADER_SCREEN.on_progess(loader.progress / 100);
       });
-      window.PIXI.Assets.load([
-        // Add your texture paths here
-      ]).then((resources: any) => {
-        window.CONSTRUCTION_UNIT.load_texture_done(null, resources);
-        window.SOLIDER_UNIT.load_texture_done(null, resources);
-        window.VEHICLE_UNIT.load_texture_done(null, resources);
-        window.EFFECT.load_texture_done(null, resources);
-        window.MAP_OBJECT.load_texture_done(null, resources);
-        window.MAP_CONSTRUCTION_UNIT.load_texture_done(null, resources);
-        window.PLANE_UNIT.load_texture_done(null, resources);
+      window.PIXI.loader.load(function (loader: any, resources: any) {
+        window.CONSTRUCTION_UNIT.load_texture_done(loader, resources);
+        window.SOLIDER_UNIT.load_texture_done(loader, resources);
+        window.VEHICLE_UNIT.load_texture_done(loader, resources);
+        window.EFFECT.load_texture_done(loader, resources);
+        window.MAP_OBJECT.load_texture_done(loader, resources);
+        window.MAP_CONSTRUCTION_UNIT.load_texture_done(loader, resources);
+        window.PLANE_UNIT.load_texture_done(loader, resources);
         window.LOADER_SCREEN.on_done_texture();
         window.GAME_MANAGER.on_menu();
       });

@@ -1,0 +1,30 @@
+{
+  "name": "redalert2",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:check": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "game",
+    "red-alert",
+    "typescript",
+    "vite"
+  ],
+  "author": "",
+  "license": "ISC",
+  "description": "Red Alert 2 game clone built with TypeScript and Vite",
+  "devDependencies": {
+    "@types/jquery": "^3.5.33",
+    "@types/node": "^24.8.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.10"
+  },
+  "dependencies": {
+    "jquery": "^3.7.1",
+    "pixi.js": "^7.4.2"
+  }
+}

@@ -40,7 +40,10 @@ var CONSTRUCTION_UNIT = {
         renderer.render(zstage, { renderTexture: z, clear: true });
 
         window.setTimeout(function (z, property) {
-            property.img.normal.check_interactive = new IMAGE_PROCESS.processcheckinteractive(z.getCanvas());
+            // v3's RenderTexture.getCanvas() is gone in v7; extract.canvas() is the
+            // replacement and returns the canvas synchronously. Without this the
+            // per-pixel hit mask is never built and buildings cannot be clicked.
+            property.img.normal.check_interactive = new IMAGE_PROCESS.processcheckinteractive(renderer.extract.canvas(z));
         }, 300, z, property);
     },
     load_texture_done: function (loader, resources) {

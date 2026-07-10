@@ -5,6 +5,10 @@
 // import graph is acyclic and ES module evaluation order reproduces the original
 // script order. Do not reorder without re-checking src/core/late.js.
 
+// First, so uncaught exceptions from every later module and timer are recorded.
+// Uncaught errors never reach console.error; see src/core/error_trap.ts.
+import "./core/error_trap";
+
 import "./lib/JavaScript_helper";
 import "./lib/priorityqueue";
 import "./Game_Container";

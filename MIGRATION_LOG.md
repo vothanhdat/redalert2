@@ -504,3 +504,47 @@ share `AI/AI_static.js` and differ only in `AI/Dat/AI_VARIABLE_{1,2}.js`.
 Both teams build (26→30 and 25→29 units in 15 s), and team 0's AI raises a full base: garage,
 power plants, refinery, barracks, turrets, with credits draining from $1,000,000. The
 production build on the default URL fetches exactly one `AI_Worker.js`, 0 failed requests.
+
+---
+
+## Building selection was broken — and why two of these shipped
+
+`Construction_unit.check_choose()` hit-tests a click against a per-pixel mask:
+
+```js
+if (check_point_inside([X, Y], this.point_choose) && this.property.img.normal.check_interactive && this.pos)
+```
+
+`check_interactive` is built once per building type from a rendered canvas:
+
+```js
+property.img.normal.check_interactive = new IMAGE_PROCESS.processcheckinteractive(z.getCanvas());
+```
+
+**`RenderTexture.getCanvas()` is a PIXI v3 method that v7 removed.** It threw inside a
+`setTimeout`, so `check_interactive` stayed `undefined`, `check_choose()` always returned
+false, and **no building could be clicked** — from Stage 4a onward. Measured: 0 of 13
+construction types and 0 of 10 map-construction types had a hit mask. After replacing it with
+v7's `renderer.extract.canvas(z)`: 13/13 and 10/10, and a click selects the construction yard.
+
+Two sites: `Construction_Unit.ts` and `Map_Construction_Unit.ts`.
+
+### The tooling blind spot that let it through
+
+This is the **second** v3-only `RenderTexture` method to ship — `getBase64()` (the minimap
+image) was the first. Both threw from inside a `setTimeout`, and both were invisible to every
+check used to sign off Stage 4a.
+
+The reason, verified by experiment: throwing `new Error("SENTINEL")` from a `setTimeout` and
+then reading the browser tool's error-level console output returns **"No console logs."**
+Uncaught exceptions are not `console.error` calls. Every "0 console errors" claim in the
+stages above proves only that nothing called `console.error` — *not* that nothing crashed.
+
+`src/core/error_trap.ts` now installs `window.addEventListener("error" | "unhandledrejection")`
+as the **first import in `src/main.ts`**, before any module or texture timer can fire, and
+records everything into `window.__uncaught`. Verification must read that array. A sweep of all
+RenderTexture-valued variables confirms `getCanvas` and `getBase64` were the only two v3-only
+methods still called.
+
+The trap immediately found a third, pre-existing crash in the untouched AI worker
+(`JS/AI/AI_static.js:626`, reading `.x` of undefined).

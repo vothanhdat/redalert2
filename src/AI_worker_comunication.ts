@@ -8,7 +8,7 @@
 // `npx tsc --noEmit` gate the result. Files already checked: src/core/*, src/lib/*,
 // src/Game_Container.ts, src/UI/Playing_layout.ts, src/main.ts.
 import { LATE } from "./core/late";
-import { AI_CONTROLER2 } from "./Controler";
+import { AI_CONTROLER2, Ai_Controlder, CONTROLER1 } from "./Controler";
 import { CONSTRUCTION_TYPE } from "./Game_object/Construction/Construction_Unit_Type";
 import { GRID } from "./Game_object/GRID";
 import { INDEX_TYPE } from "./Game_object/Game_Unit";
@@ -458,12 +458,22 @@ var AI_LIST = {
             NUM_VEH_ORE: 7
         }
     },
+    /**
+     * UNIMPLEMENTED. Loads cleanly, then does nothing: `process()` is empty and the only
+     * statement it would run is commented out. Kept because the paths are now correct and
+     * the state-graph scaffolding is a starting point.
+     */
     PHUONG: {
         path: "AI/Phuong/AI.js",
         param: {
 
         }
     },
+    /**
+     * UNIMPLEMENTED. Builds a State_Graph (PEACE/ATTACK/DANGER/DEFENSE/REBUILD) and sets
+     * its initial state, but never ticks it: `process()`, `on_game_start()` and every
+     * `on_notify` branch are empty.
+     */
     KHOAN: {
         path: "AI/Khoan/AI.js",
         param: {
@@ -472,13 +482,50 @@ var AI_LIST = {
     }
 }
 
+/**
+ * Which AI drives each team.
+ *
+ * Team 0 is the human seat: USER_CONTROLER wraps CONTROLER1, so attaching an AI there
+ * makes the game play itself. That is opt-in, not the default -- it is why the original
+ * `var AI_CONTROLER1 = new Ai_Controlder(CONTROLER1)` was commented out.
+ *
+ * Team 1 defaults to DAT_2, exactly as before. Override either from the query string:
+ *
+ *     ?ai1=PHUONG            team 1 is played by the Phuong AI
+ *     ?ai0=DAT_1&ai1=KHOAN   AI vs AI, no human
+ *     ?ai1=none              no opponent at all
+ *
+ * The map only defines two teams, so there is nowhere to seat a third AI.
+ */
+function resolve_ai_config() {
+    var query = new URLSearchParams(window.location.search);
+    var pick = function (key, fallback) {
+        var name = query.get(key);
+        if (name === null) return fallback;
+        if (name === "none") return null;
+        if (!AI_LIST[name]) {
+            console.warn("Unknown AI '" + name + "' for " + key + "; expected one of " +
+                Object.keys(AI_LIST).join(", ") + ". Falling back to " + (fallback || "none") + ".");
+            return fallback;
+        }
+        return name;
+    };
+    return { team0: pick("ai0", null), team1: pick("ai1", "DAT_2") };
+}
+
+var AI_CONFIG = resolve_ai_config();
+var AI_CONTROLER1 = null;
 var AI_WORKER1, AI_WORKER2;
 
-if (AI_CONTROLER2) {
-    AI_WORKER2 = new AI_Worker(AI_CONTROLER2, {
-        path: AI_LIST.DAT_2.path,
-        param: AI_LIST.DAT_2.param
-    });
+if (AI_CONFIG.team0) {
+    // Created only on demand: Ai_Controlder registers itself with CONTROLER and its
+    // update() dereferences this.worker, so an AI controller without a worker would throw.
+    AI_CONTROLER1 = new Ai_Controlder(CONTROLER1);
+    AI_WORKER1 = new AI_Worker(AI_CONTROLER1, AI_LIST[AI_CONFIG.team0]);
+}
+
+if (AI_CONFIG.team1 && AI_CONTROLER2) {
+    AI_WORKER2 = new AI_Worker(AI_CONTROLER2, AI_LIST[AI_CONFIG.team1]);
 }
 
 

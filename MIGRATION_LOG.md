@@ -448,3 +448,59 @@ Game_unit`, with `ID`, `health`, and `property` preserved. `Map.ts`'s
 team 0 wiped out — which is simply the game: team 0 is the human player, nobody defends it,
 and the enemy AI kills it. Always compare against a control run of the same duration on the
 previous commit.
+
+---
+
+## Selectable AI opponents
+
+The four entries in `AI_LIST` were never four opponents. `AI_WORKER1` was gated on
+`window.AI_CONTROLER1`, which `Controler.js` had commented out; `PHUONG` and `KHOAN` were
+never wired to a worker at all. Exactly one AI — `DAT_2` on team 1 — has ever played.
+
+Team 0 is the human seat: `USER_CONTROLER` and the commented-out `AI_CONTROLER1` both wrap
+`CONTROLER1`, so enabling that line does not add an opponent, it hands your team to an AI.
+The map defines only two teams, so there is nowhere to seat a third.
+
+AI selection is now data-driven, and the default is unchanged (team 0 human, team 1 `DAT_2`):
+
+```
+/                          team 1 = DAT_2, team 0 human      (default, as before)
+/?ai1=PHUONG               team 1 played by the Phuong AI
+/?ai0=DAT_1&ai1=DAT_2      AI vs AI, no human
+/?ai1=none                 no opponent
+```
+
+`AI_CONTROLER1` is constructed only when requested, because `Ai_Controlder` registers itself
+with `CONTROLER` and its `update()` dereferences `this.worker` — an AI controller without a
+worker would throw every frame.
+
+### What this proved about the casing fix
+
+The old `AI/KHOAN/AI.js` path does not merely 404 on Linux. Under Vite's static middleware it
+fails **on macOS too**:
+
+```
+NetworkError: importScripts ... 'JS/AI/KHOAN/AI.js' failed to load
+```
+
+`AI/Khoan/AI.js` and `AI/Phuong/AI.js` both load clean. All 24 `importScripts` paths across
+`public/JS/AI/**` now resolve case-exactly.
+
+### PHUONG and KHOAN are unfinished
+
+Both load without error and then do nothing.
+
+- `PHUONG.process()` is empty; its one statement is commented out.
+- `KHOAN` builds a `State_Graph` (PEACE / ATTACK / DANGER / DEFENSE / REBUILD) and calls
+  `set_init_state("PEACE")`, but never ticks it — `process()`, `on_game_start()`, and every
+  `on_notify` branch are empty.
+
+Both are annotated as UNIMPLEMENTED in `AI_LIST`. Only `DAT_1` and `DAT_2` are real AIs; they
+share `AI/AI_static.js` and differ only in `AI/Dat/AI_VARIABLE_{1,2}.js`.
+
+### Verified
+
+`?ai0=DAT_1&ai1=DAT_2` runs both AI workers — the first time `AI_WORKER1` has ever executed.
+Both teams build (26→30 and 25→29 units in 15 s), and team 0's AI raises a full base: garage,
+power plants, refinery, barracks, turrets, with credits draining from $1,000,000. The
+production build on the default URL fetches exactly one `AI_Worker.js`, 0 failed requests.

@@ -12,7 +12,7 @@ Plan, in order. Each stage must reproduce the baseline before the next begins.
 | 2 | Convert the main-thread scripts to ES modules; kill the 146 globals | Done |
 | 3 | Rename to `.ts`, type the core, `tsc --noEmit` gate | Done |
 | 4a | PIXI v3.0.9 → v7.4.3 (npm, GLSL filters preserved) | Done |
-| 4b | PIXI v7 → v8 (async init, Filter → GlProgram) | Not started |
+| 4b | PIXI v7 → v8 | **Deliberately not done** — see below |
 
 ---
 
@@ -351,9 +351,55 @@ Also: after a Vite HMR reload, the app imports `/src/x.ts?t=<stamp>` while a pro
 `import('/src/x.ts')` resolves to a **different module instance**. Restart the dev server
 before probing module state, or you will read an empty, freshly-evaluated module.
 
-### Next: Stage 4b (v7 → v8)
+---
 
-v8 makes `autoDetectRenderer` async (restructuring the bootstrap), replaces `Filter` with
-`GlProgram`/`GpuProgram` (the six filters need porting again, WebGPU-first), and changes
-`RenderTexture` and `Graphics`. `src/core/pixi_loader.ts` can then be retired in favour of
-`Assets`, which is the natural moment to rewrite the seven `load_texture_done` callbacks.
+## Stage 4b — PIXI v7 → v8: deliberately not done
+
+Scoped against pixi.js 8.19.0's actual source, not its changelog. v8 is not a version bump
+for this codebase; it is a rewrite of the texture pipeline, the startup sequence, the
+particle layer, and the shaders. Four findings:
+
+**1. `Texture.from(url)` no longer loads anything.** It is now `Cache.get(id)`:
+
+```js
+function textureFrom(id, skipCache = false) {
+  if (typeof id === "string") {
+    return Cache.get(id);          // undefined if not already loaded
+  }
+  ...
+}
+```
+
+The game calls `PIXI.Texture.from("IMG/…")` **16 times at module-evaluation time**
+(`dashtt`, `healthtt`, `smooketexture`, `cloundbasetexture`, `lighttexture`, the minimap's
+`hidecircle`, …). Under v8 every one returns `undefined`, because module evaluation happens
+before any `await Assets.load(...)` can run. Those constants would have to become lazily
+initialized state filled in after an async load — an architectural change to game startup,
+touching `Image_process`, `Effect`, `Weapon`, `Map`, `Minimap`, and `Game_Container`.
+
+**2. `autoDetectRenderer` returns `Promise<Renderer>`,** so the bootstrap becomes async.
+
+**3. `ParticleContainer<T extends IParticle>` no longer accepts Sprites.** It exposes
+`addParticle` / `particleChildren`. Fog of war and the minimap both push `PIXI.Sprite` into
+one, so both get reworked.
+
+**4. The six GLSL filters get rewritten a second time.** v8's `Filter` takes a `GlProgram`,
+and its default filter vertex is GLSL ES 3.00 (`in vec2 aPosition; out vec2 vTextureCoord;`,
+`uTexture`, `finalColor`) — no `gl_FragColor`, no `uSampler`. Avoiding WGSL means pinning
+`preference: 'webgl'`, i.e. paying v8's complexity while forgoing the only reason to want it.
+
+Mechanical by comparison: `BLEND_MODES` → plain strings, `BaseTexture` → `TextureSource`
+(30 references). `Graphics` survives — `lineStyle` / `beginFill` / `drawRect` remain as
+deprecated shims.
+
+**Decision:** stop at v7. It is current, maintained, npm-published, fully typed, WebGL, and
+verified green against the baseline. The payoff for v8 is WebGPU, which a 2D isometric RTS
+with hand-written GLSL filters does not benefit from. The remaining `@ts-nocheck` debt is
+worth more than v8.
+
+---
+
+## Stage 5 — retiring `@ts-nocheck` (in progress)
+
+24 of 33 modules still carry `// @ts-nocheck`. Remove one directive at a time, declare that
+file's class fields, and keep `npm run typecheck` green. Progress is tracked below.

@@ -316,7 +316,7 @@ class Tree extends Map_object {
 
 
 
-var MAP_OBJECT_TYPE = {};
+var MAP_OBJECT_TYPE: UnitTypeTable = {};
 
 
 MAP_OBJECT_TYPE.goldheap1 = {

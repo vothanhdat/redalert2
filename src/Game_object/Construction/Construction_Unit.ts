@@ -77,6 +77,9 @@ var CONSTRUCTION_UNIT = {
 
 
 class Construction_unit extends Game_unit {
+    /** Building footprint in grid cells, from property.property.size. */
+    size: { w: number; h: number };
+
 
     /**
       Constructor for a new Construction_unit

@@ -1,12 +1,3 @@
-// @ts-nocheck
-//
-// Stage 3 of the Vite/TypeScript migration: this file is renamed to .ts but not yet typed.
-// It is 2015-era JavaScript whose classes assign undeclared properties in their
-// constructors, which TypeScript reports as TS2339 several hundred times per file.
-//
-// Remove this directive one file at a time, declare the class fields, and let
-// `npx tsc --noEmit` gate the result. Files already checked: src/core/*, src/lib/*,
-// src/Game_Container.ts, src/UI/Playing_layout.ts, src/main.ts.
 import { LATE } from "./core/late";
 import { AI_WORKER } from "./AI_worker_comunication";
 import { AUDIO } from "./Audio";

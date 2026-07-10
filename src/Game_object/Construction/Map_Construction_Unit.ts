@@ -263,7 +263,7 @@ class Map_scrap extends Game_object {
 }
 
 
-var MAP_CONSTRUCTION_UNIT_TYPE = {};
+var MAP_CONSTRUCTION_UNIT_TYPE: UnitTypeTable = {};
 
 MAP_CONSTRUCTION_UNIT_TYPE.cuairp = {
     name: "cuairp",

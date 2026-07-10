@@ -1,12 +1,3 @@
-// @ts-nocheck
-//
-// Stage 3 of the Vite/TypeScript migration: this file is renamed to .ts but not yet typed.
-// It is 2015-era JavaScript whose classes assign undeclared properties in their
-// constructors, which TypeScript reports as TS2339 several hundred times per file.
-//
-// Remove this directive one file at a time, declare the class fields, and let
-// `npx tsc --noEmit` gate the result. Files already checked: src/core/*, src/lib/*,
-// src/Game_Container.ts, src/UI/Playing_layout.ts, src/main.ts.
 import { LATE } from "../core/late";
 import { USER_CONTROLER } from "../Controler";
 import { PriorityQueue } from "../lib/priorityqueue";
@@ -23,6 +14,9 @@ var GRID = new (function () {
 
 
     class grid_class {
+        /** Flat quadruples [x, y, length*10, blocked] — four slots per grid cell. */
+        raw_grid: any;
+
         constructor(raw_grid) {
             this.raw_grid = raw_grid;
         }
@@ -363,7 +357,7 @@ var GRID = new (function () {
         var goal_idx = listgoal[0].x * dim + listgoal[0].y;
         for(var e of listgoal) {
             var f = [e.x, e.y, 0, goal_idx];
-            var number = tonumber(f);
+            var number: any = tonumber(f);
             his[number] = e.x;
             his[number + 1] = e.y;
             his[number + 2] = 0;
@@ -443,7 +437,7 @@ var GRID = new (function () {
                 list_goal: list_goal, r: random, farest: farest
             });
         } else if (goal instanceof LATE.Game_unit || goal instanceof LATE.Map_object) {
-            var list_goal = goal.get_element_ceil();
+            var list_goal: any[] = goal.get_element_ceil();
             worker.postMessage({
                 flag: "find_path",
                 objectcount: this.object_count,

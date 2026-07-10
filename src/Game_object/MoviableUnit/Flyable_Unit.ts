@@ -881,7 +881,7 @@ class Rocker extends Flyable_Unit {
 }
 
 
-var PLANE_UNIT_TYPE = {};
+var PLANE_UNIT_TYPE: UnitTypeTable = {};
 
 
 var __beag__map__state__ = {

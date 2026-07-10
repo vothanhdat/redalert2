@@ -18,7 +18,7 @@ import { STATE } from "../../lib/JavaScript_helper";
 
 /// <reference path="Construction_Unit.js" />
 "use strict";
-var CONSTRUCTION_TYPE = {};
+var CONSTRUCTION_TYPE: UnitTypeTable = {};
 
 var CONSTRUCTION_AUDIO = {
     build: "Audio/uplace.wav",

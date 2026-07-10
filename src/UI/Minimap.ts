@@ -1,12 +1,3 @@
-// @ts-nocheck
-//
-// Stage 3 of the Vite/TypeScript migration: this file is renamed to .ts but not yet typed.
-// It is 2015-era JavaScript whose classes assign undeclared properties in their
-// constructors, which TypeScript reports as TS2339 several hundred times per file.
-//
-// Remove this directive one file at a time, declare the class fields, and let
-// `npx tsc --noEmit` gate the result. Files already checked: src/core/*, src/lib/*,
-// src/Game_Container.ts, src/UI/Playing_layout.ts, src/main.ts.
 import { LATE } from "../core/late";
 import { TEAM, USER_CONTROLER } from "../Controler";
 import { Construction_unit } from "../Game_object/Construction/Construction_Unit";
@@ -239,7 +230,7 @@ var MINIMAP = new (function () {
         for (var i in TEAM) {
             var color = 0x1000000 | (TEAM[i].color[0] << 16) | (TEAM[i].color[1] << 8) | (TEAM[i].color[2]);
             imagecontext.fillStyle = ("#" + color.toString(16)).replace("#1", "#");
-            imagecontext.fillRect(i * 2, 0, 2, 2);
+            imagecontext.fillRect(Number(i) * 2, 0, 2, 2);
         }
 
         imagecontext.fillStyle = "#ffffff";
@@ -250,7 +241,7 @@ var MINIMAP = new (function () {
 
 
         for (var i in TEAM) {
-            texture.push(new PIXI.Texture(maintexture.baseTexture, new PIXI.Rectangle (i * 2, 0, 2, 2)));
+            texture.push(new PIXI.Texture(maintexture.baseTexture, new PIXI.Rectangle (Number(i) * 2, 0, 2, 2)));
         }
         texture[-1] = new PIXI.Texture(maintexture.baseTexture, new PIXI.Rectangle(18, 0, 2, 2));
 

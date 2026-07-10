@@ -57,6 +57,11 @@ var INDEX_TYPE = new (function () {
 })();
 
 class Game_unit extends Game_object {
+    /** Marker sprite in the minimap's ParticleContainer; created by MINIMAP.set(). */
+    minimap_sprite: any;
+    /** Vision circle in the fog-of-war ParticleContainer; created by FOG_GRAPGICH.set(). */
+    __hidesprite__: any;
+    team: number;
     /**
       Constructor for a new Game_unit
       @class Game_unit

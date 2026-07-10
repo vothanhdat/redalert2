@@ -19,7 +19,7 @@ import { STATE, STATE_PLUS } from "../../../lib/JavaScript_helper";
 
 /// <reference path="Vihicle_Unit.js" />
 "use strict";
-var VEHICLE_TYPE = {};
+var VEHICLE_TYPE: UnitTypeTable = {};
 
 
 

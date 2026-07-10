@@ -12,7 +12,8 @@ declare const createjs: {
     registerSounds(sounds: any[], basePath?: string): void;
     play(id: string, props?: any): any;
     stop(): void;
-    on(type: string, listener: (...args: any[]) => void): any;
+    /** SoundJS passes `scope` as the third argument, unlike the DOM's addEventListener. */
+    on(type: string, listener: (...args: any[]) => void, scope?: any, once?: boolean, data?: any, useCapture?: boolean): any;
     volume: number;
     muted: boolean;
     [key: string]: any;
@@ -60,3 +61,10 @@ interface Window {
   /** Map texture cache, keyed by image URL, populated in Map.ts. */
   FILECACHE: Record<string, string>;
 }
+
+/**
+ * A unit/object definition table, keyed by unit name (e.g. VEHICLE_TYPE.veh_mcv_allied).
+ * Map files reference these by string, so they are open-ended by design — see
+ * src/core/type_registry.ts.
+ */
+type UnitTypeTable = Record<string, any>;

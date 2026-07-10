@@ -1,12 +1,9 @@
 // @ts-nocheck
 //
-// Stage 3 of the Vite/TypeScript migration: this file is renamed to .ts but not yet typed.
-// It is 2015-era JavaScript whose classes assign undeclared properties in their
-// constructors, which TypeScript reports as TS2339 several hundred times per file.
-//
-// Remove this directive one file at a time, declare the class fields, and let
-// `npx tsc --noEmit` gate the result. Files already checked: src/core/*, src/lib/*,
-// src/Game_Container.ts, src/UI/Playing_layout.ts, src/main.ts.
+// Stage 5 TODO: this file's remaining type errors are (a) calls that pass more arguments
+// than the callee declares (initmapgraphich2, loadmapdatadone), and (b) the MAP_TEST_DEEP /
+// MAP_TEST_DEEP2 debug branches, which are permanently `false` so TypeScript narrows their
+// values away. Neither is a runtime defect. Fix the arities, then remove this directive.
 import { LATE } from "./core/late";
 import { mainstage, stage } from "./Game_Container";
 import { renderer } from "./core/renderer";
@@ -161,7 +158,7 @@ function Map(mapname) {
 
     var initmaptexture = function (maptable, maptype, ondone) {
 
-        window.FILECACHE = [];
+        window.FILECACHE = {};
 
         var oReq = new XMLHttpRequest();
         var image_link = "IMG/MAP/" + maptype + "/map.webp";
@@ -313,9 +310,14 @@ function Map(mapname) {
             minimap_sprite.scale.set(242 / Math.floor(t) / 60, 242 / Math.floor(t) / 30);
             renderer.render(minimap_stage, { renderTexture: minimap_renderer });
             window.setTimeout(function () {
-                LATE.MINIMAP.initmap(minimap_renderer.getBase64());
-                minimap_renderer.destroy(true);
-                main_texture.baseTexture.destroy(true);
+                // v3's RenderTexture.getBase64() was synchronous. v7 removed it; the
+                // replacement is renderer.extract.base64(), which returns a Promise, so the
+                // textures must not be destroyed until after it has resolved.
+                renderer.extract.base64(minimap_renderer).then(function (base64) {
+                    LATE.MINIMAP.initmap(base64);
+                    minimap_renderer.destroy(true);
+                    main_texture.baseTexture.destroy(true);
+                });
             }, 100);
 
 

@@ -1,12 +1,3 @@
-// @ts-nocheck
-//
-// Stage 3 of the Vite/TypeScript migration: this file is renamed to .ts but not yet typed.
-// It is 2015-era JavaScript whose classes assign undeclared properties in their
-// constructors, which TypeScript reports as TS2339 several hundred times per file.
-//
-// Remove this directive one file at a time, declare the class fields, and let
-// `npx tsc --noEmit` gate the result. Files already checked: src/core/*, src/lib/*,
-// src/Game_Container.ts, src/UI/Playing_layout.ts, src/main.ts.
 import { LATE } from "../core/late";
 import { particlecontainer, stage } from "../Game_Container";
 import { GRID } from "./GRID";
@@ -261,6 +252,15 @@ function get_random(value) {
 
 
 class Game_object {
+    /** Map coordinates. `z` is terrain height, looked up from GRID when not given. */
+    x: number;
+    y: number;
+    z: number;
+    /** Painter's-algorithm depth key; see the DisplayObject augmentation in src/types. */
+    z_idx: number;
+    /** One of the STATE.* values from lib/JavaScript_helper. */
+    state: number;
+
     constructor(x, y, z) {
         this.x = x;
         this.y = y;

@@ -29,7 +29,7 @@ var SOLIDER_AUDIO_TYPE = {
     mov: "Audio/igimoa.wav",
 }
 
-var SOLIDER_TYPE = {};
+var SOLIDER_TYPE: UnitTypeTable = {};
 
 
 SOLIDER_TYPE.sol_gi_allied = {

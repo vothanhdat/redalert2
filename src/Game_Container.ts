@@ -1,4 +1,5 @@
 import { GlowFilter, GlowFilter2, Lighter4x } from "./lib/JavaScript_helper";
+import * as PIXI from "pixi.js";
 
 /// <reference path="../Scripts/pixi.js" />
 

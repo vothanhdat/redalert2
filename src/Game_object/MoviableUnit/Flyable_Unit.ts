@@ -19,6 +19,8 @@ import { SOLIDER_TYPE } from "./Solider_Unit/Solider_Unit_Type";
 import { IMAGE_PROCESS } from "../../Image_process";
 import { GRAVITY, SPEED } from "../../core/state";
 import { STATE, myAtan, myCos, mySin } from "../../lib/JavaScript_helper";
+import * as PIXI from "pixi.js";
+import { LOADER } from "../../core/pixi_loader";
 
 /// <reference path="MoviableUnit.js" />
 "use strict";
@@ -30,7 +32,7 @@ class Flyable_Unit extends Movealbe_unit {
 Flyable_Unit.list_unit = [];
 
 
-PIXI.loader.add({ name: "plane", url: "IMG/Unit/Plane/img.json" });
+LOADER.add({ name: "plane", url: "IMG/Unit/Plane/img.json" });
 
 var PLANE_UNIT = {
     image_type: ["normal", "direct"],
@@ -376,7 +378,7 @@ class Parachutist extends Flyable_Unit {
                 this.textures[i].push(listresource[i][`Drop/drop (${j}).png`]);
             }
         }
-        this.shadow_texture = new PIXI.Texture.fromImage("IMG/effect/hidecircle.png");
+        this.shadow_texture = PIXI.Texture.from("IMG/effect/hidecircle.png");
     }
 
 

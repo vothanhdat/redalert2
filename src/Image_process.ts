@@ -12,16 +12,17 @@ import { TEAM } from "./Controler";
 import { renderer as global_renderer } from "./core/renderer";
 import { SPEED } from "./core/state";
 import { TeamColorFilter } from "./lib/JavaScript_helper";
+import * as PIXI from "pixi.js";
 
 /// <reference path="../Scripts/pixi.js" />
 /// <reference path="Game_Container.js" />
 
 "use strict";
-var dashtt = new PIXI.Texture.fromImage("IMG/dash.png");
-var healthtt = new PIXI.Texture.fromImage("IMG/health_1.png");
-var humtt = new PIXI.Texture.fromImage("IMG/hum.png");
-var contain_sprite0 = new PIXI.Texture.fromImage("IMG/capacity_0.png");
-var contain_sprite1 = new PIXI.Texture.fromImage("IMG/capacity_1.png");
+var dashtt = PIXI.Texture.from("IMG/dash.png");
+var healthtt = PIXI.Texture.from("IMG/health_1.png");
+var humtt = PIXI.Texture.from("IMG/hum.png");
+var contain_sprite0 = PIXI.Texture.from("IMG/capacity_0.png");
+var contain_sprite1 = PIXI.Texture.from("IMG/capacity_1.png");
 
 var health_critical_1 = 0.8;
 var health_critical_2 = 0.2;
@@ -40,8 +41,8 @@ var calc_health_color = function (health) {
 var healthtexture = [
     new PIXI.Texture(healthtt.baseTexture, new PIXI.Rectangle(0, 0, 41, 5)),
     new PIXI.Texture(healthtt.baseTexture, new PIXI.Rectangle(0, 5, 41, 5)),
-    new PIXI.Texture.fromImage("IMG/construction_health_0.png"),
-    new PIXI.Texture.fromImage("IMG/construction_health_1.png"),
+    PIXI.Texture.from("IMG/construction_health_0.png"),
+    PIXI.Texture.from("IMG/construction_health_1.png"),
 ];
 
 
@@ -53,7 +54,7 @@ var IMAGE_PROCESS = {
     effect_sprite: function (property) {
         var sprite = [];
         for (var i = property.start; i <= property.end; i++) {
-            sprite.push(PIXI.Texture.fromImage(property.path + "(" + i + ").png"));
+            sprite.push(PIXI.Texture.from(property.path + "(" + i + ").png"));
         }
         property.sprites = sprite;
     },
@@ -117,7 +118,7 @@ var IMAGE_PROCESS = {
                     property.direct.sprites[j] = [];
             }
             for (var j = 0; j < TEAM.length; j++) {
-                var base_texture = new PIXI.Texture.fromCanvas(IMAGE_PROCESS.processcolor(this, TEAM[j].color));
+                var base_texture = PIXI.Texture.from(IMAGE_PROCESS.processcolor(this, TEAM[j].color));
                 if (property.normal) {
                     for (var i = 0; i < number; i++)
                         property.normal.sprites[j].push(
@@ -195,7 +196,7 @@ var IMAGE_PROCESS = {
             return (x >= 0 && x < width && y >= 0 && y < height && this.array_check[y * width + x]);
         }
     },
-    getmovieclip_class: class extends PIXI.extras.MovieClip {
+    getmovieclip_class: class extends PIXI.AnimatedSprite {
         /**
          * @param {Array.<PIXI.Texture>} sprites
          * @param {Number} step
@@ -400,8 +401,8 @@ var IMAGE_PROCESS = {
             if (ob instanceof LATE.Solider_unit || ob instanceof LATE.Parachutist) {
                 con.scale.x = 0.5;
             } else if (ob instanceof LATE.PLANE_UNIT_TYPE.beag.class) {
-                con.con_sprite_0 = new PIXI.extras.TilingSprite(contain_sprite0, 0, 6);
-                con.con_sprite_1 = new PIXI.extras.TilingSprite(contain_sprite1, 0, 5);
+                con.con_sprite_0 = new PIXI.TilingSprite(contain_sprite0, 0, 6);
+                con.con_sprite_1 = new PIXI.TilingSprite(contain_sprite1, 0, 5);
                 con.con_sprite_1.tint = 0x00ff00;
                 con.addChild(con.con_sprite_0);
                 con.addChild(con.con_sprite_1);
@@ -420,8 +421,8 @@ var IMAGE_PROCESS = {
 
             var width = ob.size.h * 30;
             var height = ob.size.h * 15 + 15;
-            var sprite = new PIXI.extras.TilingSprite(healthtexture[2], width, height);
-            var sprite2 = new PIXI.extras.TilingSprite(healthtexture[3], width, height);
+            var sprite = new PIXI.TilingSprite(healthtexture[2], width, height);
+            var sprite2 = new PIXI.TilingSprite(healthtexture[3], width, height);
             sprite2.tint = 0x00ff00;
             sprite.addChild(sprite2);
             sprite._sprite2_ = sprite2;
@@ -483,7 +484,7 @@ var IMAGE_PROCESS = {
         }
     },
     getdashsprite: function () {
-        var sprite = new PIXI.extras.TilingSprite(dashtt, 14, 3);
+        var sprite = new PIXI.TilingSprite(dashtt, 14, 3);
         sprite.setpossition = function (pos1, pos2) {
             var distX = pos1.x - pos2.x;
             var distY = pos1.y - pos2.y;
@@ -503,13 +504,13 @@ var IMAGE_PROCESS = {
             if (i == 0) {
                 list_texture[i] = (texture);
             } else {
-                var renderer = new PIXI.RenderTexture(global_renderer, texture.width, texture.height);
+                var renderer = PIXI.RenderTexture.create({ width: texture.width, height: texture.height });
                 var stage = new PIXI.Container();
                 var sprite = new PIXI.Sprite(texture);
                 var filtercolor = new TeamColorFilter(teams[i].color[0], teams[i].color[1], teams[i].color[2]);
                 stage.addChild(sprite);
                 stage.filters = [filtercolor];
-                renderer.render(stage);
+                global_renderer.render(stage, { renderTexture: renderer });
                 list_texture[i] = renderer;
             }
         }

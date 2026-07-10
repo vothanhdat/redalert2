@@ -12,6 +12,8 @@ import { mainstage, stage } from "./Game_Container";
 import { renderer } from "./core/renderer";
 import { display_height, display_width, screen_h, screen_w, screen_x, screen_y, set_max_x, set_max_y } from "./core/state";
 import { random } from "./lib/JavaScript_helper";
+import * as PIXI from "pixi.js";
+import { LOADER } from "./core/pixi_loader";
 
 
 
@@ -171,11 +173,11 @@ function Map(mapname) {
             if (arrayBuffer)
                 window.FILECACHE[image_link] = "data:image/png;base64," + btoa([].reduce.call(new Uint8Array(arrayBuffer), function (p, c) { return p + String.fromCharCode(c) }, ''));
             
-            PIXI.loader.add({ name: "tex", url: "IMG/MAP/" + maptype + "/map.json", crossOrigin: true });
-            PIXI.loader.on('progress', function (loader, loadedResource) {
+            LOADER.add({ name: "tex", url: "IMG/MAP/" + maptype + "/map.json", crossOrigin: true });
+            LOADER.on('progress', function (loader, loadedResource) {
                 This.on_load_progess && This.on_load_progess(loader.progress / 100);
             });
-            PIXI.loader.load(function (loader, resources) {
+            LOADER.load(function (loader, resources) {
                 console.log("Load Map Texture Image Done");
                 This.on_load_done && This.on_load_done();
                 ondone && ondone(loader, resources.tex.textures, resources.tex_image.texture);
@@ -241,10 +243,10 @@ function Map(mapname) {
         var i, j, xx, yy, mapt;
         var x, y, z;
         var t = Math.round(map.dim / 2);
-        var map_renderer = new PIXI.RenderTexture(renderer, Math.floor(t) * 60, Math.floor(t) * 30);
-        var map_renderer_second = MAP_TEST_DEEP2 && (new PIXI.RenderTexture(renderer, Math.floor(t) * 60, Math.floor(t) * 30));
+        var map_renderer = PIXI.RenderTexture.create({ width: Math.floor(t) * 60, height: Math.floor(t) * 30 });
+        var map_renderer_second = MAP_TEST_DEEP2 && (PIXI.RenderTexture.create({ width: Math.floor(t) * 60, height: Math.floor(t) * 30 }));
 
-        var minimap_renderer = new PIXI.RenderTexture(renderer, 242, 242);
+        var minimap_renderer = PIXI.RenderTexture.create({ width: 242, height: 242 });
         var map_stage = new PIXI.Container();
         var map_stage_second = MAP_TEST_DEEP2 && (new PIXI.Container());
 
@@ -281,8 +283,8 @@ function Map(mapname) {
             }
         }
 
-        map_renderer.render(map_stage);
-        MAP_TEST_DEEP2 && map_renderer_second.render(map_stage_second);
+        renderer.render(map_stage, { renderTexture: map_renderer });
+        MAP_TEST_DEEP2 && renderer.render(map_stage_second, { renderTexture: map_renderer_second });
 
         window.setTimeout(function () {
 
@@ -309,7 +311,7 @@ function Map(mapname) {
             var minimap_sprite = new PIXI.Sprite(map_renderer);
             minimap_stage.addChild(minimap_sprite);
             minimap_sprite.scale.set(242 / Math.floor(t) / 60, 242 / Math.floor(t) / 30);
-            minimap_renderer.render(minimap_stage);
+            renderer.render(minimap_stage, { renderTexture: minimap_renderer });
             window.setTimeout(function () {
                 LATE.MINIMAP.initmap(minimap_renderer.getBase64());
                 minimap_renderer.destroy(true);

@@ -18,10 +18,12 @@ import { IMAGE_PROCESS } from "../../Image_process";
 import { renderer } from "../../core/renderer";
 import { screen_x, screen_y } from "../../core/state";
 import { STATE, check_point_inside, myAtan, reverseArray } from "../../lib/JavaScript_helper";
+import * as PIXI from "pixi.js";
+import { LOADER } from "../../core/pixi_loader";
 
 /// <reference path="../Game_Unit.js" />
 "use strict";
-PIXI.loader.add({ name: "con", url: "IMG/Unit/Construction/construction.json" });
+LOADER.add({ name: "con", url: "IMG/Unit/Construction/construction.json" });
 
 var CONSTRUCTION_UNIT = {
     state_image: ["build", "run", "active", "normal", "impaired", "active_impaired", "run_impaired"],
@@ -32,10 +34,10 @@ var CONSTRUCTION_UNIT = {
             }
         };
         var sprite = property.img.normal.sprite[0];
-        var z = new PIXI.RenderTexture(renderer, sprite.width, sprite.height);
+        var z = PIXI.RenderTexture.create({ width: sprite.width, height: sprite.height });
         var zstage = new PIXI.Container();
         zstage.addChild(new PIXI.Sprite(sprite));
-        z.render(zstage, null, true);
+        renderer.render(zstage, { renderTexture: z, clear: true });
 
         window.setTimeout(function (z, property) {
             property.img.normal.check_interactive = new IMAGE_PROCESS.processcheckinteractive(z.getCanvas());

@@ -13,11 +13,13 @@ import { GRID } from "../GRID";
 import { GAME_OBJECT, Game_object, calcfar2, check_available_screen, convert2screen } from "../Game_object";
 import { IMAGE_PROCESS } from "../../Image_process";
 import { STATE } from "../../lib/JavaScript_helper";
+import * as PIXI from "pixi.js";
+import { LOADER } from "../../core/pixi_loader";
 
 /// <reference path="../Game_object.js" />
 "use strict";
 
-PIXI.loader.add({ name: "map_ob", url: "IMG/Unit/MapObject/img.json" });
+LOADER.add({ name: "map_ob", url: "IMG/Unit/MapObject/img.json" });
 
 var MAP_OBJECT = {
     init: function (property) {

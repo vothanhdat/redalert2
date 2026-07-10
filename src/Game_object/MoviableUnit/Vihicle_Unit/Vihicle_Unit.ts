@@ -15,11 +15,13 @@ import { GAME_OBJECT, check_available_screen, convert2screen } from "../../Game_
 import { Ground_moveable_unit, MOVEABLE_UNIT } from "../MoviableUnit";
 import { IMAGE_PROCESS } from "../../../Image_process";
 import { STATE } from "../../../lib/JavaScript_helper";
+import * as PIXI from "pixi.js";
+import { LOADER } from "../../../core/pixi_loader";
 
 /// <reference path="../MoviableUnit.js" />
 "use strict";
 
-PIXI.loader.add({ name: "veh", url: "IMG/Unit/Vehicle/vehicle.json" });
+LOADER.add({ name: "veh", url: "IMG/Unit/Vehicle/vehicle.json" });
 
 var VEHICLE_UNIT = {
     image_type: ["normal", "direct", "normal2"],

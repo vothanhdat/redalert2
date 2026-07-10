@@ -13,6 +13,7 @@ import { graphics, mouse_stage } from "./Game_Container";
 import { mouserenderer } from "./core/renderer";
 import { display_height, display_width, max_x, max_y, screen_h, screen_height, screen_w, screen_width, screen_x, screen_y, set_screen_x, set_screen_y } from "./core/state";
 import { KEYBOARD, STATE } from "./lib/JavaScript_helper";
+import * as PIXI from "pixi.js";
 
 /// <reference path="Audio.js" />
 //User constroler
@@ -686,7 +687,7 @@ var User_Controler = function (Team_controler) {
     var follow_mode = false;
     var mouse_texture = new (function () {
 
-        var basetexture = PIXI.Texture.fromImage("../IMG/icon/mouse/mouse.png");
+        var basetexture = PIXI.Texture.from("../IMG/icon/mouse/mouse.png");
         var textures = [];
         for (var j = 0; j < 25; j++) for (var i = 0; i < 18; i++) {
             textures.push(new PIXI.Texture(basetexture.baseTexture, new PIXI.Rectangle(55 * i, 43 * j, 55, 43)));

@@ -11,6 +11,7 @@ import { LATE } from "../../core/late";
 import { GRID } from "../GRID";
 import { Game_unit } from "../Game_Unit";
 import { Game_object, convert2screen } from "../Game_object";
+import * as PIXI from "pixi.js";
 
 /// <reference path="../Game_object.js" />
 "use strict";
@@ -157,7 +158,7 @@ class Weapon extends Game_weapon {
 
 }
 
-var linetexture = new PIXI.Texture.fromImage("IMG/Unit/Attack/Laser/laser.png");
+var linetexture = PIXI.Texture.from("IMG/Unit/Attack/Laser/laser.png");
 var linetexture_rgb = new PIXI.Texture(linetexture.baseTexture, new PIXI.Rectangle(0, 1, 1, 3));
 var linetexture_simple = new PIXI.Texture(linetexture.baseTexture, new PIXI.Rectangle(0, 2, 1, 1));
 

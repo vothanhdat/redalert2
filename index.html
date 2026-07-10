@@ -5,12 +5,10 @@
     <title>Red Alert 2</title>
 
     <!--
-      Vendor libraries still load as classic scripts and publish window globals
-      (PIXI, createjs, jQuery). Classic scripts run before deferred module scripts,
-      so `PIXI` is defined by the time src/main.js evaluates.
-      Stage 4 replaces these with npm imports.
+      PIXI now comes from npm. These two remain classic scripts publishing window
+      globals: SoundJS is only reachable as `createjs`, and jQuery is needed by the
+      inline handlers inside the runtime-injected HTML fragments under JS/UI/.
     -->
-    <script src="/Scripts/pixi.js"></script>
     <script src="/Scripts/soundjs-0.6.2.min.js"></script>
     <script src="/Scripts/jquery-2.1.4.min.js"></script>
 

@@ -1,23 +1,29 @@
-// PIXI renderers, created by the inline bootstrap <script> in the old index.html.
+// PIXI renderers, created by the inline bootstrap <script> in the pre-Vite index.html.
 //
-// `PIXI` is still a window global supplied by the classic <script> tag for the
-// vendored pixi.js v3 build. Bare `PIXI` resolves through the global scope, which
-// module code can still see. Stage 4 replaces this with an npm import.
+// v7's autoDetectRenderer takes a single options object instead of (width, height, options),
+// and `transparent: true` became `backgroundAlpha: 0`. It is still synchronous; v8 makes it
+// async, which is why that upgrade is a separate stage.
+
+import { autoDetectRenderer, type IRenderer } from "pixi.js";
 
 import { screen_width, screen_height } from "./state";
 
-export const renderer = PIXI.autoDetectRenderer(screen_width, screen_height, {
-  transparent: true,
+export const renderer: IRenderer = autoDetectRenderer({
+  width: screen_width,
+  height: screen_height,
+  backgroundAlpha: 0,
   antialias: false,
 });
-renderer.view.style.position = "absolute";
-renderer.view.style.top = "0px";
-renderer.view.style.left = "0px";
+(renderer.view as HTMLCanvasElement).style.position = "absolute";
+(renderer.view as HTMLCanvasElement).style.top = "0px";
+(renderer.view as HTMLCanvasElement).style.left = "0px";
 
-export const mouserenderer = PIXI.autoDetectRenderer(55, 43, {
-  transparent: true,
+export const mouserenderer: IRenderer = autoDetectRenderer({
+  width: 55,
+  height: 43,
+  backgroundAlpha: 0,
   antialias: false,
 });
-mouserenderer.view.style.position = "absolute";
-mouserenderer.view.style.pointerEvents = "none";
-mouserenderer.view.style.cursor = "none";
+(mouserenderer.view as HTMLCanvasElement).style.position = "absolute";
+(mouserenderer.view as HTMLCanvasElement).style.pointerEvents = "none";
+(mouserenderer.view as HTMLCanvasElement).style.cursor = "none";

@@ -17,14 +17,16 @@ import { Parachutist } from "../MoviableUnit/Flyable_Unit";
 import { MOVEABLE_UNIT } from "../MoviableUnit/MoviableUnit";
 import { IMAGE_PROCESS } from "../../Image_process";
 import { STATE } from "../../lib/JavaScript_helper";
+import * as PIXI from "pixi.js";
+import { LOADER } from "../../core/pixi_loader";
 
 /// <reference path="../Game_object.js" />
 "use strict";
-PIXI.loader.add({ name: "eff", url: "IMG/effect/effect.json" });
+LOADER.add({ name: "eff", url: "IMG/effect/effect.json" });
 
-var smooketexture = new PIXI.Texture.fromImage("IMG/effect/smoke.png");
+var smooketexture = PIXI.Texture.from("IMG/effect/smoke.png");
 
-var cloundbasetexture = new PIXI.Texture.fromImage("IMG/effect/clound.png");
+var cloundbasetexture = PIXI.Texture.from("IMG/effect/clound.png");
 var cloundtexture = [];
 for (var i = 0; i < 200; i += 50) {
     for (var j = 0; j < 200; j += 50) {
@@ -32,7 +34,7 @@ for (var i = 0; i < 200; i += 50) {
     }
 }
 
-var lighttexture = new PIXI.Texture.fromImage("IMG/effect/die_green/prim.png");
+var lighttexture = PIXI.Texture.from("IMG/effect/die_green/prim.png");
 
 var Light_Effect_Autoscale_List = [];
 

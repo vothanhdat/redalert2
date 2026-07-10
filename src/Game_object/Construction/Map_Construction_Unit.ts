@@ -21,10 +21,12 @@ import { ATTACK_TYPE } from "../Weapon/Weapon_Type";
 import { IMAGE_PROCESS } from "../../Image_process";
 import { renderer } from "../../core/renderer";
 import { STATE } from "../../lib/JavaScript_helper";
+import * as PIXI from "pixi.js";
+import { LOADER } from "../../core/pixi_loader";
 
 /// <reference path="Construction_Unit.js" />
 "use strict";
-PIXI.loader.add({ name: "mapcon", url: "IMG/Unit/MapConstruction/img.json" });
+LOADER.add({ name: "mapcon", url: "IMG/Unit/MapConstruction/img.json" });
 
 var MAP_CONSTRUCTION_UNIT = {
     state_image: ["active", "normal", "impaired", "active_impaired", "scrap"],
@@ -34,10 +36,10 @@ var MAP_CONSTRUCTION_UNIT = {
                 IMAGE_PROCESS.process_gl(property.img[i], property.img.main_path, property.img.margin, listresource, true);
 
         var sprite = property.img.normal.sprite[0];
-        var z = new PIXI.RenderTexture(renderer, sprite.width, sprite.height);
+        var z = PIXI.RenderTexture.create({ width: sprite.width, height: sprite.height });
         var zstage = new PIXI.Container();
         zstage.addChild(new PIXI.Sprite(sprite));
-        z.render(zstage, null, true);
+        renderer.render(zstage, { renderTexture: z, clear: true });
 
         window.setTimeout(function (z, property) {
             property.img.normal.check_interactive = new IMAGE_PROCESS.processcheckinteractive(z.getCanvas());

@@ -51,6 +51,7 @@ import { EFFECT } from "./Game_object/Effect/Effect";
 import { MAP_OBJECT } from "./Game_object/Map_Object/Map_object";
 import { MAP_CONSTRUCTION_UNIT } from "./Game_object/Construction/Map_Construction_Unit";
 import { FOG_GRAPGICH, MINIMAP } from "./UI/Minimap";
+import { LOADER } from "./core/pixi_loader";
 
 let drawtime = performance.now();
 
@@ -171,10 +172,12 @@ const GAME_MANAGER = {
                 url: "JS/UI/Playing_layout.html",
                 async: false
             }).done(function (data) {
-                document.body.appendChild(renderer.view);
+                // v7 types `renderer.view` as ICanvas, which also covers OffscreenCanvas.
+                // autoDetectRenderer without a `view` option always makes a real canvas.
+                document.body.appendChild(renderer.view as HTMLCanvasElement);
                 $("body").append(data);
                 $("body")[0].style.cursor = "none";
-                document.body.appendChild(mouserenderer.view);
+                document.body.appendChild(mouserenderer.view as HTMLCanvasElement);
                 window.MENU && window.MENU.display_progess(false);
                 GAME_MANAGER.on_unloadmenu();
             }).fail(function (xhr) {
@@ -190,10 +193,10 @@ const GAME_MANAGER = {
     },
     load_texture() {
         LOADER_SCREEN.on_start();
-        PIXI.loader.on('progress', function (loader, loadedResource) {
+        LOADER.on('progress', function (loader, loadedResource) {
             LOADER_SCREEN.on_progess(loader.progress / 100);
         });
-        PIXI.loader.load(function (loader, resources) {
+        LOADER.load(function (loader, resources) {
             CONSTRUCTION_UNIT.load_texture_done(loader, resources);
             SOLIDER_UNIT.load_texture_done(loader, resources);
             VEHICLE_UNIT.load_texture_done(loader, resources);

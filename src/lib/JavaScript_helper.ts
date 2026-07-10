@@ -1,4 +1,5 @@
 import { display_height, display_width } from "../core/state";
+import * as PIXI from "pixi.js";
 
 "use strict";
 
@@ -242,9 +243,8 @@ function reverseArray(array) {
 
 
 
-class TeamColorFilter extends PIXI.AbstractFilter {
+class TeamColorFilter extends PIXI.Filter {
     constructor(r, g, b) {
-        var vertexShader = null;
         var fragmentShader = [
           'precision mediump float;',
           'varying vec2 vTextureCoord;',
@@ -261,155 +261,76 @@ class TeamColorFilter extends PIXI.AbstractFilter {
           '    gl_FragColor = pixel;',
           '}'
         ].join('\n');
-        var uniforms = {
-            r: { type: '1f', value: r / 255 },
-            g: { type: '1f', value: g / 255 },
-            b: { type: '1f', value: b / 255 },
-        };
-        super(vertexShader, fragmentShader, uniforms);
-    }
-
-};
-
-
-
-class GlowFilter extends PIXI.AbstractFilter {
-    constructor() {
-        var vertexShader = [
-            'attribute vec2 aVertexPosition; ',
-            'attribute vec2 aTextureCoord;  ',
-            ' ',
-            'uniform mat3 projectionMatrix; ',
-            'uniform float w; ',
-            'uniform float h; ',
-            ' ',
-            'varying vec2 vTextureCoord;  ',
-            'varying vec2 vBlurTexCoords[8];  ',
-            ' ',
-            'void main(void)  ',
-            '{  ',
-            '     gl_Position = vec4((projectionMatrix * vec3((aVertexPosition), 1.0)).xy, 0.0, 1.0);  ',
-            '     vTextureCoord = aTextureCoord; ',
-            '    ',
-            '     vBlurTexCoords[ 0] = aTextureCoord + vec2(-0.7 * w , 0.7  * h); ',
-            '     vBlurTexCoords[ 1] = aTextureCoord + vec2(-1.0 * w , 0.000   ); ',
-            '     vBlurTexCoords[ 2] = aTextureCoord + vec2(-0.7 * w ,-0.7  * h); ',
-            '     vBlurTexCoords[ 3] = aTextureCoord + vec2( 0.000   ,-1.0  * h); ',
-            '     vBlurTexCoords[ 4] = aTextureCoord + vec2( 0.7 * w ,-0.7  * h); ',
-            '     vBlurTexCoords[ 5] = aTextureCoord + vec2( 1.0 * w , 0.000   ); ',
-            '     vBlurTexCoords[ 6] = aTextureCoord + vec2( 0.7 * w , 0.7  * h); ',
-            '     vBlurTexCoords[ 7] = aTextureCoord + vec2( 0.000   , 1.0  * h); ',
-            '    ',
-            '}  ',
-        ].join('\n');
-        var fragmentShader = [
-            'precision lowp float; ',
-            '     ',
-            'varying vec2 vTextureCoord; ',
-            'varying vec2 vBlurTexCoords[8]; ',
-            '     ',
-            'uniform sampler2D uSampler; ',
-            '     ',
-            'void main(void) ',
-            '{    ',
-            '    gl_FragColor = texture2D(uSampler, vTextureCoord ) * 2.00; ',
-            '    gl_FragColor += texture2D(uSampler, vBlurTexCoords[0])*0.25; ',
-            '    gl_FragColor += texture2D(uSampler, vBlurTexCoords[1])*0.25; ',
-            '    gl_FragColor += texture2D(uSampler, vBlurTexCoords[2])*0.25; ',
-            '    gl_FragColor += texture2D(uSampler, vBlurTexCoords[3])*0.25; ',
-            '    gl_FragColor += texture2D(uSampler, vBlurTexCoords[4])*0.25; ',
-            '    gl_FragColor += texture2D(uSampler, vBlurTexCoords[5])*0.25; ',
-            '    gl_FragColor += texture2D(uSampler, vBlurTexCoords[6])*0.25; ',
-            '    gl_FragColor += texture2D(uSampler, vBlurTexCoords[7])*0.25; ',
-            '}       ',
-        ].join('\n');
-        var uniforms = {
-            w: { type: '1f', value: 3 / display_width },
-            h: { type: '1f', value: 3 / display_height }
-        };
-        super(vertexShader, fragmentShader, uniforms);
-
-    }
-    applyFilter(renderer, input, output, clear) {
-        this.uniforms.w.value = 3 / display_width;
-        this.uniforms.h.value = 3 / display_height;
-        super.applyFilter(renderer, input, output, clear);
+        super(undefined, fragmentShader, { r: r / 255, g: g / 255, b: b / 255 });
     }
 };
 
 
-class GlowFilter2 extends PIXI.AbstractFilter {
-    constructor() {
-        var vertexShader = [
-            'attribute vec2 aVertexPosition; ',
-            'attribute vec2 aTextureCoord;  ',
-            ' ',
-            'uniform mat3 projectionMatrix; ',
-            'uniform float w; ',
-            'uniform float h; ',
-            ' ',
-            'varying vec2 vTextureCoord;  ',
-            'varying vec2 vBlurTexCoords[8];  ',
-            ' ',
-            'void main(void)  ',
-            '{  ',
-            '     gl_Position = vec4((projectionMatrix * vec3((aVertexPosition), 1.0)).xy, 0.0, 1.0);  ',
-            '     vTextureCoord = aTextureCoord; ',
-            '    ',
-            '     vBlurTexCoords[ 0] = aTextureCoord + vec2(-0.7 * w , 0.7  * h); ',
-            '     vBlurTexCoords[ 1] = aTextureCoord + vec2(-1.0 * w , 0.000   ); ',
-            '     vBlurTexCoords[ 2] = aTextureCoord + vec2(-0.7 * w ,-0.7  * h); ',
-            '     vBlurTexCoords[ 3] = aTextureCoord + vec2( 0.000   ,-1.0  * h); ',
-            '     vBlurTexCoords[ 4] = aTextureCoord + vec2( 0.7 * w ,-0.7  * h); ',
-            '     vBlurTexCoords[ 5] = aTextureCoord + vec2( 1.0 * w , 0.000   ); ',
-            '     vBlurTexCoords[ 6] = aTextureCoord + vec2( 0.7 * w , 0.7  * h); ',
-            '     vBlurTexCoords[ 7] = aTextureCoord + vec2( 0.000   , 1.0  * h); ',
-            '    ',
-            '}  ',
-        ].join('\n');
-        var fragmentShader = [
-            'precision lowp float; ',
-            '     ',
-            'varying vec2 vTextureCoord; ',
-            'varying vec2 vBlurTexCoords[8]; ',
-            '     ',
-            'uniform sampler2D uSampler; ',
-            '     ',
-            'void main(void) ',
-            '{    ',
-            '    gl_FragColor = texture2D(uSampler, vTextureCoord ) * 1.00; ',
-            '    gl_FragColor += texture2D(uSampler, vBlurTexCoords[0])*0.1;  ',
-            '    gl_FragColor += texture2D(uSampler, vBlurTexCoords[1])*0.1;  ',
-            '    gl_FragColor += texture2D(uSampler, vBlurTexCoords[2])*0.1;  ',
-            '    gl_FragColor += texture2D(uSampler, vBlurTexCoords[3])*0.1;  ',
-            '    gl_FragColor += texture2D(uSampler, vBlurTexCoords[4])*0.1;  ',
-            '    gl_FragColor += texture2D(uSampler, vBlurTexCoords[5])*0.1;  ',
-            '    gl_FragColor += texture2D(uSampler, vBlurTexCoords[6])*0.1;  ',
-            '    gl_FragColor += texture2D(uSampler, vBlurTexCoords[7])*0.1;  ',
-            '}       ',
-        ].join('\n');
-        var uniforms = {
-            w: { type: '1f', value: 6 / display_width },
-            h: { type: '1f', value: 6 / display_height }
-        };
-        super(vertexShader, fragmentShader, uniforms);
+// PIXI v3 computed the eight glow offsets per-vertex, reading the `aTextureCoord`
+// attribute. v5 removed that attribute (texture coords are derived from aVertexPosition
+// by the default vertex shader), so the offsets are now computed per-fragment from
+// vTextureCoord. Identical math and identical weights, one extra add per sample.
+function glow_fragment_shader(center_weight, halo_weight) {
+    return [
+        'precision lowp float; ',
+        'varying vec2 vTextureCoord; ',
+        'uniform sampler2D uSampler; ',
+        'uniform float w; ',
+        'uniform float h; ',
+        'void main(void) ',
+        '{    ',
+        '    gl_FragColor  = texture2D(uSampler, vTextureCoord) * ' + center_weight + '; ',
+        '    gl_FragColor += texture2D(uSampler, vTextureCoord + vec2(-0.7 * w,  0.7 * h)) * ' + halo_weight + '; ',
+        '    gl_FragColor += texture2D(uSampler, vTextureCoord + vec2(-1.0 * w,  0.000  )) * ' + halo_weight + '; ',
+        '    gl_FragColor += texture2D(uSampler, vTextureCoord + vec2(-0.7 * w, -0.7 * h)) * ' + halo_weight + '; ',
+        '    gl_FragColor += texture2D(uSampler, vTextureCoord + vec2( 0.000  , -1.0 * h)) * ' + halo_weight + '; ',
+        '    gl_FragColor += texture2D(uSampler, vTextureCoord + vec2( 0.7 * w, -0.7 * h)) * ' + halo_weight + '; ',
+        '    gl_FragColor += texture2D(uSampler, vTextureCoord + vec2( 1.0 * w,  0.000  )) * ' + halo_weight + '; ',
+        '    gl_FragColor += texture2D(uSampler, vTextureCoord + vec2( 0.7 * w,  0.7 * h)) * ' + halo_weight + '; ',
+        '    gl_FragColor += texture2D(uSampler, vTextureCoord + vec2( 0.000  ,  1.0 * h)) * ' + halo_weight + '; ',
+        '}       ',
+    ].join('\n');
+}
 
+
+class GlowFilter extends PIXI.Filter {
+    constructor() {
+        super(undefined, glow_fragment_shader('2.00', '0.25'), {
+            w: 3 / display_width,
+            h: 3 / display_height,
+        });
     }
-    applyFilter(renderer, input, output, clear) {
-        this.uniforms.w.value = 8 / display_width;
-        this.uniforms.h.value = 8 / display_height;
-        super.applyFilter(renderer, input, output, clear);
+    // The screen can be resized between frames, so the offsets are refreshed per apply.
+    apply(filterManager: any, input: any, output: any, clearMode: any) {
+        this.uniforms.w = 3 / display_width;
+        this.uniforms.h = 3 / display_height;
+        super.apply(filterManager, input, output, clearMode);
     }
 };
 
 
-class NoiseFilter extends PIXI.AbstractFilter {
+class GlowFilter2 extends PIXI.Filter {
     constructor() {
-        var vertexShader = null;
+        super(undefined, glow_fragment_shader('1.00', '0.1'), {
+            w: 6 / display_width,
+            h: 6 / display_height,
+        });
+    }
+    // Note the constructor seeds 6/… but every apply overwrites it with 8/…, exactly as
+    // the v3 original did. Preserved rather than "corrected".
+    apply(filterManager: any, input: any, output: any, clearMode: any) {
+        this.uniforms.w = 8 / display_width;
+        this.uniforms.h = 8 / display_height;
+        super.apply(filterManager, input, output, clearMode);
+    }
+};
+
+
+class NoiseFilter extends PIXI.Filter {
+    constructor() {
         var fragmentShader = [
                 "precision mediump float; ",
                 "varying vec2 vTextureCoord; ",
-                "varying vec4 vColor; ",
                 "uniform sampler2D uSampler; ",
                 "uniform vec4 noiseLevelRGBA; ",
 
@@ -424,27 +345,23 @@ class NoiseFilter extends PIXI.AbstractFilter {
                 "      gl_FragColor.b += noiseLevelRGBA.b * randomDelta; ",
                 "      gl_FragColor.a += noiseLevelRGBA.a * randomDelta; ",
                 "}",
-        ].join('\n');;
-        var uniforms = {
-            noiseLevelRGBA: { type: '4fv', value: [0.2, 0.2, 0.2, 0.5] },
-        };
-        super(vertexShader, fragmentShader, uniforms);
-        this.uniforms = uniforms;
-        this.passes = [this];
+        ].join('\n');
+        // v3 needed `this.passes = [this]` to register a single-pass filter; v5+ has no
+        // `passes` concept and applies the filter directly.
+        super(undefined, fragmentShader, { noiseLevelRGBA: [0.2, 0.2, 0.2, 0.5] });
     }
     get noiseLevelRGBA() {
-        return this.uniforms.noiseLevelRGBA.value;
+        return this.uniforms.noiseLevelRGBA;
     }
     set noiseLevelRGBA(value) {
-        this.uniforms.noiseLevelRGBA.value = value;
+        this.uniforms.noiseLevelRGBA = value;
     }
 }
 
 
 
-class InverseAlpha extends PIXI.AbstractFilter {
+class InverseAlpha extends PIXI.Filter {
     constructor() {
-        var vertexShader = null;
         var fragmentShader = [
           'precision mediump float;',
           'varying vec2 vTextureCoord;',
@@ -456,15 +373,13 @@ class InverseAlpha extends PIXI.AbstractFilter {
           '    gl_FragColor = pixel;',
           '}'
         ].join('\n');
-        var uniforms = { };
-        super(vertexShader, fragmentShader, uniforms);
+        super(undefined, fragmentShader, {});
     }
 };
 
 
-class Lighter4x extends PIXI.AbstractFilter {
+class Lighter4x extends PIXI.Filter {
     constructor() {
-        var vertexShader = null;
         var fragmentShader = [
           'precision mediump float;',
           'varying vec2 vTextureCoord;',
@@ -478,8 +393,7 @@ class Lighter4x extends PIXI.AbstractFilter {
           '    gl_FragColor = pixel;',
           '}'
         ].join('\n');
-        var uniforms = { };
-        super(vertexShader, fragmentShader, uniforms);
+        super(undefined, fragmentShader, {});
     }
 
 };

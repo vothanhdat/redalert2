@@ -16,6 +16,7 @@ import { Movealbe_unit } from "../Game_object/MoviableUnit/MoviableUnit";
 import { renderer as global_renderer } from "../core/renderer";
 import { display_height, display_width, screen_h, screen_w, screen_x, screen_y, set_screen_x, set_screen_y } from "../core/state";
 import { InverseAlpha } from "../lib/JavaScript_helper";
+import * as PIXI from "pixi.js";
 
 /// <reference path="../../Scripts/pixi.js" />
 "use strict";
@@ -33,9 +34,9 @@ var FOG_GRAPGICH = new (function () {
 
     this.init = function () {
 
-        render1 = new PIXI.RenderTexture(global_renderer, 242, 242);
-        render2 = new PIXI.RenderTexture(global_renderer, 242, 242);
-        render3 = new PIXI.RenderTexture(global_renderer, 242, 242);
+        render1 = PIXI.RenderTexture.create({ width: 242, height: 242 });
+        render2 = PIXI.RenderTexture.create({ width: 242, height: 242 });
+        render3 = PIXI.RenderTexture.create({ width: 242, height: 242 });
         fog_texture = new PIXI.Texture(render3.baseTexture, new PIXI.Rectangle(0, 0, 242, 242));
         fog_sprite = new PIXI.Sprite(fog_texture);
 
@@ -67,7 +68,7 @@ var FOG_GRAPGICH = new (function () {
 
     var mainstage = new PIXI.Container();
     var paticile = new PIXI.ParticleContainer();
-    var texture = PIXI.Texture.fromImage("IMG/effect/hidecircle.png");
+    var texture = PIXI.Texture.from("IMG/effect/hidecircle.png");
     mainstage.addChild(paticile);
 
 
@@ -83,13 +84,13 @@ var FOG_GRAPGICH = new (function () {
                             (e.x + e.y - GRID.dim1_2 - e.z * 0.2) / (GRID.dim) * 242
                         );
                     }
-                    render1.render(mainstage, null, true);
+                    global_renderer.render(mainstage, { renderTexture: render1, clear: true });
                     break;
                 case 1:
-                    render2.render(renderstage1, null, false);
+                    global_renderer.render(renderstage1, { renderTexture: render2, clear: false });
                     break;
                 case 2:
-                    render3.render(renderstage2, null, true);
+                    global_renderer.render(renderstage2, { renderTexture: render3, clear: true });
                     break;
                 case 3:
                     break;
@@ -146,18 +147,18 @@ var FOG_GRAPGICH = new (function () {
 
 var MINIMAP = new (function () {
     //var renderer = PIXI.autoDetectRenderer(242, 242, { transparent: true, antialias: false });
-    var renderer = new PIXI.RenderTexture(global_renderer, 242, 242);
-    var particle_renderer = new PIXI.RenderTexture(global_renderer, 242, 242);
+    var renderer = PIXI.RenderTexture.create({ width: 242, height: 242 });
+    var particle_renderer = PIXI.RenderTexture.create({ width: 242, height: 242 });
     var stage = new PIXI.Container();
     var mainstage = new PIXI.Container();
-    var background_sprite = new PIXI.Sprite(new PIXI.Texture.fromImage("IMG/minimap_background.jpg"))
+    var background_sprite = new PIXI.Sprite(PIXI.Texture.from("IMG/minimap_background.jpg"))
     var ground_sprite = new PIXI.Sprite();
     var fogmap_sprite = new PIXI.Sprite();
     var paticile = new PIXI.ParticleContainer();
     var paticile_sprite = new PIXI.Sprite(particle_renderer);
     var graphich = new PIXI.Graphics();
     var mouse_l_hold = false;
-    var filter = new PIXI.filters.BlurXFilter();
+    var filter = new PIXI.BlurFilterPass(true);
     var rada_state = false;
     var rada_state_delay = 0;
 
@@ -244,7 +245,7 @@ var MINIMAP = new (function () {
         imagecontext.fillStyle = "#ffffff";
         imagecontext.fillRect(18, 0, 2, 2);
 
-        var maintexture = new PIXI.Texture.fromCanvas(imagecavans);
+        var maintexture = PIXI.Texture.from(imagecavans);
         var texture = [];
 
 
@@ -277,7 +278,7 @@ var MINIMAP = new (function () {
     * @todo update playing layout 
     */
     this.initmap = function (url) {
-        ground_sprite.texture = new PIXI.Texture.fromImage(url);
+        ground_sprite.texture = PIXI.Texture.from(url);
         ground_sprite.renderable = true;
         fogmap_sprite.texture = FOG_GRAPGICH.get_fog_sprite_texture();
         fogmap_sprite.renderable = true;
@@ -352,7 +353,7 @@ var MINIMAP = new (function () {
                     e.minimap_sprite.position.set(-20, -20);
                 }
             }
-            particle_renderer.render(paticile, null, true);
+            global_renderer.render(paticile, { renderTexture: particle_renderer, clear: true });
         }
 
 
@@ -418,7 +419,7 @@ var MINIMAP = new (function () {
         // #endregion
 
 
-        renderer.render(stage);
+        global_renderer.render(stage, { renderTexture: renderer });
 
 
     }

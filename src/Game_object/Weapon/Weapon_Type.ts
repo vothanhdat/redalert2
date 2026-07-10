@@ -19,6 +19,7 @@ import { Game_weapon, WEAPON, Weapon, createline, linetexture_rgb, updateline } 
 import { GRAVITY, SPEED, screen_height, screen_width, screen_x, screen_y } from "../../core/state";
 import { STATE, myAtan, myCos, mySin } from "../../lib/JavaScript_helper";
 import { Queue } from "../../lib/priorityqueue";
+import * as PIXI from "pixi.js";
 
 /// <reference path="Weapon.js" />
 "use strict";
@@ -477,11 +478,11 @@ ATTACK_TYPE.attack_piff = {
     static_init () {
         var sprite = [];
         for (var i = this.start; i <= this.end; i++)
-            sprite.push(PIXI.Texture.fromImage(this.path + " (" + i + ").png"));
+            sprite.push(PIXI.Texture.from(this.path + " (" + i + ").png"));
         this.sprites = sprite;
     },
     init (object, static_object) {
-        object.sprite = new PIXI.extras.MovieClip(static_object.sprites);
+        object.sprite = new PIXI.AnimatedSprite(static_object.sprites);
         object.sprite.anchor.set(0.5, 0.5);
         object.sprite.loop = false;
         object.sprite.blendMode = PIXI.BLEND_MODES.LIGHTEN;
@@ -602,7 +603,7 @@ ATTACK_TYPE.attack_cannon = {
         }
     },
     static_init () {
-        this.texture = PIXI.Texture.fromImage(this.img_path);
+        this.texture = PIXI.Texture.from(this.img_path);
     },
     init (object, static_object) {
         var distination = { __proto__: object.distination };
@@ -693,7 +694,7 @@ ATTACK_TYPE.attack_fire = {
     type: "attack",
     die_effect_solider: "solider_die_fire",
     static_init () {
-        this.fire_texture = new PIXI.Texture.fromImage("IMG/Unit/Attack/fire_particle.png");
+        this.fire_texture = PIXI.Texture.from("IMG/Unit/Attack/fire_particle.png");
     },
     fire_particle: class extends Game_weapon {
         constructor(x, y, z, angel, speed, parrent) {

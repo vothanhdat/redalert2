@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    // ES2021 for String.prototype.replaceAll, used in lib/JavaScript_helper.ts.
+    "lib": ["ES2021", "DOM", "DOM.Iterable"],
+    "types": [],
+
+    // Vite strips types with esbuild and never type-checks, so `tsc --noEmit` is the gate.
+    "noEmit": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+
+    // The game is 2015-era JavaScript: classes assign undeclared properties in their
+    // constructors, and unit tables are heterogeneous bags. Strictness is turned on
+    // file by file as each module gets typed, not all at once.
+    "strict": false,
+    "noImplicitAny": false,
+    "useDefineForClassFields": false
+  },
+  "include": ["src"]
+}

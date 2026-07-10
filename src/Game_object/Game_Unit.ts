@@ -1,12 +1,3 @@
-// @ts-nocheck
-//
-// Stage 3 of the Vite/TypeScript migration: this file is renamed to .ts but not yet typed.
-// It is 2015-era JavaScript whose classes assign undeclared properties in their
-// constructors, which TypeScript reports as TS2339 several hundred times per file.
-//
-// Remove this directive one file at a time, declare the class fields, and let
-// `npx tsc --noEmit` gate the result. Files already checked: src/core/*, src/lib/*,
-// src/Game_Container.ts, src/UI/Playing_layout.ts, src/main.ts.
 import { LATE } from "../core/late";
 import { TEAM } from "../Controler";
 import { healthcontainer } from "../Game_Container";
@@ -34,8 +25,8 @@ var INDEX_TYPE = new (function () {
         object = null;
     }
     this.map = function () {
-        var index = {}
-        Object.keys(arr).forEach(e => index[[arr[e]]] = e);
+        const index: Record<string, any> = {};
+        Object.keys(arr).forEach(e => index[arr[e]] = e);
         return index;
     }
     this.info = function () {
@@ -44,7 +35,7 @@ var INDEX_TYPE = new (function () {
         object = {};
         Object.assign(object, LATE.CONSTRUCTION_TYPE, LATE.VEHICLE_TYPE, LATE.SOLIDER_TYPE, LATE.MAP_CONSTRUCTION_UNIT_TYPE, LATE.PLANE_UNIT_TYPE);
         for (var i in object) {
-            var tmp = {};
+            const tmp: Record<string, any> = {};
             tmp.name = object[i].name;
             tmp.type = object[i].type;
             tmp.property = object[i].property;
@@ -62,6 +53,26 @@ class Game_unit extends Game_object {
     /** Vision circle in the fog-of-war ParticleContainer; created by FOG_GRAPGICH.set(). */
     __hidesprite__: any;
     team: number;
+    /** Unique id, drawn from the owning team's auto-incrementing counter. */
+    ID: number;
+    /** The unit-type definition from VEHICLE_TYPE / SOLIDER_TYPE / CONSTRUCTION_TYPE / ... */
+    property: any;
+    /** Snapshot handed to the AI worker; nulled when the unit changes type. */
+    _data_: any;
+    health: number;
+    totalhealth: number;
+    healthsprite: any;
+    shield: any;
+    /** Frames remaining before the unit expires; used by temporary units. */
+    timelife: number;
+    /** Current attack target. */
+    enemy: any;
+    /** Current move/attack destination. */
+    goal: any;
+    /** Selection group this unit belongs to, if any. */
+    group: any;
+    attackload: number;
+    attackdam: number;
     /**
       Constructor for a new Game_unit
       @class Game_unit
@@ -116,11 +127,11 @@ class Game_unit extends Game_object {
         delete GAME_OBJECT.map_id_unit[this.ID];
         super.delete();
 
-        var proto = this.__proto__;
+        var proto = Object.getPrototypeOf(this);
         do{
             for (var i in proto)
                 this[i] = null_func;
-        } while (proto = proto.__proto__);
+        } while ((proto = Object.getPrototypeOf(proto)));
 
     }
 
@@ -241,7 +252,7 @@ class Game_unit extends Game_object {
         for (var i in this)
             delete this[i];
         Object.assign(this, newinstance);
-        this.__proto__ = type.prototype;
+        Object.setPrototypeOf(this, type.prototype);
         this._data_ = null;
         this.init();
         this.display_health_point(is_display_health);

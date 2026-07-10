@@ -68,3 +68,16 @@ interface Window {
  * src/core/type_registry.ts.
  */
 type UnitTypeTable = Record<string, any>;
+
+/** One entry of the TEAM table in src/Controler.ts. */
+interface Team {
+  /** RGB triple used for team colouring and the minimap marker. */
+  color: number[];
+  /** The Team_Controler / Ai_Controlder driving this team. */
+  team: any;
+  _id_: number;
+  /** Auto-incrementing unit id; reading it consumes the next value. */
+  readonly ID: number;
+  /** Set by Game_unit.on_attacked, read by the AI to trigger a defensive response. */
+  is_attack?: boolean;
+}

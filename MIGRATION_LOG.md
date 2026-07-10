@@ -401,5 +401,50 @@ worth more than v8.
 
 ## Stage 5 — retiring `@ts-nocheck` (in progress)
 
-24 of 33 modules still carry `// @ts-nocheck`. Remove one directive at a time, declare that
-file's class fields, and keep `npm run typecheck` green. Progress is tracked below.
+Remove one directive at a time, declare that file's class fields, and keep
+`npm run typecheck` green.
+
+**Progress: 17 of 33 modules still suppressed** (was 24). Lifting all remaining suppressions
+would report **1,849 errors, down from 3,141** — typing the base classes cascades into their
+subclasses, so the leverage is in `Game_object` → `Game_unit` → `MoviableUnit`, not in the
+smallest files. `Flyable_Unit` fell 697 → 412 and `Construction_Unit` 439 → 238 for free.
+
+Now checked: `Audio`, `LOADER_PROGESS`, `Done`, `UI/Minimap`, `Game_object/GRID`,
+`Game_object/Game_object`, `Game_object/Game_Unit`, plus everything from Stage 3.
+
+### The bug this paid for immediately
+
+Un-suppressing `Map.ts` surfaced `minimap_renderer.getBase64()`, which **PIXI v7 does not
+have**. Verified at runtime: `rt.getBase64` is `undefined`, and calling it raises
+`TypeError: rt.getBase64 is not a function`. The call sits in a `setTimeout` on the main
+map-load path — not behind the `MAP_TEST_DEEP` flags — so ever since Stage 4a the minimap
+terrain image had never loaded and `MINIMAP.initmap()` had never run, leaving the minimap's
+click/drag handlers unwired. The uncaught timer exception never reached the console checks
+used to sign off Stage 4a.
+
+Replaced with `renderer.extract.base64()`. It returns a Promise, so `minimap_renderer` and
+`main_texture` are destroyed only after it resolves.
+
+### Shared type declarations
+
+- `src/types/pixi-augment.d.ts` — `z_idx` (the painter's-algorithm sort key) and
+  `had_remove`, the two fields the game hangs off PIXI display objects.
+- `UnitTypeTable` — the six unit tables are genuinely open-ended string-keyed bags, because
+  map files name their entries by string.
+- `Team` — one entry of the `TEAM` table, including the `is_attack` flag that
+  `Game_unit.on_attacked` sets and the AI reads.
+
+### Semantics touched (and verified)
+
+`Game_unit` used `this.__proto__` for its retype-in-place trick; it now uses
+`Object.getPrototypeOf` / `Object.setPrototypeOf`. Exercised by letting the AI deploy its
+MCV: the re-typed object passes `instanceof Construction_unit` **and** `instanceof
+Game_unit`, with `ID`, `health`, and `property` preserved. `Map.ts`'s
+`window.FILECACHE = []` became `{}` to match its declared `Record<string, string>`.
+
+### Two harness traps, again
+
+`git stash` inside a git worktree lost the stash entry. And a 12-second observation showed
+team 0 wiped out — which is simply the game: team 0 is the human player, nobody defends it,
+and the enemy AI kills it. Always compare against a control run of the same duration on the
+previous commit.

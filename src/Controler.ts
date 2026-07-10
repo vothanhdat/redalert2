@@ -1587,7 +1587,7 @@ var USER_CONTROLER = new User_Controler(CONTROLER1);
 var AI_CONTROLER2 = new Ai_Controlder(CONTROLER2);
 
 
-var TEAM = [
+var TEAM: Team[] = [
     {
         color: [255, 0, 0],
         team: CONTROLER1,

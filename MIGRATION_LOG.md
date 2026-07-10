@@ -9,7 +9,7 @@ Plan, in order. Each stage must reproduce the baseline before the next begins.
 | --- | --- | --- |
 | 0 | Capture baseline of the legacy app | Done |
 | 1 | Vite dev + prod build, game logic untouched | Done |
-| 2 | Convert 61 files to ES modules; kill the 146 globals | Not started |
+| 2 | Convert the main-thread scripts to ES modules; kill the 146 globals | Done |
 | 3 | Rename to `.ts`, add types, enable `strict` | Not started |
 | 4 | PIXI v3.0.9 → v8 (separate pass, after the above lands) | Not started |
 
@@ -63,7 +63,115 @@ Game is visually identical and playable in all three. Build: 3 modules, ~560 ms.
 
 ### Carried forward
 
-- The `AI/PHUONG` / `AI/KHOAN` casing bug ([JS/AI_worker_comunication.js:444](public/JS/AI_worker_comunication.js:444))
-  is **still present**. Per plan it gets fixed in Stage 2, where those paths are touched anyway.
+- The `AI/PHUONG` / `AI/KHOAN` casing bug is **still present** after Stage 1. Fixed in Stage 2.
 - `Scripts/pixi.js` is still the vendored 2015 build, loaded as a global. It stays that way
   until Stage 4.
+
+---
+
+## Stage 2 — ES modules (done)
+
+The 26 main-thread game scripts plus two helper libraries became ES modules under `src/`,
+joined by four new `src/core/` modules and `src/main.js`. The old inline bootstrap in
+`index.html` is gone; `index.html` now loads three vendor globals and one module entry.
+
+**Window globals: 146 → 10.** The ten that remain are deliberate:
+
+| Global | Why it stays |
+| --- | --- |
+| `PIXI`, `$`, `jQuery`, `createjs` | vendor classic scripts (Stage 4 replaces these) |
+| `GAME_MANAGER` | `Menu.html` has inline `onclick="MENU.choose_skrimming()"` → `GAME_MANAGER` |
+| `PLAYING_LAYOUT` | `Playing_layout.html` has inline `onclick="PLAYING_LAYOUT.set_type_display(0)"` |
+| `MENU` | defined by the `<script>` inside `Menu.html`, injected at runtime by jQuery |
+| `animate` | `Done.js` starts the render loop via `window.animate()` |
+| `FILECACHE` | map texture cache, genuinely a window property |
+
+### Why the import graph is acyclic by construction
+
+The reference graph has **104 cycles** — `Game_object` calls into `Construction_unit`, which
+extends `Game_unit`, which calls back into `Game_object`. Classic scripts tolerated this
+because every reference resolved off `window` at *call* time. ES modules resolve at *load*
+time, so a naive conversion inverts evaluation order and breaks `class X extends Y`.
+
+Static analysis showed only **18 references happen at module-evaluation time**, and all 18
+point *backward* in the original `<script>` order. So the rule is:
+
+> A module may import only files that loaded earlier. References that point forward stay
+> late-bound, through `src/core/late.js`.
+
+That makes the import graph acyclic (edges strictly decrease in load order), which means ESM
+evaluation order provably equals the old script order and every eval-time dependency is
+satisfied. 133 edges became real imports; 57 symbols (332 references) stayed late-bound.
+
+`Game_Container.js` was hoisted from last to third in the order — it depends only on the
+helper filters, and moving it turned 14 container symbols (`stage`, `mainstage`, `graphics`,
+…) from late-bound into ordinary imports. Reordering more modules would shrink `LATE` further.
+
+### Shared mutable state
+
+`screen_x`, `SPEED`, `map`, and friends live in `src/core/state.js`, exported with `let` so
+importers get ES module **live bindings** — a bare read always sees the current value, exactly
+as a global read did. Imported bindings are read-only, so the twelve write sites go through
+setters (`set_screen_x`, `set_max_x`, `set_map`, …).
+
+### Bugs found and fixed
+
+1. **`AI/PHUONG` / `AI/KHOAN` casing.** Directories are `Phuong` / `Khoan`. Worked on
+   case-insensitive macOS, 404s on Linux.
+2. **`if (window.AI_CONTROLER2)`** — a truthiness guard reading the variable off `window`.
+   As a module binding it is not on `window`, so this would have silently disabled AI
+   opponent 2 while the game kept running. Now guards the imported binding.
+3. **Undeclared loop variable `i`** in `Image_process.js` (2 sites). It only resolved because
+   a top-level `for (var i …)` in `Effect.js` leaked a global. Module strict mode would have
+   thrown `ReferenceError` at texture-load time.
+4. **`PLAYING_LAYOUT` was an implicit global** (assigned with no `var`), which strict mode rejects.
+5. **`window[ob[5]][ob[6]]`** in `Done.js` — map data names its type tables by string. Module
+   bindings are not on `window`; replaced by `src/core/type_registry.js`.
+6. **`window.max_x = …`** writes in `Map.js` would not have been visible to importers.
+7. **`window.renderer` inside `Minimap.js` / `Image_process.js`** — both declare a *local*
+   `renderer` and used `window.` to escape the shadow. Rewriting naively made it
+   self-referential. They now import `renderer as global_renderer`.
+8. Dead `if (window.AI_CONTROLER1)` block removed (`Controler.js` has it commented out).
+
+### Known latent bug, not fixed
+
+`Controler.js:329` — `get ship() { return SHIP_TYPE }`. `SHIP_TYPE` is defined nowhere, so the
+getter throws if ever read. Behavior is unchanged from before the migration.
+
+### Verification
+
+Dev (`:5173`) and production build (`:4173`), against
+[MIGRATION_BASELINE.md](MIGRATION_BASELINE.md):
+
+| Signal | Baseline | Vite dev | Vite build |
+| --- | --- | --- | --- |
+| Console errors | 0 | 0 | 0 |
+| Failed requests | 0 | 0 | 0 |
+| Base textures | 48 | 48 | 48 |
+| Cached textures | 4248 | 4248 | 4248 |
+| `mainstage` children | 15 | 15 | 15 |
+| Teams / AI opponents | 3 / 4 | 3 / 4 | 3 / 4 |
+| Game objects after load | 2104 | 2104 | 2104 |
+| Pathfinding worker | running | running | running |
+| AI worker | running | running | running |
+| Sidebar buttons | 5 | 5 | 5 |
+| Window globals | 146 | 10 | 10 |
+
+`AI_WORKER2` is now a live object, confirming fix #2. Build: 37 modules → one 227 kB chunk
+(54 kB gzip). `dist/JS/AI_Worker.js`, `dist/JS/Path_finding_worker.js`, and
+`dist/Scripts/pixi.js` remain byte-identical to source.
+
+To A/B against the pre-migration app:
+
+```
+git worktree add /tmp/ra2-baseline a7c53b7      # the `legacy-baseline` launch config serves this
+```
+
+Note: the browser pauses `requestAnimationFrame` in a hidden tab, which freezes the render
+loop and makes a screenshot look stale. Drive frames with `window.animate()` when comparing.
+
+### Still classic, on purpose
+
+`public/JS/AI_Worker.js`, `public/JS/Path_finding_worker.js`, and all of `public/JS/AI/**`
+remain unbundled classic scripts, because the AI workers call `importScripts()` with paths
+computed at runtime. `public/JS/UI/*.html` are fetched by `$.ajax` at runtime.

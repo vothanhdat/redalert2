@@ -11,7 +11,8 @@ Plan, in order. Each stage must reproduce the baseline before the next begins.
 | 1 | Vite dev + prod build, game logic untouched | Done |
 | 2 | Convert the main-thread scripts to ES modules; kill the 146 globals | Done |
 | 3 | Rename to `.ts`, type the core, `tsc --noEmit` gate | Done |
-| 4 | PIXI v3.0.9 → v8 (separate pass, after the above lands) | Not started |
+| 4a | PIXI v3.0.9 → v7.4.3 (npm, GLSL filters preserved) | Done |
+| 4b | PIXI v7 → v8 (async init, Filter → GlProgram) | Not started |
 
 ---
 
@@ -254,3 +255,105 @@ three-parameter helper is called with two arguments, which JavaScript allows.
 
 Bundle: 37 modules → 226.86 kB (54.11 kB gzip), unchanged from Stage 2.
 `dist/JS/AI_Worker.js` and `dist/JS/Path_finding_worker.js` remain byte-identical passthrough.
+
+---
+
+## Stage 4a — PIXI v3.0.9 → v7.4.3 (done)
+
+PIXI now comes from npm. `public/Scripts/pixi*.js` is deleted, `PIXI` is no longer a
+window global (10 → 9), and `src/types/pixi.d.ts` is gone because v7 ships typings.
+
+### The vendored pixi.js was patched
+
+This is the discovery that shaped the stage. `public/Scripts/pixi.js` was **not** stock
+v3.0.9. Its spritesheet middleware carried a local modification:
+
+```js
+if (window.FILECACHE && window.FILECACHE[texture_url]) {
+    texture_url = window.FILECACHE[texture_url];
+```
+
+`Map.ts` pre-fetches the map image over XHR (to drive a progress bar), converts it to a
+data URI, and stashes it in `window.FILECACHE`. The patched loader then used the cached
+copy instead of refetching. From the game's side `FILECACHE` looked write-only, which is
+why it survived Stages 1–3 unexplained. Swapping in the npm build without reproducing this
+would have silently refetched every map texture.
+
+That behaviour now lives in `src/core/pixi_loader.ts` — in our code, not in a vendored file.
+
+### The loader shim
+
+v7 removed the loader outright. Seven modules call `LOADER.add({name, url})` at module
+evaluation and read `resources.<name>.textures` / `resources.<name>_image.texture` inside
+`load_texture_done(loader, resources)`. Rewriting all seven onto the async `Assets` API
+would have changed the texture pipeline and the PIXI version in the same commit, so
+`src/core/pixi_loader.ts` reproduces the v3 contract instead, including:
+
+- the implicit `<name>_image` child resource that v3 created for every spritesheet;
+- the `FILECACHE` data-URI substitution;
+- rethrowing instead of swallowing rejections — v3 called back synchronously, so a throw
+  inside `load_texture_done` used to surface as an ordinary uncaught error.
+
+### Filters
+
+v5 removed the `aTextureCoord` attribute from filter vertex shaders (texture coords are
+derived from `aVertexPosition` by the default vertex shader). `GlowFilter` and
+`GlowFilter2` therefore compute their eight blur offsets **per-fragment** from
+`vTextureCoord` instead of per-vertex — identical math and weights, one extra add per
+sample. `NoiseFilter` loses `this.passes`, which v5+ has no concept of.
+`TeamColorFilter`, `InverseAlpha`, and `Lighter4x` are fragment-only and port unchanged.
+Uniforms lose the v3 `{ type, value }` wrapper.
+
+### Other API drift
+
+| v3 | v7 |
+| --- | --- |
+| `autoDetectRenderer(w, h, {transparent:true})` | `autoDetectRenderer({width, height, backgroundAlpha: 0})` |
+| `new RenderTexture(renderer, w, h)` | `RenderTexture.create({width, height})` |
+| `renderTexture.render(obj, null, clear)` | `renderer.render(obj, {renderTexture, clear})` |
+| `Texture.fromImage` / `fromCanvas` (22 sites) | `Texture.from` |
+| `extras.TilingSprite` / `extras.MovieClip` | `TilingSprite` / `AnimatedSprite` |
+| `filters.BlurXFilter` | `BlurFilterPass(true)` |
+
+### Verification
+
+Dev and production build, against [MIGRATION_BASELINE.md](MIGRATION_BASELINE.md): `tsc`
+clean, 0 console errors, 0 failed requests, WebGL, 15 stage children, 3 teams, 4 AI
+opponents, `AI_WORKER2` live, both workers byte-identical, 5 sidebar buttons, 9 window
+globals. All 8 spritesheets load — 4205 frames across `con`, `eff`, `map_ob`, `mapcon`,
+`plane`, `sol`, `tex`, `veh` — plus their `_image` companions.
+
+Fog of war was checked with `renderer.extract.pixels`: `InverseAlpha` is applied, mean
+alpha 250, 97.8% opaque outside vision, and the three-state shroud (bright = visible,
+dimmed = remembered, black = never seen) is intact.
+
+With the camera centred, the rendered frame is **62.3% non-black at mean luminance 77.7**,
+against **65.2% / 82.5** on PIXI v3. The gap is game progression, not rendering.
+
+Bundle grows to 698 kB (195 kB gzip) because PIXI is bundled rather than served as a
+separate 400 kB classic script.
+
+### A measurement trap, recorded so it is not re-learned
+
+Two artifacts made this stage look broken when it was not:
+
+1. **The game edge-scrolls.** The automated browser parks the cursor at (0, 0), so the
+   camera slides into the unexplored map corner within seconds and the frame goes black.
+   This happens identically on PIXI v3 — Stage 3's production build measures 1.4%
+   non-black under the same probe. Centre the cursor *and* re-centre the camera
+   (`USER_CONTROLER.on_game_start()`) before judging a frame.
+
+2. **`document.hidden` pauses `requestAnimationFrame`,** which freezes the render loop, so
+   a screenshot shows a stale frame and the camera never clamps. Drive frames manually with
+   `window.animate()`.
+
+Also: after a Vite HMR reload, the app imports `/src/x.ts?t=<stamp>` while a probe's
+`import('/src/x.ts')` resolves to a **different module instance**. Restart the dev server
+before probing module state, or you will read an empty, freshly-evaluated module.
+
+### Next: Stage 4b (v7 → v8)
+
+v8 makes `autoDetectRenderer` async (restructuring the bootstrap), replaces `Filter` with
+`GlProgram`/`GpuProgram` (the six filters need porting again, WebGPU-first), and changes
+`RenderTexture` and `Graphics`. `src/core/pixi_loader.ts` can then be retired in favour of
+`Assets`, which is the natural moment to rewrite the seven `load_texture_done` callbacks.
